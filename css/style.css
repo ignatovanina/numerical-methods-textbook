@@ -48,3 +48,26 @@ header h1 {
     padding: 20px 0;
     flex-shrink: 0;
 }
+
+.module {
+    margin-bottom: 8px;
+}
+
+.module-header {
+    padding: 12px 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.2s ease;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.module-header:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.module-header.active {
+    color: var(--accent);
+}
