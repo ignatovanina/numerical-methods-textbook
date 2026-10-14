@@ -58,7 +58,7 @@ header h1 {
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 10px;
     transition: background-color 0.2s ease;
     font-weight: 500;
     font-size: 0.95rem;
@@ -122,4 +122,19 @@ header h1 {
     margin-bottom: 40px;
     font-size: 1.1rem;
     line-height: 1.6;
+}
+.module-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.module-header:hover .module-icon {
+    opacity: 1;
+}
+.module-header span:not(:last-child) {
+    flex: 1;
 }
