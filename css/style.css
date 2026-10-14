@@ -162,3 +162,27 @@ header h1 {
 .breadcrumbs .current {
     color: var(--text-main);
 }
+.sidebar-search {
+    padding: 0 16px 16px 16px;
+}
+
+.sidebar-search input {
+    width: 100%;
+    padding: 10px 14px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.sidebar-search input:focus {
+    border-color: var(--accent);
+}
+
+.sidebar-search input::placeholder {
+    color: var(--text-muted);
+}
