@@ -138,3 +138,27 @@ header h1 {
 .module-header span:not(:last-child) {
     flex: 1;
 }
+
+.breadcrumbs {
+    margin-bottom: 24px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.breadcrumbs a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+    color: var(--accent);
+}
+
+.breadcrumbs span {
+    margin: 0 8px;
+}
+
+.breadcrumbs .current {
+    color: var(--text-main);
+}
