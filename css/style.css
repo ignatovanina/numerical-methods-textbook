@@ -102,3 +102,24 @@ header h1 {
     background-color: rgba(0, 168, 150, 0.15);
     border-left: 3px solid var(--accent);
 }
+.main-content {
+    flex: 1;
+    margin-top: 60px;
+    padding: 40px 60px;
+    overflow-y: auto;
+    height: calc(100vh - 60px);
+    background-color: var(--bg-main);
+}
+
+.content-header h2 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.content-header p {
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
