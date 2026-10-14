@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# JetBrains Rider / IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+.rider/
+
+# Editor files
+.vscode/
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
