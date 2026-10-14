@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Численные методы - Учебник</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <h1>Численные методы</h1>
+</header>
+<aside class="sidebar">
+    <div class="sidebar-search">
+        <input type="text" placeholder="Поиск по темам..." id="searchInput">
+    </div>
+    <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+            <img src="img/icon-graph.svg" alt="" class="module-icon">
+            <span>1. Приближенные числа и оценка погрешностей</span>
+            <span>›</span>
+        </div>
+        <div class="module-content open">
+            <a href="#" class="lesson">1.1. Основные источники погрешностей</a>
+            <a href="#" class="lesson">1.2. Значимая цифра. Число верных знаков</a>
+            <a href="#" class="lesson">1.3. Округление чисел</a>
+            <a href="#" class="lesson">1.4. Погрешность арифметических выражений</a>
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+            <img src="img/icon-graph.svg" alt="" class="module-icon">
+            <span>2. Численное решение уравнений</span>
+            <span>›</span>
+        </div>
+        <div class="module-content">
+            <a href="#" class="lesson">2.1. Метод половинного деления</a>
+            <a href="#" class="lesson">2.2. Метод хорд</a>
+            <a href="#" class="lesson">2.3. Метод касательных (Ньютона)</a>
+            <a href="#" class="lesson">2.4. Модифицированный метод Ньютона</a>
+            <a href="#" class="lesson">2.5. Метод секущих</a>
+            <a href="#" class="lesson">2.6. Комбинированный метод хорд и касательных</a>
+            <a href="#" class="lesson">2.7. Метод простой итерации</a>
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+            <img src="img/icon-graph.svg" alt="" class="module-icon">
+            <span>3. Численное решение СЛАУ</span>
+            <span>›</span>
+        </div>
+        <div class="module-content">
+            <a href="#" class="lesson">3.1. Метод Гаусса</a>
+            <a href="#" class="lesson">3.2. Схема Халецкого</a>
+            <a href="#" class="lesson">3.3. Метод ортогонализации</a>
+            <a href="#" class="lesson">3.4. Метод простой итерации</a>
+            <a href="#" class="lesson">3.5. Метод Зейделя</a>
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+            <img src="img/icon-graph.svg" alt="" class="module-icon">
+            <span>4. Системы нелинейных уравнений</span>
+            <span>›</span>
+        </div>
+        <div class="module-content">
+            <a href="#" class="lesson">4.1. Метод Ньютона для систем</a>
+            <a href="#" class="lesson">4.2. Метод простой итерации</a>
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+            <img src="img/icon-graph.svg" alt="" class="module-icon">
+            <span>5. Интерполирование функций</span>
+            <span>›</span>
+        </div>
+        <div class="module-content">
+            <a href="#" class="lesson">5.1. Интерполяционные формулы Ньютона</a>
+            <a href="#" class="lesson">5.2. Интерполяционные формулы Гаусса</a>
+            <a href="#" class="lesson">5.3. Интерполяционная формула Стирлинга</a>
+            <a href="#" class="lesson">5.4. Интерполяционная формула Бесселя</a>
+            <a href="#" class="lesson">5.5. Интерполяционная формула Лагранжа</a>
+            <a href="#" class="lesson">5.6. Интерполирование сплайнами</a>
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+            <img src="img/icon-graph.svg" alt="" class="module-icon">
+            <span>6. Аппроксимация функций</span>
+            <span>›</span>
+        </div>
+        <div class="module-content">
+            <a href="#" class="lesson">6.1. Метод наименьших квадратов</a>
+            <a href="#" class="lesson">6.2. Эмпирические формулы</a>
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+            <img src="img/icon-graph.svg" alt="" class="module-icon">
+            <span>7. Численное интегрирование</span>
+            <span>›</span>
+        </div>
+        <div class="module-content">
+            <a href="#" class="lesson">7.1. Формулы прямоугольников</a>
+            <a href="#" class="lesson">7.2. Формула трапеций</a>
+            <a href="#" class="lesson">7.3. Формула Симпсона</a>
+            <a href="#" class="lesson">7.4. Правило трёх восьмых</a>
+            <a href="#" class="lesson">7.5. Выбор шага интегрирования</a>
+            <a href="#" class="lesson">7.6. Квадратурные формулы Гаусса</a>
+            <a href="#" class="lesson">7.7. Метод Монте-Карло</a>
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+            <img src="img/icon-graph.svg" alt="" class="module-icon">
+            <span>8. Численное решение ОДУ</span>
+            <span>›</span>
+        </div>
+        <div class="module-content">
+            <a href="#" class="lesson">8.1. Метод Эйлера</a>
+            <a href="#" class="lesson">8.2. Модификации метода Эйлера</a>
+            <a href="#" class="lesson">8.3. Методы Рунге-Кутта</a>
+            <a href="#" class="lesson">8.4. Методы прогноза и коррекции</a>
+            <a href="#" class="lesson">8.5. Выбор шага</a>
+            <a href="#" class="lesson">8.6. Решение систем ОДУ</a>
+            <a href="#" class="lesson">8.7. ОДУ высшего порядка</a>
+        </div>
+    </div>
+
+    <!-- Лабораторные работы -->
+    <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+            <img src="img/icon-labs.svg" alt="" class="module-icon">
+            <span> Лабораторные работы</span>
+            <span>›</span>
+        </div>
+        <div class="module-content">
+            <a href="#" class="lesson">ЛР 1. Оценка погрешностей</a>
+            <a href="#" class="lesson">ЛР 2. Решение уравнений</a>
+            <a href="#" class="lesson">ЛР 3. СЛАУ</a>
+            <a href="#" class="lesson">ЛР 4. Интерполяция</a>
+            <a href="#" class="lesson">ЛР 5. Интегрирование</a>
+            <a href="#" class="lesson">ЛР 6. ОДУ</a>
+        </div>
+    </div>
+
+    <div class="module-header" onclick="toggleModule(this)">
+        <img src="img/icon-check.svg" alt="" class="module-icon">
+        <span>Тесты</span>
+        <span>›</span>
+    </div>
+</aside>
+<main class="main-content">
+    <nav class="breadcrumbs">
+        <a href="#">Главная</a>
+        <span>/</span>
+        <a href="#">1. Приближенные числа</a>
+        <span>/</span>
+        <span class="current">1.4. Погрешность арифметических выражений</span>
+    </nav>
+    <div class="content-header">
+        <h2>1.4. Погрешность арифметических выражений</h2>
+        <p>В этом разделе мы рассмотрим, как вычисляется погрешность при выполнении арифметических операций над приближёнными числами.</p>
+    </div>
+</main>
+<script src="js/main.js"></script>
+</body>
+</html>
