@@ -71,3 +71,34 @@ header h1 {
 .module-header.active {
     color: var(--accent);
 }
+
+.module-content {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.module-content.open {
+    display: block;
+}
+
+.lesson {
+    display: flex;
+    align-items: center;
+    padding: 10px 24px 10px 36px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.lesson:hover {
+    color: var(--text-main);
+    background-color: rgba(0, 168, 150, 0.1);
+}
+
+.lesson.active {
+    color: var(--text-main);
+    background-color: rgba(0, 168, 150, 0.15);
+    border-left: 3px solid var(--accent);
+}
