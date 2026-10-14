@@ -1,0 +1,8 @@
+:root {
+    --bg-main: #1E1E24;
+    --bg-card: #2A2D34;
+    --accent: #00A896;
+    --text-main: #F4F1DE;
+    --text-muted: rgba(244, 241, 222, 0.6);
+    --border-color: rgba(244, 241, 222, 0.1);
+}
