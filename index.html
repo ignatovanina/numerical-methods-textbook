@@ -160,19 +160,58 @@
         <span>›</span>
     </div>
 </aside>
-<main class="main-content">
+<!-- Домашняя страница -->
+<section class="content-page active" id="page-home">
+    <div class="content-header">
+        <h2>Численные методы</h2>
+        <p>Выберите тему в боковом меню, чтобы начать изучение.</p>
+    </div>
+</section>
+
+<!-- Глава 1.1 -->
+<section class="content-page" id="page-1-1">
     <nav class="breadcrumbs">
-        <a href="#">Главная</a>
+        <a href="#home" onclick="showPage('home'); return false;">Главная</a>
         <span>/</span>
-        <a href="#">1. Приближенные числа</a>
+        <a href="#1" onclick="showPage('1-1'); return false;">1. Приближенные числа</a>
         <span>/</span>
-        <span class="current">1.4. Погрешность арифметических выражений</span>
+        <span class="current">1.1. Основные источники погрешностей</span>
     </nav>
     <div class="content-header">
-        <h2>1.4. Погрешность арифметических выражений</h2>
-        <p>В этом разделе мы рассмотрим, как вычисляется погрешность при выполнении арифметических операций над приближёнными числами.</p>
+        <h2>1.1. Основные источники погрешностей</h2>
+        <p>При решении задач численными методами неизбежно возникают погрешности. Рассмотрим основные источники их возникновения.</p>
     </div>
-</main>
+    <article class="chapter-content">
+        <h3>Виды погрешностей</h3>
+        <ul>
+            <li><strong>Математическая погрешность</strong> — связана с упрощением реальной задачи.</li>
+            <li><strong>Погрешность метода</strong> — возникает при замене точного метода приближённым.</li>
+            <li><strong>Погрешность округления</strong> — появляется при вычислениях с ограниченной точностью.</li>
+            <li><strong>Неустранимая погрешность</strong> — из-за неточности входных данных.</li>
+        </ul>
+
+        <h3>Абсолютная и относительная погрешности</h3>
+        <p>Пусть $x$ — точное значение, $x^*$ — приближённое. Тогда:</p>
+        <p>$$\Delta x = |x - x^*|$$</p>
+        <p>$$\delta x = \frac{\Delta x}{|x|} = \frac{|x - x^*|}{|x|}$$</p>
+    </article>
+</section>
+
+<!-- Глава 1.2 -->
+<section class="content-page" id="page-1-2">
+    <nav class="breadcrumbs">
+        <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+        <span>/</span>
+        <a href="#1" onclick="showPage('1-1'); return false;">1. Приближенные числа</a>
+        <span>/</span>
+        <span class="current">1.2. Значимая цифра. Число верных знаков</span>
+    </nav>
+    <div class="content-header">
+        <h2>1.2. Значимая цифра. Число верных знаков</h2>
+        <p>Теория будет добавлена позже.</p>
+    </div>
+</section>
+
 <script src="js/main.js"></script>
 </body>
 </html>
