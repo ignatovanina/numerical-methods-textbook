@@ -105,10 +105,11 @@ header h1 {
 .main-content {
     flex: 1;
     margin-top: 60px;
-    padding: 40px 60px;
+    padding: 40px 30px;
     overflow-y: auto;
     height: calc(100vh - 60px);
     background-color: var(--bg-main);
+    padding-top: 20px;
 }
 
 .content-header h2 {
