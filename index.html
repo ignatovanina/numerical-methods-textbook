@@ -437,6 +437,242 @@
         </article>
     </section>
 
+    <!-- 3.3 -->
+    <section class="content-page" id="page-3-3">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#3" onclick="showPage('3'); return false;">3. Численное решение СЛАУ</a>
+            <span>/</span>
+            <span class="current">3.3. Метод ортогонализации</span>
+        </nav>
+        <div class="content-header">
+            <h2>3.3. Метод ортогонализации</h2>
+        </div>
+        <article class="chapter-content">
+            <p><strong>Определение 1:</strong> <em>Скалярным произведением двух векторов $\vec{p} = \{p_1, p_2, \dots, p_n\}$ и $\vec{q} = \{q_1, q_2, \dots, q_n\}$ в $n$-мерном векторном пространстве называется сумма произведений их координат, т.е.</em></p>
+            <div class="math-scroll">
+                $$(\vec{p}, \vec{q}) = \sum_{i=1}^n p_i q_i \quad (3.16)$$
+            </div>
+
+            <p><strong>Определение 2:</strong> <em>Система векторов $\vec{p}_i$ в $n$-мерном векторном пространстве называется линейно независимой, если</em></p>
+            <div class="math-scroll">
+                $$\sum_{j=1}^n C_j \vec{p}_j = 0 \quad (3.17)$$
+            </div>
+            <p><em>только тогда, когда все $C_j$ одновременно равны нулю ($C_j$ – некоторые константы).</em></p>
+
+            <p><strong>Определение 3:</strong> <em>Система векторов $\vec{p}_j \ (j = \overline{1, n})$ называется ортогональной, если $(\vec{p}_i, \vec{p}_j) = 0$ при $i \ne j$.</em></p>
+
+            <p><strong>Лемма:</strong> <em>Пусть задана линейно независимая система элементов $\vec{p}_1, \dots, \vec{p}_n \dots$. Можно построить ортогональную линейно независимую систему элементов</em></p>
+            <div class="math-scroll">
+                $$\vec{q}_j = \sum_{i=1}^j d_{ji} \vec{p}_i, \quad j = \overline{1, n}, \quad (3.18)$$
+            </div>
+            <p><em>где $d_{ji}$ – некоторые коэффициенты, причём $\forall j, d_{ji} = 1$.</em></p>
+
+            <p>или</p>
+            <div class="math-scroll">
+                $$\vec{q}_j = \vec{p}_j - \sum_{i=1}^{j-1} C_{ji} \vec{q}_i, \quad j = \overline{1, n} \quad (3.19)$$
+            </div>
+
+            <p>Коэффициенты $C_{ji}$ в выражении (3.19) выбираются при условии ортогональности $(\vec{q}_j, \vec{q}_i) = 0$ при $i < j$. Для этого обе части выражения (3.19) умножаются скалярным образом на $\vec{q}_i$. В итоге получаем:</p>
+            <div class="math-scroll">
+                $$(\vec{q}_j, \vec{q}_i) = (\vec{p}_j, \vec{q}_i) - C_{ji}(\vec{q}_i, \vec{q}_i) = 0, \quad i < j \quad (3.20)$$
+            </div>
+
+            <p>Выражая из последнего равенства $C_{ji}$ и подставляя результат в (3.19) получим:</p>
+            <div class="math-scroll">
+                $$\vec{q}_j = \vec{p}_j - \sum_{i=1}^{j-1} \frac{(\vec{p}_j, \vec{q}_i)}{(\vec{q}_i, \vec{q}_i)} \cdot \vec{q}_i \quad (3.21)$$
+            </div>
+
+            <p>Перейдём к рассмотрению алгоритма метода ортогонализации. Запишем систему уравнений (3.2) в виде:</p>
+            <div class="math-scroll">
+                $$
+                \begin{cases}
+                a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n + b_1 = 0 \\
+                a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n + b_2 = 0 \\
+                \dots\dots\dots\dots\dots\dots\dots\dots\dots\dots \\
+                a_{n1}x_1 + a_{n2}x_2 + \dots + a_{nn}x_n + b_n = 0
+                \end{cases}
+                \quad (3.22)
+                $$
+            </div>
+
+            <p>Подобная запись СЛАУ эквивалентна системе, состоящей из $n$ скалярных произведений векторов $\vec{a}_i = \{a_{i1}, a_{i2}, \dots, a_{in}, b_i\}, \ i = \overline{1, n}$ и $\vec{y} = \{x_1, x_2, \dots, x_n, 1\}^T$, т.е.</p>
+            <div class="math-scroll">
+                $$(\vec{a}_i, \vec{y}) = 0, \quad i = \overline{1, n} \quad (3.23)$$
+            </div>
+
+            <p>Для того чтобы система (3.23) была полностью определённой (в настоящий момент имеется $n$ уравнений с "$n+1$" неизвестной) добавим к ней ещё одно скалярное произведение</p>
+            <div class="math-scroll">
+                $$(\vec{a}_{n+1}, \vec{y}) = 0, \quad (3.24)$$
+            </div>
+            <p>где $\vec{a}_{n+1} = \{0, 0, \dots, 0, 1\}$.</p>
+
+            <p>Векторы $\vec{a}_1, \vec{a}_2, \dots, \vec{a}_{n+1}$ являются линейно независимыми, т.к. $\sum_{i=1}^{n+1} c_i \vec{a}_i = 0$, только когда некоторые числа $c_i (i = \overline{1, n+1})$ одновременно равны нулю (в противном случае должны быть равны нулю компоненты векторов $\vec{a}_i (i = \overline{1, n+1})$, что нарушает требование неособенности матрицы $A$ ($\det A \ne 0$) или её невырожденности (существование $A^{-1}$), а, следовательно, приводит к невозможности найти единственное решение системы (3.22)).</p>
+
+            <p>Применим к системе векторов $\vec{a}_i \ (i = \overline{1, n+1})$ алгоритм последовательной ортогонализации с нормировкой. Будем строить две пересекающиеся последовательности ортогональных векторов $\vec{u}_1, \vec{v}_1, \vec{u}_2, \vec{v}_2, \dots, \vec{u}_{n+1}, \vec{v}_{n+1}$ по следующему правилу:</p>
+            <div class="math-scroll">
+                $$\vec{u}_1 = \vec{a}_1, \vec{v}_1 = \frac{\vec{u}_1}{\|\vec{u}_1\|}, \dots, \vec{u}_k = \vec{a}_k - \sum_{i=1}^{k-1} c_{ki} \vec{v}_i, \vec{v}_k = \frac{\vec{u}_k}{\|\vec{u}_k\|}, \dots$$
+            </div>
+
+            <p>В качестве нормы $\|\vec{u}_k\|$ будем использовать норму вида</p>
+            <div class="math-scroll">
+                $$\|\vec{u}_k\| = \sqrt{(\vec{u}_k, \vec{u}_k)} = \sqrt{\sum_{i=1}^{n+1} u_{ki}^2} \quad (3.25)$$
+            </div>
+
+            <p>Для вычисления констант $c_{ki}$ воспользуемся выражением (3.20), где место скалярного произведения $(\vec{q}_i, \vec{q}_i)$ займет произведение</p>
+            <div class="math-scroll">
+                $$(\vec{v}_i, \vec{v}_i) = \sum_{j=1}^{n+1} v_{ij}^2 = \sum_{j=1}^{n+1} \frac{u_{ij}^2}{(\sqrt{\sum_{i=1}^{n+1} u_{ij}^2})^2} = \sum_{j=1}^{n+1} u_{ij}^2 / \sum_{j=1}^{n+1} u_{ij}^2 = 1, \ i = \overline{1, n+1}.$$
+            </div>
+
+            <p>Таким образом, используя равенство (3.21), имеем:</p>
+            <div class="math-scroll">
+                $$
+                \begin{cases}
+                \vec{u}_k = \vec{a}_k - \sum_{i=1}^{k-1} (\vec{a}_k, \vec{v}_i) \cdot \vec{v}_i \\
+                \vec{v}_k = \frac{\vec{u}_k}{\sqrt{\sum_{i=1}^{n+1} u_{ki}^2}}, \quad k = \overline{1, n+1}
+                \end{cases}
+                \quad (3.26)
+                $$
+            </div>
+
+            <p>У вектора $\vec{u}_{n+1} = \{u_{n+1,1}, u_{n+1,2}, \dots, u_{n+1,n+1}\}$ последняя координата $u_{n+1,n+1}$ отлична от нуля, т.е. $u_{n+1,n+1} \ne 0$. Тогда, исходя из условия ортогональности, можно записать: $\forall i \le n$</p>
+            <div class="math-scroll">
+                $$(\vec{u}_{n+1}, \vec{v}_i) = \left(\vec{u}_{n+1}, \frac{\vec{u}_i}{\|\vec{u}_i\|}\right) = \frac{1}{\|\vec{u}_i\|}(\vec{u}_{n+1}, \vec{u}_i) = 0 = \frac{1}{\|\vec{u}_i\|}\left(\vec{u}_{n+1}, \vec{a}_i - \sum_{j=1}^{i-1} c_{ij} \vec{v}_j\right) =$$
+            </div>
+            <div class="math-scroll">
+                $$= \frac{1}{\|\vec{u}_i\|}\left[(\vec{u}_{n+1}, \vec{a}_i) - \left(\vec{u}_{n+1}, \sum_{j=1}^{i-1} c_{ij} \vec{v}_j\right)\right] =$$
+            </div>
+            <div class="math-scroll">
+                $$= \frac{1}{\|\vec{u}_i\|}\left[(\vec{u}_{n+1}, \vec{a}_i) - [c_{i1}(\vec{u}_{n+1}, \vec{v}_1) + c_{i2}(\vec{u}_{n+1}, \vec{v}_2) + \dots + c_{i,i-1}(\vec{u}_{n+1}, \vec{v}_{i-1})]\right] =$$
+            </div>
+            <div class="math-scroll">
+                $$= \frac{1}{\|\vec{u}_i\|}(\vec{u}_{n+1}, \vec{a}_i) = 0 \text{ или } (\vec{u}_{n+1}, \vec{a}_i) = 0 \quad (3.27)$$
+            </div>
+
+            <p>Скалярные произведения (3.27) можно переписать в виде:</p>
+            <div class="math-scroll">
+                $$a_{i1} \cdot u_{n+1,1} + a_{i1} \cdot u_{n+1,2} + \dots + a_{in} \cdot u_{n+1,n} + b_i \cdot u_{n+1,n+1} = 0 \quad (3.28)$$
+            </div>
+            <p>$$i = \overline{1, n}$$</p>
+            <p>Отсюда следует, что значения $\frac{u_{n+1,1}}{u_{n+1,n+1}}, \frac{u_{n+1,2}}{u_{n+1,n+1}}, \dots, \frac{u_{n+1,n}}{u_{n+1,n+1}}$ являются решением исходной системы, т.е.</p>
+            <div class="math-scroll">
+                $$\vec{y} = \{x_1, x_2, \dots, x_n, 1\} = \left\{ \frac{u_{n+1,1}}{u_{n+1,n+1}}, \frac{u_{n+1,2}}{u_{n+1,n+1}}, \dots, \frac{u_{n+1,n}}{u_{n+1,n+1}}, 1 \right\} \quad (3.29)$$
+            </div>
+
+            <p>Значение координаты $u_{n+1,n+1}$ в (3.29) отлично от нуля, как было предположено выше. В противном случае система линейных уравнений $\sum_{j=1}^n a_{ij} \cdot u_{n+1,j} = 0, \ i = \overline{1, n}$ образует систему либо с нулевым решением, т.е. $u_{n+1,j} = 0, (j = \overline{1, n})$, что противоречит исходной постановке задачи, либо при ненулевых решениях, т.е. $u_{n+1,j} \ne 0, (j = \overline{1, n})$, определитель исходной матрицы $A$ должен быть равен нулю $\det A = 0$, что так же противоречит исходной постановке задачи.</p>
+
+            <p>Таким образом, алгоритм метода ортогонализации заключается в последовательном нахождении координат ортогональных векторов $\vec{u}_k$ и $\vec{v}_k$ ($k = \overline{1, n+1}$) по формулам (3.26), а затем, используя выражения (3.29) вычисляют значение корней СЛАУ.</p>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+            <h3>Пример: Решить СЛАУ методом ортогонализации</h3>
+            <div class="math-scroll">
+                $$
+                \begin{cases}
+                x + y + z = 4 \\
+                2x + 3y + z = 9 \\
+                x - y - z = -2
+                \end{cases}
+                $$
+            </div>
+
+            <p><strong>Решение:</strong></p>
+            <div class="math-scroll">
+                $$\vec{a}_1 = \{1, 1, 1, -4\}; \vec{a}_3 = \{1, -1, -1, 2\};$$
+            </div>
+            <div class="math-scroll">
+                $$\vec{a}_2 = \{2, 3, 1, -9\}; \vec{a}_4 = \{0, 0, 0, 1\};$$
+            </div>
+            <div class="math-scroll">
+                $$\vec{X} = \{x, y, z, 1\};$$
+            </div>
+
+            <p><strong>1)</strong> $\vec{u}_1 = \vec{a}_1 = \{1, 1, 1, -4\}$;</p>
+            <div class="math-scroll">
+                $$\|\vec{u}_1\| = \sqrt{\sum_{i=1}^4 u_{1i}^2} = \sqrt{1^2 + 1^2 + 1^2 + (-4)^2} = \sqrt{19};$$
+            </div>
+            <div class="math-scroll">
+                $$\vec{v}_1 = \vec{u}_1 / \|\vec{u}_1\| = \left\{ \frac{1}{\sqrt{19}}, \frac{1}{\sqrt{19}}, \frac{1}{\sqrt{19}}, \frac{-4}{\sqrt{19}} \right\};$$
+            </div>
+
+            <p><strong>2)</strong> $\vec{u}_2 = \vec{a}_2 - (\vec{a}_2, \vec{v}_1)\vec{v}_1$;</p>
+            <div class="math-scroll">
+                $$(\vec{a}_2, \vec{v}_1) = \sum_{i=1}^4 a_{2i} \cdot v_{1i} = 2\frac{1}{\sqrt{19}} + 3\frac{1}{\sqrt{19}} + 1\frac{1}{\sqrt{19}} + (-9)\frac{-4}{\sqrt{19}} = \frac{42}{\sqrt{19}};$$
+            </div>
+            <div class="math-scroll">
+                $$
+                \vec{u}_2 =
+                \begin{cases}
+                2 - 42/\sqrt{19} \cdot 1/\sqrt{19} = 2 - 42/19 = -4/19 \\
+                2 - 42/\sqrt{19} \cdot 1/\sqrt{19} = 3 - 42/19 = 15/19 \\
+                1 - 42/\sqrt{19} \cdot 1/\sqrt{19} = 1 - 42/19 = -23/19 \\
+                -9 - 42/\sqrt{19} \cdot (-4)/\sqrt{19} = -9 + 168/19 = -3/19
+                \end{cases};
+                $$
+            </div>
+            <div class="math-scroll">
+                $$\|\vec{u}_2\| = \sqrt{\sum_{i=1}^4 u_{2i}^2} = \sqrt{(-4/19)^2 + (15/19)^2 + (-23/19)^2 + (-3/19)^2} = \sqrt{779}/19;$$
+            </div>
+            <div class="math-scroll">
+                $$\vec{v}_2 = \vec{u}_2 / \|\vec{u}_2\| = \left\{ \frac{-4}{\sqrt{779}}, \frac{15}{\sqrt{779}}, \frac{-23}{\sqrt{779}}, \frac{-3}{\sqrt{779}} \right\};$$
+            </div>
+
+            <p><strong>3)</strong> $\vec{u}_3 = \vec{a}_3 - (\vec{a}_3, \vec{v}_1)\vec{v}_1 - (\vec{a}_3, \vec{v}_2)\vec{v}_2$;</p>
+            <div class="math-scroll">
+                $$(\vec{a}_3, \vec{v}_1) = \sum_{i=1}^4 a_{3i} \cdot v_{1i} = 1\frac{1}{\sqrt{19}} + (-1)\frac{1}{\sqrt{19}} + (-1)\frac{1}{\sqrt{19}} + (2)\frac{-4}{\sqrt{19}} = \frac{-9}{\sqrt{19}};$$
+            </div>
+            <div class="math-scroll">
+                $$(\vec{a}_3, \vec{v}_2) = \sum_{i=1}^4 a_{3i} \cdot v_{2i} = 1\frac{-4}{\sqrt{779}} + (-1)\frac{15}{\sqrt{779}} + (-1)\frac{-23}{\sqrt{779}} + 2\frac{-3}{\sqrt{779}} = \frac{-2}{\sqrt{779}};$$
+            </div>
+            <div class="math-scroll">
+                $$
+                \vec{u}_3 =
+                \begin{cases}
+                1 - \frac{-9}{\sqrt{19}} \cdot \frac{1}{\sqrt{19}} - \frac{-2}{\sqrt{779}} \cdot \frac{-4}{\sqrt{779}} = 1 + \frac{9}{19} - \frac{8}{779} = \frac{1140}{779} \\
+                -1 - \frac{-9}{\sqrt{19}} \cdot \frac{1}{\sqrt{19}} - \frac{-2}{\sqrt{779}} \cdot \frac{15}{\sqrt{779}} = -1 + \frac{9}{19} - \frac{30}{779} = \frac{-380}{779} \\
+                -1 - \frac{-9}{\sqrt{19}} \cdot \frac{1}{\sqrt{19}} - \frac{-2}{\sqrt{779}} \cdot \frac{-23}{\sqrt{779}} = -1 + \frac{9}{19} - \frac{46}{779} = \frac{-456}{779} \\
+                2 - \frac{-9}{\sqrt{19}} \cdot \frac{-4}{\sqrt{19}} - \frac{-2}{\sqrt{779}} \cdot \frac{-3}{\sqrt{779}} = 2 - \frac{36}{19} - \frac{6}{779} = \frac{76}{779}
+                \end{cases};
+                $$
+            </div>
+            <div class="math-scroll">
+                $$\|\vec{u}_3\| = \sqrt{\sum_{i=1}^4 u_{3i}^2} = \sqrt{\left(\frac{1140}{779}\right)^2 + \left(\frac{-380}{779}\right)^2 + \left(\frac{-456}{779}\right)^2 + \left(\frac{76}{779}\right)^2} = \frac{\sqrt{1657712}}{19}$$
+            </div>
+            <div class="math-scroll">
+                $$\vec{v}_3 = \vec{u}_3 / \|\vec{u}_3\| = \left\{ \frac{1140}{\sqrt{1657712}}, \frac{-380}{\sqrt{1657712}}, \frac{-456}{\sqrt{1657712}}, \frac{76}{\sqrt{1657712}} \right\}$$
+            </div>
+
+            <p><strong>4)</strong> $\vec{u}_4 = \vec{a}_4 - (\vec{a}_4, \vec{v}_1)\vec{v}_1 - (\vec{a}_4, \vec{v}_2)\vec{v}_2 - (\vec{a}_4, \vec{v}_3)\vec{v}_3$;</p>
+            <div class="math-scroll">
+                $$(\vec{a}_4, \vec{v}_1) = \sum_{i=1}^4 a_{4i} \cdot v_{1i} = 0\frac{1}{\sqrt{19}} + 0\frac{1}{\sqrt{19}} + 0\frac{1}{\sqrt{19}} + 1\frac{-4}{\sqrt{19}} = \frac{-4}{\sqrt{19}};$$
+            </div>
+            <div class="math-scroll">
+                $$(\vec{a}_4, \vec{v}_2) = \sum_{i=1}^4 a_{4i} \cdot v_{2i} = 0\frac{-4}{\sqrt{779}} + 0\frac{15}{\sqrt{779}} + 0\frac{-23}{\sqrt{779}} + 1\frac{-3}{\sqrt{779}} = \frac{-3}{\sqrt{779}};$$
+            </div>
+            <div class="math-scroll">
+                $$(\vec{a}_4, \vec{v}_3) = \sum_{i=1}^4 a_{4i} \cdot v_{3i} = 0\frac{1140}{\sqrt{1657712}} + 0\frac{-380}{\sqrt{1657712}} + 0\frac{-456}{\sqrt{1657712}} + 1\frac{76}{\sqrt{1657712}} = \frac{76}{\sqrt{1657712}};$$
+            </div>
+            <div class="math-scroll">
+                $$
+                \vec{u}_4 =
+                \begin{cases}
+                0 - \frac{-4}{\sqrt{19}} \cdot \frac{1}{\sqrt{19}} - \frac{-3}{\sqrt{779}} \cdot \frac{-4}{\sqrt{779}} - \frac{76}{\sqrt{1657712}} \cdot \frac{1140}{\sqrt{1657712}} = \frac{4}{19} - \frac{12}{779} - \frac{86640}{1657712} \\
+                0 - \frac{-4}{\sqrt{19}} \cdot \frac{1}{\sqrt{19}} - \frac{-3}{\sqrt{779}} \cdot \frac{15}{\sqrt{779}} - \frac{76}{\sqrt{1657712}} \cdot \frac{-380}{\sqrt{1657712}} = \frac{4}{19} + \frac{45}{779} + \frac{28880}{1657712} \\
+                0 - \frac{-4}{\sqrt{19}} \cdot \frac{1}{\sqrt{19}} - \frac{-3}{\sqrt{779}} \cdot \frac{-23}{\sqrt{779}} - \frac{76}{\sqrt{1657712}} \cdot \frac{-456}{\sqrt{1657712}} = \frac{4}{19} - \frac{69}{779} + \frac{34656}{1657712} \\
+                0 - \frac{-4}{\sqrt{19}} \cdot \frac{-4}{\sqrt{19}} - \frac{-3}{\sqrt{779}} \cdot \frac{-3}{\sqrt{779}} - \frac{76}{\sqrt{1657712}} \cdot \frac{76}{\sqrt{1657712}} = 1 - \frac{16}{19} - \frac{9}{779} - \frac{5776}{1657712}
+                \end{cases};
+                $$
+            </div>
+            <div class="math-scroll">
+                $$\vec{u}_4 = \left\{ \frac{236816}{1657712}, \frac{473632}{1657712}, \frac{236816}{1657712}, \frac{236816}{1657712} \right\};$$
+            </div>
+
+            <p><strong>5)</strong> $X = \frac{u_{4i}}{u_{44}}, \ i = 1, 2, 3$</p>
+            <div class="math-scroll">
+                $$x = \frac{u_{41}}{u_{44}} = 1; \quad y = \frac{u_{42}}{u_{44}} = 2; \quad z = \frac{u_{43}}{u_{44}} = 1$$
+            </div>
+        </article>
+    </section>
     <!-- 3.4 -->
     <section class="content-page" id="page-3-4">
         <nav class="breadcrumbs">
