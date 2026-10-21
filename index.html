@@ -437,6 +437,40 @@
         </article>
     </section>
 
+    <!-- 4.4 -->
+    <section class="content-page" id="page-4-4">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#4" onclick="showPage('4'); return false;">4. Системы нелинейных уравнений</a>
+            <span>/</span>
+            <span class="current">4.4. Метод Зейделя</span>
+        </nav>
+        <div class="content-header">
+            <h2>4.4. Метод Зейделя</h2>
+        </div>
+        <article class="chapter-content">
+            <p>Для решения систем нелинейных уравнений специального вида (4.5) может применяться <em>метод покоординатного спуска или метод Зейделя</em>, аналогичный
+                <a href="#3.5" onclick="showPage('3-5'); return false;" style="color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent); transition: all 0.2s ease;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">одноименному методу, применяемого для решения СЛАУ</a>
+            <p>В методе покоординатного спуска при вычислении $(k + 1)$-го приближения неизвестной $x_i$ учитываются уже вычисленные ранее $(k + 1)$-ые приближения неизвестных $x_j (j = \overline{1, i - 1})$. Тогда реккурентные соотношения метода Зейделя могут быть записаны в виде</p>
+
+            <div class="math-scroll">
+                $$
+                \begin{cases}
+                x_1^{(k+1)} = \varphi_1(x_1^{(k)}, x_2^{(k)}, \dots, x_n^{(k)}) \\
+                x_2^{(k+1)} = \varphi_2(x_1^{(k+1)}, x_2^{(k)}, \dots, x_n^{(k)}) \\
+                \dots\dots\dots\dots\dots\dots\dots\dots\dots \\
+                x_i^{(k+1)} = \varphi_i(x_1^{(k+1)}, x_2^{(k+1)}, \dots, x_{i-1}^{(k+1)}, x_i^{(k)}, \dots, x_n^{(k)}) \\
+                \dots\dots\dots\dots\dots\dots\dots\dots\dots \\
+                x_n^{(k+1)} = \varphi_n(x_1^{(k+1)}, x_2^{(k+1)}, \dots, x_{n-1}^{(k+1)}, x_n^{(k)})
+                \end{cases}
+                \quad (4.28)
+                $$
+            </div>
+
+            <p>Условия сходимости метода Зейделя определяются так же, как и в методе простой итерации – по формулам (4.16).</p>
+        </article>
+    </section>
     <!-- 5.4 -->
     <section class="content-page" id="page-5-4">
         <nav class="breadcrumbs">
