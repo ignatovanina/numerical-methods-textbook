@@ -437,6 +437,107 @@
         </article>
     </section>
 
+    <!-- 7.6 -->
+    <section class="content-page" id="page-7-6">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#7" onclick="showPage('7'); return false;">7. Численное интегрирование</a>
+            <span>/</span>
+            <span class="current">7.6. Квадратурные формулы Гаусса</span>
+        </nav>
+        <div class="content-header">
+            <h2>7.6. Квадратурные формулы Гаусса</h2>
+        </div>
+        <article class="chapter-content">
+            <p>При выводе рассмотренных выше формул узлы интерполяции в квадратурных формулах задавались заранее. При этом, используя в квадратурной формуле $n + 1$ узел интерполяции, получали формулу, точную для алгебраических многочленов степени $n$. Однако оказывается, что за счет выбора узлов можно получить квадратурные формулы, которые будут точными и для многочленов степени выше $n$. Такие квадратурные формулы называются квадратурными формулами наивысшей алгебраической степени точности или формулами Гаусса.</p>
+
+            <p>Рассмотрим функцию $y = f(t)$, заданную на стандартном промежутке $[-1; 1]$. Поставим задачу: подобрать такие точки $t_1, t_2, \dots, t_n$ и коэффициенты $A_1, A_2, \dots, A_n$, чтобы квадратурная формула</p>
+
+            <div class="math-scroll">
+                $$\int_{-1}^1 f(t) \,dt = \sum_{i=1}^n A_i f(t_i) + R_n \quad (7.19)$$
+            </div>
+
+            <p>была точной для всех полиномов $f(t)$ наивысшей возможной степени $N$.</p>
+
+            <p>Т.к. в нашем распоряжении имеется $2n$ постоянных $t_i$ и $A_i$ ($i = \overline{1, n}$), то эта наивысшая степень в общем случае равна $N = 2n - 1$ (т.к. полином степени $2n - 1$ определяется $2n$ коэффициентами).</p>
+
+            <p>Для обеспечения равенства (7.19) необходимо и достаточно, чтобы оно было верным при $f(t) = 1, t, t^2, \dots, t^{2n-1}$. В результате подстановки этих функций в (7.19) получается система из $2n$ нелинейных уравнений (7.20), содержащая $2n$ неизвестных $t_i$ и $A_i$. Решение такой системы обычным путем представляет большие математические трудности.</p>
+
+            <div class="math-scroll">
+                $$
+                \begin{cases}
+                \sum_{i=1}^n A_i = 2 \\
+                \sum_{i=1}^n A_i t_i = 0 \\
+                \dots\dots\dots\dots\dots \\
+                \sum_{i=1}^n A_i t_i^{2n-2} = \frac{2}{2n-1} \\
+                \sum_{i=1}^n A_i t_i^{2n-1} = 0
+                \end{cases}
+                \quad (7.20)
+                $$
+            </div>
+
+            <p>Этих трудностей можно избежать, если в качестве точек $t_i$ взять нули соответствующего полинома Лежандра: $P_n(x) = \frac{1}{2^n n!} \frac{d}{dx^n} \left[ (x^2 - 1)^n \right], \quad n = 0, 1, 2, \dots$, обладающего следующими свойствами:</p>
+
+            <ol>
+                <li>$P_n(1) = 1, \quad P_n(-1) = (-1)^n$</li>
+                <li>$\int_{-1}^1 P_n(x) Q_k(x) \,dx = 0$, где $Q_k(x)$ – любой полином степени $k < n$.</li>
+                <li>Полином Лежандра $P_n(x)$ имеет $n$ различных и действительных корней, расположенных на интервале $[-1; 1]$.</li>
+            </ol>
+
+            <p>Действительно, положив $f(t) = t^k P_n(t), \quad k = \overline{0, n-1}$, где $P_n(t)$ – полином Лежандра, в силу свойства 2 имеем:</p>
+
+            <div class="math-scroll">
+                $$\int_{-1}^1 f(t) \,dt = \int_{-1}^1 t^k P_n(t) \,dt = \sum_{i=1}^n A_i t_i^k P_n(t_i) = 0,$$
+            </div>
+
+            <p>откуда $P_n(t_i) = 0$.</p>
+
+            <p>Зная абсциссы $t_i$, коэффициенты $A_i$ могут быть легко определены из линейной системы первых $n$ уравнений системы (7.20). Таким образом, формула (7.19), где $t_i$ – нули полинома Лежандра $P_n(t)$ и $A_i$ ($i = \overline{1, n}$) определяются из системы (7.3) называется квадратурной формулой Гаусса. Для этих формул существуют специальные таблицы, содержащие значения $t_i$ и $A_i$ при различных степенях $n$ (табл. 7.1).</p>
+
+            <h3>Таблица 7.1. Элементы формул Гаусса</h3>
+            <div style="overflow-x: auto;">
+                <table style="margin: 0 auto; width: 80%; border-collapse: collapse; text-align: center; font-size: 0.95rem;">
+                    <thead>
+                    <tr style="background-color: rgba(0, 168, 150, 0.1);">
+                        <th style="border: 1px solid var(--border-color); padding: 12px;">$n$</th>
+                        <th style="border: 1px solid var(--border-color); padding: 12px;">$i$</th>
+                        <th style="border: 1px solid var(--border-color); padding: 12px;">$t_i$</th>
+                        <th style="border: 1px solid var(--border-color); padding: 12px;">$A_i$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td style="border: 1px solid var(--border-color); padding: 8px;">1</td><td style="border: 1px solid var(--border-color); padding: 8px;">1</td><td style="border: 1px solid var(--border-color); padding: 8px;">0</td><td style="border: 1px solid var(--border-color); padding: 8px;">2</td></tr>
+                    <tr><td style="border: 1px solid var(--border-color); padding: 8px;">2</td><td style="border: 1px solid var(--border-color); padding: 8px;">1; 2</td><td style="border: 1px solid var(--border-color); padding: 8px;">±0,57735027</td><td style="border: 1px solid var(--border-color); padding: 8px;">1</td></tr>
+                    <tr><td style="border: 1px solid var(--border-color); padding: 8px;">3</td><td style="border: 1px solid var(--border-color); padding: 8px;">1; 3<br>2</td><td style="border: 1px solid var(--border-color); padding: 8px;">±0,57735027<br>0</td><td style="border: 1px solid var(--border-color); padding: 8px;">5/9 = 0,55555556<br>8/9 = 0,55555556</td></tr>
+                    <tr><td style="border: 1px solid var(--border-color); padding: 8px;">4</td><td style="border: 1px solid var(--border-color); padding: 8px;">1; 4<br>2; 3</td><td style="border: 1px solid var(--border-color); padding: 8px;">±0,86113631<br>±0,33998104</td><td style="border: 1px solid var(--border-color); padding: 8px;">±0,34785484<br>±0,65214516</td></tr>
+                    <tr><td style="border: 1px solid var(--border-color); padding: 8px;">5</td><td style="border: 1px solid var(--border-color); padding: 8px;">1; 5<br>2; 4<br>3</td><td style="border: 1px solid var(--border-color); padding: 8px;">±0,90617985<br>±0,53846931<br>0</td><td style="border: 1px solid var(--border-color); padding: 8px;">±0,23692688<br>±0,47862868<br>±0,56888889</td></tr>
+                    <tr><td style="border: 1px solid var(--border-color); padding: 8px;">6</td><td style="border: 1px solid var(--border-color); padding: 8px;">1; 6<br>2; 5<br>3; 4</td><td style="border: 1px solid var(--border-color); padding: 8px;">±0,93246951<br>±0,66120939<br>±0,23861919</td><td style="border: 1px solid var(--border-color); padding: 8px;">±0,17132450<br>±0,36076158<br>±0,46791394</td></tr>
+                    <tr><td style="border: 1px solid var(--border-color); padding: 8px;">7</td><td style="border: 1px solid var(--border-color); padding: 8px;">1; 7<br>2; 6<br>3; 5<br>4</td><td style="border: 1px solid var(--border-color); padding: 8px;">±0,94910791<br>±0,74153119<br>±0,40584515<br>0</td><td style="border: 1px solid var(--border-color); padding: 8px;">±0,12948496<br>±0,27970540<br>±0,38183006<br>±0,41795918</td></tr>
+                    <tr><td style="border: 1px solid var(--border-color); padding: 8px;">8</td><td style="border: 1px solid var(--border-color); padding: 8px;">1; 8<br>2; 7<br>3; 6<br>4; 5</td><td style="border: 1px solid var(--border-color); padding: 8px;">±0,96028986<br>±0,79666648<br>±0,52553242<br>±0,18343464</td><td style="border: 1px solid var(--border-color); padding: 8px;">±0,10122854<br>±0,22238104<br>±0,31370664<br>±0,36268378</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>Неудобство применения квадратурной формулы Гаусса состоит в том, что абсциссы точек $t_i$ и коэффициенты $A_i$ – иррациональные числа. Этот недостаток отчасти искупается ее высокой точностью при сравнительно малом числе ординат.</p>
+
+            <p>В общем случае для вычисления интеграла $\int_a^b f(x) \,dx$ с использованием квадратурной формулы Гаусса необходимо сделать замену переменной $x = \frac{b+a}{2} + \frac{b-a}{2}t$.</p>
+
+            <p>Тогда получим: $\int_a^b f(x) \,dx = \frac{b-a}{2} \int_{-1}^1 f\left(\frac{b+a}{2} + \frac{b-a}{2}t\right) dt$.</p>
+
+            <p>Применяя к последнему интегралу квадратурную формулу Гаусса (7.19) будем иметь:</p>
+
+            <div class="math-scroll">
+                $$\int_a^b f(x) \,dx = \frac{b-a}{2} \sum_{i=1}^n A_i f\left(\frac{b+a}{2} + \frac{b-a}{2}t_i\right) + R_n, \quad (7.21)$$
+            </div>
+
+            <p>где остаточный член определяется в соответствии с выражением:</p>
+
+            <div class="math-scroll">
+                $$R_n = \frac{(b-a)^{2n+1} (n!)^4 f^{(2n)}(\xi)}{(2n)!^3 (2n+1)}, \quad \xi \in [a, b]$$
+            </div>
+        </article>
+    </section>
     <!-- 7.7 -->
     <section class="content-page" id="page-7-7">
         <nav class="breadcrumbs">
