@@ -473,7 +473,34 @@
             </div>
         </article>
     </section>
-    
+    <!-- 4.3 -->
+    <section class="content-page" id="page-4-3">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#4" onclick="showPage('4'); return false;">4. Системы нелинейных уравнений</a>
+            <span>/</span>
+            <span class="current">4.3. Модифицированный метод Ньютона</span>
+        </nav>
+        <div class="content-header">
+            <h2>4.3. Модифицированный метод Ньютона</h2>
+        </div>
+        <article class="chapter-content">
+            <p>При использовании метода Ньютона существенным неудобством является необходимость для каждого шага вычислить обратную матрицу $w^{-1}(x^{(k)})$. Если матрица $w^{-1}(x)$ непрерывна в окрестности искомого решения $x^*$ и начальное приближение $x^{(0)}$ достаточно близко $x^*$, то приближенно можно положить:</p>
+
+            <div class="math-scroll">
+                $$w^{-1}(x^{(k)}) \approx w^{-1}(x^{(0)}).$$
+            </div>
+
+            <p>Таким образом, получается реккурентное соотношение модифицированного метода Ньютона</p>
+
+            <div class="math-scroll">
+                $$x^{(k+1)} = x^{(k)} - w^{-1}(x^{(0)}) f(x^{(k)}), \quad k = 0, 1, 2, \dots \quad (4.27)$$
+            </div>
+
+            <p>Условия сходимости и окончания поиска для модифицированного метода Ньютона определяется по тем же формулам, что и для простого метода Ньютона.</p>
+        </article>
+    </section>
     <!-- 4.4 -->
     <section class="content-page" id="page-4-4">
         <nav class="breadcrumbs">
