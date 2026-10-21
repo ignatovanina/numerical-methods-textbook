@@ -496,6 +496,36 @@
             <p>Таким образом, в качестве исходной точки $x^0$ выбирается тот конец интервала $[a, b]$, которому отвечает ордината того же знака, что и знак $f''(x)$.</p>
         </article>
     </section>
+    <!-- 2.4 -->
+    <section class="content-page" id="page-2-4">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#2" onclick="showPage('2'); return false;">2. Численное решение уравнений</a>
+            <span>/</span>
+            <span class="current">2.4. Модифицированный метод Ньютона</span>
+        </nav>
+        <div class="content-header">
+            <h2>2.4. Модифицированный метод Ньютона</h2>
+        </div>
+        <article class="chapter-content">
+            <p>Если производная $f'(x)$ мало изменяется на отрезке $[a, b]$, то в формуле метода Ньютона можно принять: $f'(x_{k+1}) \approx f'(x_0)$.</p>
+
+            <p>Тогда для получения последовательных приближений истинного корня $x_0$ уравнения $f(x) = 0$ можно использовать формулу:</p>
+
+            <div class="math-scroll">
+                $$x_{k+1} = x_k - \frac{f(x_k)}{f'(x_0)}, \quad (k = 0, 1, 2, \dots).$$
+            </div>
+
+            <p>Геометрически это означает, что мы заменяем касательные в точках $(x_k, f(x_k))$ прямыми, параллельными касательной в точке $(x_0, f(x_0))$ (рис. 2.7).</p>
+
+            <!-- Блок с картинкой -->
+            <figure class="content-image" style="max-width: 600px; margin: 30px auto; text-align: center;">
+                <img src="img/chapter2_4.jpg" alt="Иллюстрация итерационного процесса нахождения корня уравнения модифицированным методом Ньютона" style="width: 100%; border-radius: 8px;">
+                <figcaption>Рис. 2.7. Иллюстрация итерационного процесса нахождения корня уравнения модифицированным методом Ньютона.</figcaption>
+            </figure>
+        </article>
+    </section>
     <!-- 2.6 -->
     <section class="content-page" id="page-2-6">
         <nav class="breadcrumbs">
