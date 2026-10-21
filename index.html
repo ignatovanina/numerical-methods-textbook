@@ -437,6 +437,43 @@
         </article>
     </section>
 
+    <!-- 3.5 -->
+    <section class="content-page" id="page-3-5">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#3" onclick="showPage('3'); return false;">3. Численное решение СЛАУ</a>
+            <span>/</span>
+            <span class="current">3.5. Метод Зейделя</span>
+        </nav>
+        <div class="content-header">
+            <h2>3.5. Метод Зейделя</h2>
+        </div>
+        <article class="chapter-content">
+            <p>Метод Зейделя (Гаусса-Зейделя) представляет собой некоторую модификацию <a href="#2.7" onclick="showPage('2-7'); return false;" style="color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent); transition: all 0.2s ease;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">метода простой итерации</a>. Основная его идея заключается в том, что при вычислении $(k + 1)$-го приближения неизвестной $x_i$ учитываются уже вычисленные ранее $(k + 1)$-е приближения неизвестных $x_1, x_2, \dots, x_{i-1}$.</p>
+
+            <p>Пусть дана приведенная линейная система (3.31). Выберем произвольно начальное приближение $x^{(0)}$. Тогда, предполагая, что $k$-е приближение $x_i^{(k)}$ корней известны, $(k + 1)$-е приближение корней будем находить по формулам:</p>
+
+            <div class="math-scroll">
+                $$x_i^{(k+1)} = \beta_i + \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} + \sum_{j=i}^n a_{ij} x_j^{(k)}, \quad i = \overline{1, n}, \ k = 0, 1, 2, \dots \quad (3.40)$$
+            </div>
+
+            <p>Хотя области сходимости метода итерации и метода Зейделя не совпадают, а лишь пересекаются, тем не менее условия сходимости для метода Зейделя определяются теми же выражениями (3.34), (3.35), (3.36), что и для метода простой итерации. Обычно метод Зейделя дает лучшую сходимость. Однако бывают случаи, когда процесс Зейделя сходится медленнее процесса простой итерации. Более того, бывают случаи, когда процесс итерации сходится, а метод Зейделя расходится.</p>
+
+            <p>При оценке погрешности вычисления методом Зейделя необходимо выполнение неравенства (3.37). Это произойдет в том случае, когда выполнится следующее неравенство:</p>
+
+            <div class="math-scroll">
+                $$\left\| x^{(k)} - x^{(k-1)} \right\| \le \frac{1 - \mu}{\mu} \varepsilon, \quad (3.41)$$
+            </div>
+
+            <p>где</p>
+
+            <div class="math-scroll">
+                $$\mu = \max_i \frac{\sum_{j=i}^n |a_{ij}|}{1 - \sum_{j=1}^{i-1} |a_{ij}|}.$$
+            </div>
+        </article>
+    </section>
+    
     <!-- 4.4 -->
     <section class="content-page" id="page-4-4">
         <nav class="breadcrumbs">
