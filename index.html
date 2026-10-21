@@ -2133,6 +2133,48 @@
             <p>Рассмотрим некоторые из формул Ньютона-Котеса, использующие интерполяционные многочлены невысоких степеней. При этом будем полагать, что функция $f(x)$ в формуле (7.2) является достаточно гладкой функцией, т.е. можно положить, что $f(x) \equiv \varphi(x)$. Тогда весовую функцию можно принять: $P(x) \equiv 1$.</p>
         </article>
     </section>
+    <!-- 7.2 -->
+    <section class="content-page" id="page-7-2">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#7" onclick="showPage('7'); return false;">7. Численное интегрирование</a>
+            <span>/</span>
+            <span class="current">7.2. Формула трапеций</span>
+        </nav>
+        <div class="content-header">
+            <h2>7.2. Формула трапеций</h2>
+        </div>
+        <article class="chapter-content">
+            <p>Применим формулу (7.6) для $n - 1$.</p>
+
+            <div class="math-scroll">
+                $$H_0 = -\int_0^1 \frac{q(q-1)}{q} \,dq = \frac{1}{2}; \quad H_1 = \int_0^1 q \,dq = \frac{1}{2}.$$
+            </div>
+
+            <p>Тогда формула Ньютона-Котеса (7.7) может быть записана в виде:</p>
+
+            <div class="math-scroll">
+                $$\int_a^b f(x) \,dx = (b - a) \left( \frac{f(a)}{2} + \frac{f(b)}{2} \right) + R. \quad (7.12)$$
+            </div>
+
+            <p>Разделим интервал интегрирования на $m$ равных частей с помощью равноотстоящих точек $x_i = a + ih; \quad i = \overline{0, m}; \quad h = \frac{b-a}{m}$ и к каждому из них применим формулу (7.12). В результате получается общая формула трапеций:</p>
+
+            <div class="math-scroll">
+                $$\int_a^b f(x) \,dx = \frac{h}{2} (f(x_0) + f(x_m)) + h(f(x_1) + f(x_2) + \dots + f(x_{m-1})) + R. \quad (7.13)$$
+            </div>
+
+            <p>Геометрически формула (7.13) получается при замене площади под подынтегральной функцией суммой площадей трапеций, высоты которых равны $h$, а основания совпадают со значениями функций $f(x)$ в точках $x_i, \ i = \overline{0, m}$ (рис. 7.2).</p>
+
+            <!-- Рис. 7.2 -->
+            <figure class="content-image" style="max-width: 600px; margin: 30px auto; text-align: center;">
+                <img src="img/chapter7_2.jpg" alt="Геометрическая иллюстрация метода трапеций" style="width: 100%; border-radius: 8px;">
+                <figcaption>Рис. 7.2. Геометрическая иллюстрация метода трапеций</figcaption>
+            </figure>
+
+            <p>Остаточный член в квадратурной формуле (7.13) равен $R = -\frac{h^2(b-a)}{12}f''(\xi)$, где $\xi \in [a, b]$.</p>
+        </article>
+    </section>
     <!-- 7.3 -->
     <section class="content-page" id="page-7-3">
         <nav class="breadcrumbs">
