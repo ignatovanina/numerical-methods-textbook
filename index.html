@@ -437,6 +437,64 @@
         </article>
     </section>
 
+    <!-- 8.6 -->
+    <section class="content-page" id="page-8-6">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#8" onclick="showPage('8'); return false;">8. Численное решение ОДУ</a>
+            <span>/</span>
+            <span class="current">8.6. Решение систем обыкновенных дифференциальных уравнений</span>
+        </nav>
+        <div class="content-header">
+            <h2>8.6. Решение систем обыкновенных дифференциальных уравнений</h2>
+        </div>
+        <article class="chapter-content">
+            <p>Рассмотрим систему обыкновенных дифференциальных уравнений первого порядка</p>
+
+            <p>$$
+                \begin{cases}
+                \frac{dy_1}{dx} = f_1(x, y_1, y_2, \dots, y_N) \\
+                \frac{dy_2}{dx} = f_2(x, y_1, y_2, \dots, y_N) \\
+                \dots\dots\dots\dots\dots\dots\dots\dots\dots \\
+                \frac{dy_N}{dx} = f_N(x, y_1, y_2, \dots, y_N)
+                \end{cases}
+                $$</p>
+
+            <p>заданную при начальных условиях</p>
+
+            <p>$$
+                \begin{cases}
+                y_1(x_0) = y_{10} \\
+                y_2(x_0) = y_{20} \\
+                \dots\dots\dots\dots \\
+                y_N(x_0) = y_{N0}
+                \end{cases}
+                $$</p>
+
+            <p>Задача Коши для данной системы заключается в нахождении интегральных функций $y_1(x), y_2(x), \dots, y_N(x)$, которые удовлетворяли бы начальным условиям и системе. Для ее решения может быть использован любой из рассмотренных выше методов. При этом вычисление значений зависимых переменных $y_{i(k+1)}$ в точке $x_{k+1}$ осуществляется одновременно по однотипным формулам.</p>
+
+            <p>Например, для решения системы</p>
+
+            <p>$$
+                \begin{aligned}
+                y' &= f(x, y, z), \\
+                z' &= g(x, y, z),
+                \end{aligned}
+                $$</p>
+
+            <p>заданной с начальными условиями $y(x_0) = y_0, \ z(x_0) = z_0$, формулы Эйлера имеют вид:</p>
+
+            <p>$$
+                \begin{aligned}
+                y_{k+1} &= y_k + h f(x_k, y_k, z_k) \\
+                z_{k+1} &= z_k + h g(x_k, y_k, z_k)
+                \end{aligned}
+                $$</p>
+
+            <p>При решении систем обыкновенных дифференциальных уравнений необходимо помнить, что величина шага $h$ при вычислении всех значений зависимых переменных должна оставаться постоянной на интервале $[x_k, x_{k+1}]$.</p>
+        </article>
+    </section>
     <!-- 8.7 -->
     <section class="content-page" id="page-8-7">
         <nav class="breadcrumbs">
