@@ -2265,6 +2265,48 @@
             </ol>
         </article>
     </section>
+    <!-- 8.1 -->
+    <section class="content-page" id="page-8-1">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#8" onclick="showPage('8'); return false;">8. Численное решение ОДУ</a>
+            <span>/</span>
+            <span class="current">8.1. Метод Эйлера</span>
+        </nav>
+        <div class="content-header">
+            <h2>8.1. Метод Эйлера</h2>
+        </div>
+        <article class="chapter-content">
+            <p>Пусть дано дифференциальное уравнение (8.1), где $y' = dy/dx$ при начальном условии (8.2). Разложим $y(x)$ в ряд Тейлора в окрестности точки $x_0$:</p>
+
+            <div class="math-scroll">
+                $$y(x_0 + h) = y(x_0) + hy'(x_0) + \frac{1}{2!}h^2 y''(x_0) + \dots$$
+            </div>
+
+            <p>Если $h$ мало, то члены, содержащие $h$ во второй и более высоких степенях, являются малыми более высоких порядков и ими можно пренебречь. Тогда</p>
+
+            <div class="math-scroll">
+                $$y(x_0 + h) = y(x_0) + hy'(x_0),$$
+            </div>
+
+            <p>где $y'(x_0) = f(x_0, y(x_0))$ находится из дифференциального уравнения (8.1) при подстановке в него начального условия. Таким образом, можно получить приближенное значение зависимой переменной при малом смещении $h$ от начальной точки. Этот процесс можно продолжить, используя соотношение:</p>
+
+            <div class="math-scroll">
+                $$y_{k+1} = y_k + h f(x_k, y_k), \quad k = 0, 1, 2, \dots \quad (8.3)$$
+            </div>
+
+            <p>и делая сколько угодно шагов.</p>
+
+            <p>Ошибка метода Эйлера (рис. 8.1) имеет порядок $h^2$, т.к. члены, содержащие $h$ во второй и более высоких степенях отбрасываются, а сам метод является методом первого порядка и тогда называется методом Рунге-Кутта первого порядка.</p>
+
+            <!-- Картинка -->
+            <figure class="content-image" style="max-width: 700px; margin: 30px auto; text-align: center;">
+                <img src="img/chapter8_1.jpg" alt="Графическая иллюстрация метода Эйлера" style="width: 100%; border-radius: 8px;">
+                <figcaption>Рис. 8.1. Графическая иллюстрация метода Эйлера</figcaption>
+            </figure>
+        </article>
+    </section>
     <!-- 8.2 -->
     <section class="content-page" id="page-8-2">
         <nav class="breadcrumbs">
