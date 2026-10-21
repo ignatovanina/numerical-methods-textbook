@@ -436,7 +436,44 @@
             <p>Два уравнения называются равносильными, если они имеют одинаковые корни.</p>
         </article>
     </section>
-    <!-- Глава 3 (Вводная) -->
+    <!-- 2.6 -->
+    <section class="content-page" id="page-2-6">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#2" onclick="showPage('2'); return false;">2. Численное решение уравнений</a>
+            <span>/</span>
+            <span class="current">2.6. Комбинированный метод хорд и касательных</span>
+        </nav>
+        <div class="content-header">
+            <h2>2.6. Комбинированный метод хорд и касательных</h2>
+        </div>
+        <article class="chapter-content">
+            <p>Пусть $f(a) \cdot f(b) < 0$, а $f'(x)$ и $f''(x)$ сохраняют постоянные знаки на отрезке $[a, b]$. Соединяя метод хорд и метод Ньютона, получаем метод, на каждом этапе которого находим два значение точного корня $x^*$ уравнения $f(x) = 0$: значение по недостатку $\underline{x}$ и значение по избытку $\overline{x}$.</p>
+
+            <p>При отыскании корней комбинированным методом за начальные приближения значений по недостатку и по избытку следует принять следующие значения: $\underline{x}_0 = a, \ \overline{x}_0 = b$. Здесь так же, как и в методе хорд, возможны четыре случая, различающиеся знаками функции $f(x)$, её первой и второй производных $f'(x)$ и $f''(x)$. Для расчетов комбинированным методом используются формулы:</p>
+
+            <p>1. если $f'(x) \cdot f''(x) > 0$ или $f(b) \cdot f''(x) > 0$, то</p>
+            <div class="math-scroll">
+                $$\underline{x}_{k+1} = \underline{x}_k - \frac{f(\underline{x}_k)(\overline{x}_k - \underline{x}_k)}{f(\overline{x}_k) - f(\underline{x}_k)},$$
+            </div>
+            <div class="math-scroll">
+                $$\overline{x}_{k+1} = \overline{x}_k - \frac{f(\overline{x}_k)}{f'(\overline{x}_k)};$$
+            </div>
+
+            <p>1. если $f'(x) \cdot f''(x) < 0$ или $f(a) \cdot f''(x) > 0$, то</p>
+            <div class="math-scroll">
+                $$\underline{x}_{k+1} = \underline{x}_k - \frac{f(\underline{x}_k)}{f'(\underline{x}_k)},$$
+            </div>
+            <div class="math-scroll">
+                $$\overline{x}_{k+1} = \overline{x}_k - \frac{f(\overline{x}_k)(\overline{x}_k - \underline{x}_k)}{f(\overline{x}_k) - f(\underline{x}_k)}.$$
+            </div>
+
+            <p>Легко видеть, что истинное значение корня $x^*$ лежит между $\underline{x}_{k+1}$ и $\overline{x}_{k+1}$, т.е. $\underline{x}_{k+1} < x^* < \overline{x}_{k+1}$ и $0 < x^* - \underline{x}_{k+1} < \overline{x}_{k+1} - \underline{x}_{k+1}$.</p>
+
+            <p>Если допустимая абсолютная погрешность приближенного корня $\underline{x}_{k+1}$ задана заранее и равна $\varepsilon$, то процесс сближения прекращается в тот момент, когда будет обнаружено, что $\overline{x}_{k+1} - \underline{x}_{k+1} < \varepsilon$. По окончании процесса за значение корня $x^*$ лучше всего взять среднее арифметическое полученных последних значений: $x^* \approx (\underline{x}_{k+1} + \overline{x}_{k+1}) / 2$.</p>
+        </article>
+    </section>
     <!-- Глава 3 (Вводная) -->
     <section class="content-page" id="page-3">
         <nav class="breadcrumbs">
