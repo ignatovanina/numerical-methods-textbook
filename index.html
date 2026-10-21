@@ -473,6 +473,114 @@
             </div>
         </article>
     </section>
+    <!-- 4.2 -->
+    <section class="content-page" id="page-4-2">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#4" onclick="showPage('4'); return false;">4. Системы нелинейных уравнений</a>
+            <span>/</span>
+            <span class="current">4.2. Метод Ньютона</span>
+        </nav>
+        <div class="content-header">
+            <h2>4.2. Метод Ньютона</h2>
+        </div>
+        <article class="chapter-content">
+            <p>Рассмотрим нелинейную систему уравнений (4.4). Точный корень $x^*$ этого уравнения может быть представлен в виде суммы некоторого $k$-го приближения $x^{(k)}$ и поправки $\varepsilon^{(k)}$ (погрешности корня), т.е.</p>
+
+            <div class="math-scroll">
+                $$x^* = x^{(k)} + \varepsilon^{(k)}, \quad (4.17)$$
+            </div>
+
+            <p>где $x^{(k)} = \left(x_1^{(k)}, x_2^{(k)}, \dots, x_n^{(k)}\right)^T$ и $\varepsilon^{(k)} = \left(\varepsilon_1^{(k)}, \varepsilon_2^{(k)}, \dots, \varepsilon_n^{(k)}\right)^T$.</p>
+
+            <p>Тогда, подставив выражение (4.17) в уравнение (4.4), будем иметь:</p>
+
+            <div class="math-scroll">
+                $$f(x^{(k)} + \varepsilon^{(k)}) = 0. \quad (4.18)$$
+            </div>
+
+            <p>Пусть функция $f(x)$ непрерывно дифференцируема в некоторой выпуклой области, содержащей $x^*$ и $x^{(k)}$. Разложим левую часть уравнения (4.18) по степеням малого вектора $\varepsilon^{(k)}$ в ряд Тейлора, ограничившись при этом лишь линейными членами:</p>
+
+            <div class="math-scroll">
+                $$f(x^{(k)} + \varepsilon^{(k)}) = f(x^{(k)}) + f'(x^{(k)})\varepsilon^{(k)} = 0. \quad (4.19)$$
+            </div>
+
+            <p>Под производной $f'(x)$ в выражении (4.19) следует понимать <em>матрицу Якоби (якобиан)</em> системы функций $f_1, f_2, \dots, f_n$ относительно переменных $x_1, x_2, \dots, x_n$, т.е.</p>
+
+            <div class="math-scroll">
+                $$
+                f'(x) = w(x) =
+                \begin{pmatrix}
+                \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \dots & \frac{\partial f_1}{\partial x_n} \\
+                \frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \dots & \frac{\partial f_2}{\partial x_n} \\
+                \dots & \dots & \dots & \dots \\
+                \frac{\partial f_n}{\partial x_1} & \frac{\partial f_n}{\partial x_2} & \dots & \frac{\partial f_n}{\partial x_n}
+                \end{pmatrix}
+                = \left( \frac{\partial f_i}{\partial x_j} \right), \ i,j = \overline{1, n}. \quad (4.20)
+                $$
+            </div>
+
+            <p>Выразим из (4.19) $\varepsilon^{(k)}$, предположив при этом, что матрица $w(x)$ – неособенная:</p>
+
+            <div class="math-scroll">
+                $$\varepsilon^{(k)} = -w^{-1}(x^{(k)})f(x^{(k)}).$$
+            </div>
+
+            <p>Тогда с учетом (4.17) получим:</p>
+
+            <div class="math-scroll">
+                $$x^{(k+1)} = x^{(k)} - w^{-1}(x^{(k)})f(x^{(k)}), \quad k = 0, 1, 2, \dots \quad (4.21)$$
+            </div>
+
+            <p>Полученное реккурентное соотношение определяет сущность метода Ньютона. За нулевое приближение $x^{(0)}$ можно взять грубое значение искомого корня. Условия сходимости итерационного процесса Ньютона определяются следующей теоремой.</p>
+
+            <p><strong>Теорема:</strong> Пусть дана нелинейная система уравнений (4.4), где вектор-функция (4.3) определена и непрерывна вместе со своими частными производными первого и второго порядков в некоторой области, и пусть $x^{(0)}$ – есть произвольная точка, лежащая в этой области вместе со своей замкнутой $r$-окрестностью:</p>
+
+            <div class="math-scroll">
+                $$\|x - x^{(0)}\| \le r,$$
+            </div>
+
+            <p>где норма понимается в виде $\|x\| = \max_i |x_i|$, причем выполнены следующие условия:</p>
+
+            <p>1. Матрица Якоби $w(x) = \frac{\partial f_i}{\partial x_j}$ при $x = x^{(0)}$ имеет обратную матрицу $w^{-1}(x^{(0)})$ такую, что</p>
+
+            <div class="math-scroll">
+                $$\|w^{-1}(x^{(0)})\| \le A_0, \quad (4.22)$$
+            </div>
+
+            <p>где норма матрицы понимается как</p>
+
+            <div class="math-scroll">
+                $$\|A\| = \max_i \sum_{j=1}^n |a_{ij}|$$
+            </div>
+
+            <p>1. $\|w^{-1}(x^{(0)})f(x^{(0)})\| \le B_0 \le \frac{r}{2} \quad (4.23)$</p>
+            <p>2. $\sum_{m=1}^n \left| \frac{\partial^2 f_i(x)}{\partial x_j \partial x_m} \right| \le C$ при $i,j = \overline{1, n} \quad (4.24)$</p>
+            <p>3. константы $A_0, B_0$ и $C$ удовлетворяют неравенству</p>
+
+            <div class="math-scroll">
+                $$\delta = 2nA_0B_0C \le 1. \quad (4.25)$$
+            </div>
+
+            <p><em>Тогда процесс Ньютона (4.21) при любом начальном приближении $x^{(0)}$ из $r$-окрестности сходится и предельный вектор</em></p>
+
+            <div class="math-scroll">
+                $$x^* = \lim_{k \to \infty} x^{(k)}$$
+            </div>
+
+            <p><em>есть единственное решение системы (4.4) такое, что</em></p>
+
+            <div class="math-scroll">
+                $$\begin{aligned}
+                &\|x^* - x^{(0)}\| \le 2B_0, \text{ или } \\
+                &\|x^* - x^{(k)}\| \le \frac{B_0}{2^{k-1}} \cdot \delta^{2^k-1} \quad (4.26)
+                \end{aligned}$$
+            </div>
+
+            <p>Из этой теоремы следует, что прежде чем браться за решение системы нелинейных уравнений методом Ньютона, необходимо проверить выполнение для этой системы условий (4.22) – (4.25). И только в случае положительного результата проверки система нелинейных уравнений может быть решена методом Ньютона. В качестве критерия окончания приближенного поиска корней нелинейных уравнений может служить неравенство (4.26).</p>
+        </article>
+    </section>
     <!-- 4.3 -->
     <section class="content-page" id="page-4-3">
         <nav class="breadcrumbs">
@@ -798,6 +906,8 @@
     <section class="content-page" id="page-7">
         <nav class="breadcrumbs">
             <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <span class="current">7. Численное интегрирование</span>
             <span>/</span>
             <span class="current">7. Численное интегрирование</span>
         </nav>
