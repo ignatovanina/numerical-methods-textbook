@@ -105,10 +105,11 @@ header h1 {
 .main-content {
     flex: 1;
     margin-top: 60px;
-    padding: 40px 60px;
+    padding: 40px 30px;
     overflow-y: auto;
     height: calc(100vh - 60px);
     background-color: var(--bg-main);
+    padding-top: 20px;
 }
 
 .content-header h2 {
@@ -198,4 +199,113 @@ header h1 {
 
 .sidebar::-webkit-scrollbar-thumb:hover {
     background-color: var(--text-muted);
+}
+
+/* Секции контента (SPA-переключение) */
+.content-page {
+    display: none;
+}
+
+.content-page.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Контент главы */
+.chapter-content {
+    width: 95%;
+    max-width: 1200px; 
+    line-height: 1.7;
+    font-size: 1.05rem;
+}
+
+.chapter-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 40px;
+    margin-bottom: 16px;
+    color: var(--text-main);
+}
+
+.chapter-content h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 12px;
+    color: var(--text-main);
+}
+
+.chapter-content p {
+    margin-bottom: 16px;
+}
+
+.chapter-content ul,
+.chapter-content ol {
+    margin-bottom: 16px;
+    padding-left: 24px;
+}
+
+.chapter-content li {
+    margin-bottom: 8px;
+}
+
+.chapter-content strong {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.chapter-content blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 12px 20px;
+    margin: 20px 0;
+    background-color: var(--bg-card);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.chapter-content code {
+    background-color: var(--bg-card);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95em;
+    color: var(--accent);
+}
+
+.content-image {
+    margin: 30px auto; 
+    text-align: center; 
+    background-color: var(--bg-card);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    max-width: 800px; 
+}
+
+.content-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block; 
+    margin: 0 auto; 
+}
+
+.content-image figcaption {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center; 
 }

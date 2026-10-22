@@ -69,3 +69,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+// Переключение между секциями контента
+function showPage(pageId) {
+    // 1. Скрываем все страницы
+    const pages = document.querySelectorAll('.content-page');
+    pages.forEach(page => page.classList.remove('active'));
+
+    // 2. Показываем нужную
+    const targetPage = document.getElementById('page-' + pageId);
+    if (targetPage) {
+        targetPage.classList.add('active');
+    }
+
+    // 3. Прокручиваем main content наверх
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+        mainContent.scrollTop = 0;
+    }
+
+    // 4. Обновляем активную ссылку в сайдбаре
+    document.querySelectorAll('.lesson').forEach(link => {
+        link.classList.remove('active');
+    });
+    const activeLink = document.querySelector(`.lesson[href="#${pageId.replace('-', '.')}"]`);
+    if (activeLink) {
+        activeLink.classList.add('active');
+    }
+
+    // 5. Обновляем hash в URL (чтобы работала кнопка "Назад")
+    history.pushState(null, '', '#' + pageId);
+
+    // 6. Перерендериваем формулы KaTeX
+    if (window.renderMathInElement) {
+        renderMathInElement(targetPage, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ]
+        });
+    }
+}
+
+// При загрузке страницы проверяем hash в URL
+document.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && document.getElementById('page-' + hash)) {
+        showPage(hash);
+    }
+});
+
+// Обрабатываем кнопку "Назад"
+window.addEventListener('popstate', () => {
+    const hash = window.location.hash.replace('#', '') || 'home';
+    showPage(hash);
+});
