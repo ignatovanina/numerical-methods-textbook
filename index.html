@@ -2083,6 +2083,37 @@
             <p>где $\xi$ – некоторое промежуточное значение между точками $x_0, x_1, \dots, x_n$ и $x$.</p>
         </article>
     </section>
+    <!-- 5.3 -->
+    <section class="content-page" id="page-5-3">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#5" onclick="showPage('5'); return false;">5. Интерполирование функций</a>
+            <span>/</span>
+            <span class="current">5.3. Интерполяционная формула Стирлинга</span>
+        </nav>
+        <div class="content-header">
+            <h2>5.3. Интерполяционная формула Стирлинга</h2>
+        </div>
+        <article class="chapter-content">
+            <p>Интерполяционная формула Стирлинга получается из первой и второй интерполяционных формул Гаусса как их среднее арифметическое. Она имеет следующий вид:</p>
+
+            <div class="math-scroll">
+                $$
+                \begin{aligned}
+                P(x) &= y_0 + q \frac{\Delta y_{-1} + \Delta y_0}{2} + \frac{q^2}{2} \Delta^2 y_{-1} + \frac{q(q^2 - 1^2)}{3!} \cdot \frac{\Delta^3 y_{-2} + \Delta^3 y_{-1}}{2} + \frac{q^2(q^2 - 1^2)}{4!} \Delta^4 y_{-2} + \frac{q(q^2 - 1^2)(q^2 - 2^2)}{5!} \cdot \\
+                &\quad \cdot \frac{\Delta^5 y_{-3} + \Delta^5 y_{-2}}{2} + \frac{q^2(q^2 - 1^2)(q^2 - 2^2)}{6!} \Delta^6 y_{-3} + \dots + \frac{q(q^2 - 1^2)(q^2 - 2^2)(q^2 - 3^2)\dots(q^2 - (n-1)^2)}{(2n-1)!} \cdot \\
+                &\quad \cdot \frac{\Delta^{2n-1} y_{-n} + \Delta^{2n-1} y_{-(n-1)}}{2} + \frac{q^2(q^2 - 1^2)(q^2 - 2^2)\dots(q^2 - (n-1)^2)}{(2n)!} \cdot \Delta^{2n} y_{-n}
+                \end{aligned}
+                \quad (5.10)
+                $$
+            </div>
+
+            <p>где $q = \frac{x - x_0}{h}$.</p>
+
+            <p>Погрешность интерполяционной формулы Стирлинга может быть определена в соответствии с выражением для остаточного члена формулы <a href="#5.2" onclick="showPage('5-2'); return false;" style="color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent); transition: all 0.2s ease;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Гаусса (5.9)</a>.</p>
+        </article>
+    </section>
     <!-- 5.4 -->
     <section class="content-page" id="page-5-4">
         <nav class="breadcrumbs">
