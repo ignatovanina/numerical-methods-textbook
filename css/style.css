@@ -285,21 +285,21 @@ header h1 {
 }
 
 .content-image {
-    margin: 30px auto; /* auto по бокам центрирует сам блок */
-    text-align: center; /* Центрирует текст внутри блока */
+    margin: 30px auto; 
+    text-align: center; 
     background-color: var(--bg-card);
     padding: 20px;
     border-radius: 12px;
     border: 1px solid var(--border-color);
-    max-width: 800px; /* Чтобы картинка не была слишком огромной */
+    max-width: 800px; 
 }
 
 .content-image img {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    display: block; /* Убирает лишний отступ снизу у картинок */
-    margin: 0 auto; /* Центрирует саму картинку */
+    display: block; 
+    margin: 0 auto; 
 }
 
 .content-image figcaption {
@@ -307,5 +307,5 @@ header h1 {
     font-size: 0.95rem;
     color: var(--text-muted);
     font-style: italic;
-    text-align: center; /* Центрирует текст подписи */
+    text-align: center; 
 }
