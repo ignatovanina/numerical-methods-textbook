@@ -1856,6 +1856,233 @@
             <p>Полученную интерполяционную формулу $y = F(x) = P_n(x)$ обычно используют для приближенного вычисления значений данной функции $f(x)$ для значений аргумента $x$, отличных от узлов интерполирования. Такая операция называется <em>интерполированием функции</em> $f(x)$. При этом различают <em>интерполирование в узком смысле</em>, когда $x \in [x_0, x_n]$, т.е. значение $x$ является промежуточным между $x_0$ и $x_n$, и <em>экстраполирование</em>, когда $x \notin [x_0, x_n]$. В дальнейшем под термином интерполирование будем понимать как первую, так и вторую операции.</p>
         </article>
     </section>
+    <!-- 5.1 -->
+    <section class="content-page" id="page-5-1">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#5" onclick="showPage('5'); return false;">5. Интерполирование функций</a>
+            <span>/</span>
+            <span class="current">5.1. Интерполяционные формулы Ньютона</span>
+        </nav>
+        <div class="content-header">
+            <h2>5.1. Интерполяционные формулы Ньютона</h2>
+        </div>
+        <article class="chapter-content">
+            <p>Для определения интерполяционных формул Ньютона введем понятие конечных разностей. Пусть $y = f(x)$ – функция, заданная табличными значениями $y_i = f(x_i)$ для системы равноотстоящих точек $x_i \ (i = 0, 1, 2, \dots, n)$, где $\Delta x_i = x_{i+1} - x_i = h = const$.</p>
+
+            <p>Тогда конечными разностями табличной функции $y = f(x)$ называются следующие соотношения:</p>
+
+            <div class="math-scroll">
+                $$
+                \begin{aligned}
+                \Delta y_i &= y_{i+1} - y_i && \text{– конечная разность 1-го порядка} \\
+                \Delta^2 y_i &= \Delta(\Delta y_i) = \Delta y_{i+1} - \Delta y_i && \text{– конечная разность 2-го порядка} \\
+                \dots\dots\dots\dots\dots\dots\dots\dots\dots\dots \\
+                \Delta^k y_i &= \Delta(\Delta^{k-1} y_i) = \Delta^{k-1} y_{i+1} - \Delta^{k-1} y_i && \text{– конечная разность } k\text{-го порядка} \\
+                \dots\dots\dots\dots\dots\dots\dots\dots\dots\dots \\
+                \Delta^n y_i &= \Delta(\Delta^{n-1} y_i) = \Delta^{n-1} y_{i+1} - \Delta^{n-1} y_i && \text{– конечная разность } n\text{-го порядка.}
+                \end{aligned}
+                $$
+            </div>
+
+            <p>Конечные разности различных порядков удобно располагать в форме таблиц двух видов: горизонтальной таблицы конечных разностей или диагональной таблицы конечных разностей (табл. 5.1, 5.2).</p>
+
+            <!-- Таблицы конечных разностей -->
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 30px 0; align-items: flex-start;">
+
+                <!-- Таблица 5.1 -->
+                <div style="flex: 1; min-width: 300px; overflow-x: auto;">
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; color: var(--text-muted);">5.1. Горизонтальная таблица конечных разностей</p>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: center; border: 1px solid var(--text-muted);">
+                        <tbody>
+                        <tr>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$x_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^4 y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^5 y_i$</td>
+                        </tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^4 y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^5 y_0$</td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^4 y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_4$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_4$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_4$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_5$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_5$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Таблица 5.2 -->
+                <div style="flex: 1; min-width: 300px; overflow-x: auto;">
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; color: var(--text-muted);">5.2. Диагональная таблица конечных разностей</p>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: center; border: 1px solid var(--text-muted);">
+                        <tbody>
+                        <tr>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$x_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_i$</td>
+                        </tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_0$</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <p>Перейдем к рассмотрению интерполяционных формул Ньютона.</p>
+
+            <p>Пусть для функции $y = f(x)$ заданы значения $y_i = f(x_i)$ для равноотстоящих значений независимой переменной $x_i = x_0 + ih \ (i = 0, 1, 2, \dots, n)$, где $h$ – шаг интерполяции. Требуется подобрать полином $P_n(x)$ степени не выше $n$, принимающий в точках $x_i$ значения $P_n(x_i) = y_i \ (i = 0, 1, 2, \dots, n)$.</p>
+
+            <p>Введём некоторый параметр $q = \frac{x - x_0}{h}$, который определяет число шагов, требуемое для достижения числа $x$ из точки $x_0$. Тогда искомый полином может быть определен следующим выражением:</p>
+
+            <div class="math-scroll">
+                $$P_n(x) = y_0 + q\Delta y_0 + \frac{q(q-1)}{2!}\Delta^2 y_0 + \frac{q(q-1)(q-2)}{3!}\Delta^3 y_0 + \dots + \frac{q(q-1)\dots(q-n+1)}{n!}\Delta^n y_0 \quad (5.1)$$
+            </div>
+
+            <p>Формула (5.1) называется <em>первой интерполяционной формулой Ньютона</em>. Ее удобно использовать для интерполирования функции $y = f(x)$ в окрестности начального значения $x_0$, где $q$ – мало по абсолютной величине. В этой формуле используется верхняя горизонтальная строка горизонтальной таблицы конечных разностей.</p>
+
+            <p>Если в формуле (5.1) положить $n = 1$, то получим формулу линейного интерполирования</p>
+
+            <div class="math-scroll">
+                $$P_1(x) = y_0 + q\Delta y_0.$$
+            </div>
+
+            <p>При $n = 2$ будем иметь формулу параболического или квадратичного интерполирования:</p>
+
+            <div class="math-scroll">
+                $$P_n(x) = y_0 + q\Delta y_0 + \frac{q(q-1)}{2!}\Delta^2 y_0.$$
+            </div>
+
+            <p>Первая интерполяционная формула Ньютона практически неудобна для интерполирования функции вблизи конца таблицы. В этом случае обычно применяется <em>вторая интерполяционная формула Ньютона</em>, имеющая следующий вид:</p>
+
+            <div class="math-scroll">
+                $$P_n(x) = y_n + q\Delta y_{n-1} + \frac{q(q+1)}{2!}\Delta^2 y_{n-2} + \frac{q(q+1)(q+2)}{3!}\Delta^3 y_{n-3} + \dots + \frac{q(q+1)\dots(q+n-1)}{n!}\Delta^n y_0, \quad (5.2)$$
+            </div>
+
+            <p>где $q = \frac{x - x_n}{h}$.</p>
+
+            <p>В этой формуле используется нижняя диагональная строка таблицы конечных разностей.</p>
+
+            <p>Как первую, так и вторую интерполяционные формулы Ньютона можно использовать для экстраполирования функции, т.е. для нахождения значений функции $y$ для значения аргументов $x$, лежащих вне пределов таблицы. Если $x < x_0$ и $x$ близко к $x_0$, то выгодно применять первую интерполяционную формулу Ньютона, причем тогда $q = \frac{x - x_0}{h} < 0$.</p>
+
+            <p>Если же $x > x_n$ и $x$ близко к $x_n$, то удобней пользоваться второй интерполяционной формулой Ньютона, причем $q = \frac{x - x_n}{h} > 0$.</p>
+
+            <p>Таким образом, первая интерполяционная формула Ньютона обычно используется для интерполирования вперед и экстраполирования назад, а вторая интерполяционная формула Ньютона, наоборот – для интерполирования назад и экстраполирования вперед. Однако операция экстраполирования является менее точной по сравнению с операцией интерполирования в узком смысле слова.</p>
+
+            <p>В общем случае, погрешность интерполирования табличной функции формулами Ньютона можно оценить с помощью остаточных членов этих формул.</p>
+
+            <p>Остаточный член первой интерполяционной формулы Ньютона имеет вид:</p>
+
+            <div class="math-scroll">
+                $$R_n(x) = h^{n+1} \frac{q(q-1)\dots(q-n)}{(n+1)!} f^{(n+1)}(\xi), \quad (5.3)$$
+            </div>
+
+            <p>где $\xi$ – некоторое промежуточное значение между узлами интерполирования $x_0, x_1, \dots, x_n$ и рассматриваемой точкой $x$. При этом для случая интерполирования в узком смысле $\xi \in [x_0, x_n]$, а для случая экстраполирования возможно, что $\xi \in [x_0, x_n]$.</p>
+
+            <p>Для второй интерполяционной формулы остаточный член может быть рассчитан по формуле:</p>
+
+            <div class="math-scroll">
+                $$R_n(x) = h^{n+1} \frac{q(q+1)\dots(q+n)}{(n+1)!} f^{(n+1)}(\xi), \quad (5.4)$$
+            </div>
+
+            <p>где $\xi$ – некоторое промежуточное значение между узлами интерполирования $x_0, x_1, \dots, x_n$ и точкой $x$.</p>
+
+            <p>Обычно при практических вычислениях интерполяционная формула Ньютона обрывается на членах, содержащих такие разности, которые в пределах заданной точности можно считать постоянными.</p>
+
+            <p>Предполагая, что $\Delta^{n+1} y$ почти постоянная для функции $y = f(x)$ и $h$ достаточно мало, и учитывая, что $f^{(n+1)}(x) = \lim_{h \to 0} \frac{\Delta^{n+1} y}{h^{n+1}}$ приближенно можно положить:</p>
+
+            <div class="math-scroll">
+                $$f^{(n+1)}(\xi) \approx \frac{\Delta^{n+1} y_0}{h^{n+1}}.$$
+            </div>
+
+            <p>Тогда формулы (5.3) и (5.4) соответственно можно записать в виде:</p>
+
+            <div class="math-scroll">
+                $$R_n(x) \approx \frac{q(q-1)\dots(q-n)}{(n+1)!} \Delta^{n+1} y_0 \quad R_n(x) \approx \frac{q(q+1)\dots(q+n)}{(n+1)!} \Delta^{n+1} y_n$$
+            </div>
+
+            <p>При построении таблицы разностей, использующейся в формулах Ньютона, исходили из предположения, что значения аргумента функции – равноотстоящие, т.е. имеют постоянный шаг. Однако на практике часто приходится иметь дело с неравноотстоящими значениями аргумента, которые изменяются с переменным шагом. Для таких неравноотстоящих узлов интерполирования вводится понятие <em>разделенных разностей</em>, являющееся более общим по сравнению с понятием конечных разностей.</p>
+
+            <p>Пусть функция $y = f(x)$ задана таблично и $x_0, x_1, x_2, \dots$ – значения аргумента, а $y_0, y_1, y_2, \dots$ – соответствующие значения функции, где $\Delta x_i = x_{i+1} - x_i \ne const \ne 0 \ (i = 0, 1, 2, \dots)$. Тогда отношения $\delta(x_i, x_{i+1}) = \frac{y_{i+1} - y_i}{x_{i+1} - x_i}, \ i = 0, 1, 2, \dots$ называются разделенными разностями первого порядка. Аналогично определяются разделенные разности второго порядка $\delta(x_i, x_{i+1}, x_{i+2}) = \frac{\delta(x_{i+1}, x_{i+2}) - \delta(x_i, x_{i+1})}{x_{i+2} - x_i}, \ i = 0, 1, 2, \dots$</p>
+
+            <p>В общем случае разделенные разности $k$-го порядка получаются из разделенных разностей $(k - 1)$-го с помощью реккурентного соотношения $\delta(x_i, x_{i+1}, \dots, x_{i+k}) = \frac{\delta(x_{i+1}, \dots, x_{i+k}) - \delta(x_i, \dots, x_{i+k-1})}{x_{i+k} - x_i}, \quad k = 1, 2, \dots; \ i = 0, 1, 2, \dots$</p>
+
+            <p>Разделенные разности также обычно располагаются в таблицах следующего вида (табл. 5.3):</p>
+
+            <div style="overflow-x: auto; margin: 20px 0;">
+                <p style="font-size: 0.9rem; margin-bottom: 5px; color: var(--text-muted);">5.3. Таблица разделенных разностей</p>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: center; border: 1px solid var(--text-muted);">
+                    <tbody>
+                    <tr>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$x_i$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$y_i$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">1-й порядок</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">2-й порядок</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">3-й порядок</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">4-й порядок</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$x_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_0$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$\delta(x_0, x_1)$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$\delta(x_0, x_1, x_2)$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$\delta(x_0, x_1, x_2, x_3)$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$\delta(x_0, x_1, x_2, x_3, x_4)$</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$x_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_1$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$\delta(x_1, x_2)$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$\delta(x_1, x_2, x_3)$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$\delta(x_1, x_2, x_3, x_4)$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$x_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_2$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$\delta(x_2, x_3)$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$\delta(x_2, x_3, x_4)$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;"></td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$x_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_3$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$\delta(x_3, x_4)$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;"></td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;"></td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;">$x_4$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_4$</td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;"></td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;"></td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;"></td>
+                        <td style="border: 1px solid var(--text-muted); padding: 6px;"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>Используя понятия конечных разностей, формула Ньютона для случая неравноотстоящих узлов интерполирования может быть записана в виде:</p>
+
+            <div class="math-scroll">
+                $$P_n(x) = y_0 + \delta(x_0, x_1)(x - x_0) + \delta(x_0, x_1, x_2)(x - x_0)(x - x_1) + \dots + \delta(x_0, x_1, \dots, x_n)(x - x_0)(x - x_1)\dots(x - x_{n-1}) \quad (5.5)$$
+            </div>
+
+            <p>Погрешность формулы (5.5) определяется выражением для остаточного члена:</p>
+
+            <div class="math-scroll">
+                $$R_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!}(x - x_0)(x - x_1)\dots(x - x_n), \quad (5.6)$$
+            </div>
+
+            <p>где $\xi$ – некоторое промежуточное значение между точками $x_0, x_1, \dots, x_n$ и $x$.</p>
+        </article>
+    </section>
     <!-- 5.4 -->
     <section class="content-page" id="page-5-4">
         <nav class="breadcrumbs">
