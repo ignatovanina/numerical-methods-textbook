@@ -188,3 +188,21 @@ function checkFillBlank(inputId, correctAnswer, resultId) {
         resultDiv.className = 'quiz-result incorrect';
     }
 }
+function checkQuiz(questionName, correctAnswer, resultId) {
+    const selected = document.querySelector(`input[name="${questionName}"]:checked`);
+    const resultDiv = document.getElementById(resultId);
+
+    if (!selected) {
+        resultDiv.textContent = 'Пожалуйста, выберите вариант ответа.';
+        resultDiv.className = 'quiz-result incorrect';
+        return;
+    }
+
+    if (selected.value === correctAnswer) {
+        resultDiv.textContent = 'Верно! Молодец.';
+        resultDiv.className = 'quiz-result correct';
+    } else {
+        resultDiv.textContent = 'Неверно. Попробуйте еще раз.';
+        resultDiv.className = 'quiz-result incorrect';
+    }
+}
