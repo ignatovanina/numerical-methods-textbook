@@ -3884,6 +3884,58 @@
                 <div class="quiz-result" id="result-3-5"></div>
             </div>
         </div>
+        <!-- ТЕСТ 4: Интерполирование и аппроксимация -->
+        <div class="test-container" id="test-4" style="display: none;">
+            <div class="quiz-container">
+                <h3 style="margin-bottom: 20px; color: var(--accent);">Тест: Интерполирование</h3>
+
+                <div class="quiz-question">1. В чем отличие интерполяции от аппроксимации?</div>
+                <label class="quiz-option"><input type="radio" name="q4-1" value="a"> Интерполяция проходит точно через все точки, аппроксимация — приближенно</label>
+                <label class="quiz-option"><input type="radio" name="q4-1" value="b"> Аппроксимация проходит точно через все точки</label>
+                <label class="quiz-option"><input type="radio" name="q4-1" value="c"> Они идентичны</label>
+                <button class="btn-primary" onclick="checkQuiz('q4-1', 'a', 'result-4-1')" style="margin-top: 15px;">Проверить</button>
+                <div class="quiz-result" id="result-4-1"></div>
+
+                <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+                <div class="quiz-question">2. Какой полином используется в методе Лагранжа?</div>
+                <label class="quiz-option"><input type="radio" name="q4-2" value="a"> Полином Ньютона</label>
+                <label class="quiz-option"><input type="radio" name="q4-2" value="b"> Полином Лагранжа</label>
+                <label class="quiz-option"><input type="radio" name="q4-2" value="c"> Полином Чебышева</label>
+                <button class="btn-primary" onclick="checkQuiz('q4-2', 'b', 'result-4-2')" style="margin-top: 15px;">Проверить</button>
+                <div class="quiz-result" id="result-4-2"></div>
+
+                <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+                <div class="quiz-question">3. Для интерполяции с равноотстоящими узлами используют формулы Ньютона.</div>
+                <div class="tf-container">
+                    <button class="btn-tf" onclick="checkTF(this, true, 'result-4-3')">Верно</button>
+                    <button class="btn-tf" onclick="checkTF(this, false, 'result-4-3')">Неверно</button>
+                </div>
+                <div class="quiz-result" id="result-4-3"></div>
+
+                <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+                <div class="quiz-question">4. Сопоставьте метод и его автора:</div>
+                <div class="match-container">
+                    <div class="match-column">
+                        <div class="match-item" draggable="true" data-match="newton">Формулы Ньютона</div>
+                        <div class="match-item" draggable="true" data-match="lagrange">Формула Лагранжа</div>
+                    </div>
+                    <div class="match-column">
+                        <div class="match-item dropzone" data-match="newton">Для равноотстоящих узлов</div>
+                        <div class="match-item dropzone" data-match="lagrange">Для произвольных узлов</div>
+                    </div>
+                </div>
+
+                <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+                <div class="quiz-question">5. Введите название метода, который использует сплайны (одно слово):</div>
+                <input type="text" id="q4-5-input" class="quiz-input" placeholder="Название">
+                <button class="btn-primary" onclick="checkFillBlank('q4-5-input', 'сплайн', 'result-4-5')" style="margin-top: 15px;">Проверить</button>
+                <div class="quiz-result" id="result-4-5"></div>
+            </div>
+        </div>
     </section>
 </main>
 <script src="js/main.js"></script>
