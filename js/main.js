@@ -123,3 +123,13 @@ window.addEventListener('popstate', () => {
     const hash = window.location.hash.replace('#', '') || 'home';
     showPage(hash);
 });
+
+function showTest(testId) {
+    document.querySelectorAll('.test-container').forEach(test => {
+        test.style.display = 'none';
+    });
+    const target = document.getElementById(testId);
+    if (target) {
+        target.style.display = 'block';
+    }
+}
