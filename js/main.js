@@ -133,3 +133,40 @@ function showTest(testId) {
         target.style.display = 'block';
     }
 }
+
+// Drag-and-Drop (Сопоставление)
+document.addEventListener('DOMContentLoaded', () => {
+    const draggables = document.querySelectorAll('.match-item[draggable="true"]');
+    const dropzones = document.querySelectorAll('.match-item.dropzone');
+
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', () => {
+            draggable.classList.add('dragging');
+        });
+        draggable.addEventListener('dragend', () => {
+            draggable.classList.remove('dragging');
+        });
+    });
+
+    dropzones.forEach(zone => {
+        zone.addEventListener('dragover', e => {
+            e.preventDefault();
+        });
+        zone.addEventListener('drop', e => {
+            e.preventDefault();
+            const dragging = document.querySelector('.dragging');
+            if (!dragging) return;
+
+            if (dragging.dataset.match === zone.dataset.match) {
+                zone.textContent = dragging.textContent;
+                zone.classList.add('matched');
+                zone.style.borderColor = 'var(--accent)';
+                zone.style.backgroundColor = 'rgba(0, 168, 150, 0.2)';
+                dragging.remove();
+            } else {
+                zone.style.borderColor = '#ff4d4d';
+                setTimeout(() => { zone.style.borderColor = 'var(--border-color)'; }, 500);
+            }
+        });
+    });
+});
