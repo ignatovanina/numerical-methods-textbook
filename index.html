@@ -3880,7 +3880,7 @@
 
                 <div class="quiz-question">5. Введите название схемы, которая является второй модификацией метода Гаусса (одно слово):</div>
                 <input type="text" id="q3-5-input" class="quiz-input" placeholder="Название схемы">
-                <button class="btn-primary" onclick="checkFillBlank('q3-5-input', 'халецкого', 'result-3-5')" style="margin-top: 15px;">Проверить</button>
+                <button class="btn-primary" onclick="checkFillBlank('q3-5-input', 'Халецкого', 'result-3-5')" style="margin-top: 15px;">Проверить</button>
                 <div class="quiz-result" id="result-3-5"></div>
             </div>
         </div>
@@ -3934,6 +3934,58 @@
                 <input type="text" id="q4-5-input" class="quiz-input" placeholder="Название">
                 <button class="btn-primary" onclick="checkFillBlank('q4-5-input', 'сплайн', 'result-4-5')" style="margin-top: 15px;">Проверить</button>
                 <div class="quiz-result" id="result-4-5"></div>
+            </div>
+        </div>
+        <!-- ТЕСТ 5: ОДУ -->
+        <div class="test-container" id="test-5" style="display: none;">
+            <div class="quiz-container">
+                <h3 style="margin-bottom: 20px; color: var(--accent);">Тест: ОДУ</h3>
+
+                <div class="quiz-question">1. Какой метод относится к одношаговым методам решения ОДУ?</div>
+                <label class="quiz-option"><input type="radio" name="q5-1" value="a"> Метод Адамса</label>
+                <label class="quiz-option"><input type="radio" name="q5-1" value="b"> Метод Рунге-Кутта</label>
+                <label class="quiz-option"><input type="radio" name="q5-1" value="c"> Метод Милна</label>
+                <button class="btn-primary" onclick="checkQuiz('q5-1', 'b', 'result-5-1')" style="margin-top: 15px;">Проверить</button>
+                <div class="quiz-result" id="result-5-1"></div>
+
+                <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+                <div class="quiz-question">2. Метод Эйлера является методом первого порядка точности.</div>
+                <div class="tf-container">
+                    <button class="btn-tf" onclick="checkTF(this, true, 'result-5-2')">Верно</button>
+                    <button class="btn-tf" onclick="checkTF(this, false, 'result-5-2')">Неверно</button>
+                </div>
+                <div class="quiz-result" id="result-5-2"></div>
+
+                <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+                <div class="quiz-question">3. Сколько этапов (прогноз/коррекция) в методе Адамса?</div>
+                <label class="quiz-option"><input type="radio" name="q5-3" value="a"> Один</label>
+                <label class="quiz-option"><input type="radio" name="q5-3" value="b"> Два</label>
+                <label class="quiz-option"><input type="radio" name="q5-3" value="c"> Три</label>
+                <button class="btn-primary" onclick="checkQuiz('q5-3', 'b', 'result-5-3')" style="margin-top: 15px;">Проверить</button>
+                <div class="quiz-result" id="result-5-3"></div>
+
+                <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+                <div class="quiz-question">4. Сопоставьте метод и его особенность:</div>
+                <div class="match-container">
+                    <div class="match-column">
+                        <div class="match-item" draggable="true" data-match="euler">Эйлер</div>
+                        <div class="match-item" draggable="true" data-match="runge">Рунге-Кутта</div>
+                    </div>
+                    <div class="match-column">
+                        <div class="match-item dropzone" data-match="euler">Первый порядок точности</div>
+                        <div class="match-item dropzone" data-match="runge">Четвертый порядок точности</div>
+                    </div>
+                </div>
+
+                <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+                <div class="quiz-question">5. Введите название метода, который использует формулу Рунге для выбора шага (одно слово):</div>
+                <input type="text" id="q5-5-input" class="quiz-input" placeholder="Название">
+                <button class="btn-primary" onclick="checkFillBlank('q5-5-input', 'Рунге-Кутта', 'result-5-5')" style="margin-top: 15px;">Проверить</button>
+                <div class="quiz-result" id="result-5-5"></div>
             </div>
         </div>
     </section>
