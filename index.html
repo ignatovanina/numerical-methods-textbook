@@ -171,10 +171,19 @@
         </div>
     </div>
 
-    <div class="module-header" onclick="toggleModule(this)">
-        <img src="img/icon-check.svg" alt="" class="module-icon">
-        <span>Тесты</span>
-        <span>›</span>
+    <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+            <img src="img/icon-check.svg" alt="" class="module-icon">
+            <span>Тесты</span>
+            <span>›</span>
+        </div>
+        <div class="module-content">
+            <a href="#test-1" class="lesson" onclick="showPage('tests'); showTest('test-1'); return false;">Погрешности</a>
+            <a href="#test-2" class="lesson" onclick="showPage('tests'); showTest('test-2'); return false;">Уравнения</a>
+            <a href="#test-3" class="lesson" onclick="showPage('tests'); showTest('test-3'); return false;">СЛАУ</a>
+            <a href="#test-4" class="lesson" onclick="showPage('tests'); showTest('test-4'); return false;">Интерполирование и аппроксимация</a>
+            <a href="#test-5" class="lesson" onclick="showPage('tests'); showTest('test-5'); return false;">ОДУ</a>
+        </div>
     </div>
 </aside>
 <!-- Домашняя страница -->
