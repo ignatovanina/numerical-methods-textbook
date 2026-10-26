@@ -206,3 +206,29 @@ function checkQuiz(questionName, correctAnswer, resultId) {
         resultDiv.className = 'quiz-result incorrect';
     }
 }
+// Проверка Правда/Ложь
+function checkTF(button, isCorrect, resultId) {
+    const resultDiv = document.getElementById(resultId);
+    const container = button.closest('.tf-container');
+    const buttons = container.querySelectorAll('.btn-tf');
+
+    buttons.forEach(btn => {
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+    });
+
+    if (isCorrect) {
+        button.classList.add('correct');
+        resultDiv.textContent = 'Верно!';
+        resultDiv.className = 'quiz-result correct';
+    } else {
+        button.classList.add('incorrect');
+        buttons.forEach(btn => {
+            if (btn.textContent.includes('Верно') && !btn.classList.contains('incorrect')) {
+                btn.classList.add('correct');
+            }
+        });
+        resultDiv.textContent = 'Неверно. Правильный ответ подсвечен.';
+        resultDiv.className = 'quiz-result incorrect';
+    }
+}
