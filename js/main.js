@@ -170,3 +170,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+function checkFillBlank(inputId, correctAnswer, resultId) {
+    const input = document.getElementById(inputId);
+    const resultDiv = document.getElementById(resultId);
+
+    const userAnswer = input.value.trim().replace(/\s/g, '').toLowerCase();
+    const correct = correctAnswer.replace(/\s/g, '').toLowerCase();
+
+    const normalizedUser = userAnswer.replace(',', '.');
+    const normalizedCorrect = correct.replace(',', '.');
+
+    if (normalizedUser === normalizedCorrect) {
+        resultDiv.textContent = 'Отличная работа.';
+        resultDiv.className = 'quiz-result correct';
+    } else {
+        resultDiv.textContent = 'Попробуйте еще раз.';
+        resultDiv.className = 'quiz-result incorrect';
+    }
+}
