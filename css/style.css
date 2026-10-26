@@ -410,3 +410,43 @@ header h1 {
     background-color: rgba(0, 168, 150, 0.2);
     cursor: default;
 }
+/* Поле ввода ответа (fill-in-the-blank) */
+.quiz-input {
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 10px;
+}
+.quiz-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+/* Кнопки Правда/Ложь */
+.btn-tf {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: all 0.2s ease;
+}
+.btn-tf:hover {
+    border-color: var(--accent);
+}
+.btn-tf.correct {
+    background-color: rgba(0, 168, 150, 0.2);
+    border-color: var(--accent);
+}
+.btn-tf.incorrect {
+    background-color: rgba(255, 77, 77, 0.2);
+    border-color: #ff4d4d;
+}
