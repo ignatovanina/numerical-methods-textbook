@@ -123,3 +123,112 @@ window.addEventListener('popstate', () => {
     const hash = window.location.hash.replace('#', '') || 'home';
     showPage(hash);
 });
+
+function showTest(testId) {
+    document.querySelectorAll('.test-container').forEach(test => {
+        test.style.display = 'none';
+    });
+    const target = document.getElementById(testId);
+    if (target) {
+        target.style.display = 'block';
+    }
+}
+
+// Drag-and-Drop (Сопоставление)
+document.addEventListener('DOMContentLoaded', () => {
+    const draggables = document.querySelectorAll('.match-item[draggable="true"]');
+    const dropzones = document.querySelectorAll('.match-item.dropzone');
+
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', () => {
+            draggable.classList.add('dragging');
+        });
+        draggable.addEventListener('dragend', () => {
+            draggable.classList.remove('dragging');
+        });
+    });
+
+    dropzones.forEach(zone => {
+        zone.addEventListener('dragover', e => {
+            e.preventDefault();
+        });
+        zone.addEventListener('drop', e => {
+            e.preventDefault();
+            const dragging = document.querySelector('.dragging');
+            if (!dragging) return;
+
+            if (dragging.dataset.match === zone.dataset.match) {
+                zone.textContent = dragging.textContent;
+                zone.classList.add('matched');
+                zone.style.borderColor = 'var(--accent)';
+                zone.style.backgroundColor = 'rgba(0, 168, 150, 0.2)';
+                dragging.remove();
+            } else {
+                zone.style.borderColor = '#ff4d4d';
+                setTimeout(() => { zone.style.borderColor = 'var(--border-color)'; }, 500);
+            }
+        });
+    });
+});
+function checkFillBlank(inputId, correctAnswer, resultId) {
+    const input = document.getElementById(inputId);
+    const resultDiv = document.getElementById(resultId);
+
+    const userAnswer = input.value.trim().replace(/\s/g, '').toLowerCase();
+    const correct = correctAnswer.replace(/\s/g, '').toLowerCase();
+
+    const normalizedUser = userAnswer.replace(',', '.');
+    const normalizedCorrect = correct.replace(',', '.');
+
+    if (normalizedUser === normalizedCorrect) {
+        resultDiv.textContent = 'Отличная работа.';
+        resultDiv.className = 'quiz-result correct';
+    } else {
+        resultDiv.textContent = 'Попробуйте еще раз.';
+        resultDiv.className = 'quiz-result incorrect';
+    }
+}
+function checkQuiz(questionName, correctAnswer, resultId) {
+    const selected = document.querySelector(`input[name="${questionName}"]:checked`);
+    const resultDiv = document.getElementById(resultId);
+
+    if (!selected) {
+        resultDiv.textContent = 'Пожалуйста, выберите вариант ответа.';
+        resultDiv.className = 'quiz-result incorrect';
+        return;
+    }
+
+    if (selected.value === correctAnswer) {
+        resultDiv.textContent = 'Верно! Молодец.';
+        resultDiv.className = 'quiz-result correct';
+    } else {
+        resultDiv.textContent = 'Неверно. Попробуйте еще раз.';
+        resultDiv.className = 'quiz-result incorrect';
+    }
+}
+// Проверка Правда/Ложь
+function checkTF(button, isCorrect, resultId) {
+    const resultDiv = document.getElementById(resultId);
+    const container = button.closest('.tf-container');
+    const buttons = container.querySelectorAll('.btn-tf');
+
+    buttons.forEach(btn => {
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+    });
+
+    if (isCorrect) {
+        button.classList.add('correct');
+        resultDiv.textContent = 'Верно!';
+        resultDiv.className = 'quiz-result correct';
+    } else {
+        button.classList.add('incorrect');
+        buttons.forEach(btn => {
+            if (btn.textContent.includes('Верно') && !btn.classList.contains('incorrect')) {
+                btn.classList.add('correct');
+            }
+        });
+        resultDiv.textContent = 'Неверно. Правильный ответ подсвечен.';
+        resultDiv.className = 'quiz-result incorrect';
+    }
+}
