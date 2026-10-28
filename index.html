@@ -162,12 +162,14 @@
             <span>›</span>
         </div>
         <div class="module-content">
-            <a href="#" class="lesson">ЛР 1. Оценка погрешностей</a>
-            <a href="#" class="lesson">ЛР 2. Решение уравнений</a>
-            <a href="#" class="lesson">ЛР 3. СЛАУ</a>
-            <a href="#" class="lesson">ЛР 4. Интерполяция</a>
-            <a href="#" class="lesson">ЛР 5. Интегрирование</a>
-            <a href="#" class="lesson">ЛР 6. ОДУ</a>
+            <a href="#labs" class="lesson" onclick="showPage('labs'); return false;">Лабораторный практикум</a>
+            <a href="#lab-1" class="lesson" onclick="showPage('labs'); scrollToLab('lab-1'); return false;">ЛР 1. Оценка погрешностей</a>
+            <a href="#lab-2" class="lesson" onclick="showPage('labs'); scrollToLab('lab-2'); return false;">ЛР 2. Решение уравнений</a>
+            <a href="#lab-3" class="lesson" onclick="showPage('labs'); scrollToLab('lab-3'); return false;">ЛР 3. СЛАУ</a>
+            <a href="#lab-4" class="lesson" onclick="showPage('labs'); scrollToLab('lab-4'); return false;">ЛР 4. Интерполяция</a>
+            <a href="#lab-5" class="lesson" onclick="showPage('labs'); scrollToLab('lab-5'); return false;">ЛР 5. Интегрирование</a>
+            <a href="#lab-6" class="lesson" onclick="showPage('labs'); scrollToLab('lab-6'); return false;">ЛР 6. ОДУ</a>
+            <a href="#lab-7" class="lesson" onclick="showPage('labs'); scrollToLab('lab-7'); return false;">ЛР 7. (Название)</a>
         </div>
     </div>
 
@@ -3702,6 +3704,7 @@
             <p>с начальными условиями: $y(x_0) = y_0, \ y_1(x_0) = y_{1,0}, \dots, y_{n-1}(x_0) = y_{n-1,0}$, имеет первый порядок и может быть решена любым из рассмотренных выше методов.</p>
         </article>
     </section>
+    <!-- тесты -->
     <section class="content-page" id="page-tests">
         <nav class="breadcrumbs">
             <a href="#home" onclick="showPage('home'); return false;">Главная</a>
@@ -3989,6 +3992,8 @@
             </div>
         </div>
     </section>
+    
+    
 </main>
 <script src="js/main.js"></script>
 </body>
