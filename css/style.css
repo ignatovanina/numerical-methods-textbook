@@ -592,3 +592,44 @@ header h1 {
     letter-spacing: normal; /* Убираем агрессивный разряд */
     text-transform: none; /* Убираем КАПС */
 }
+/* =========================================
+   ТАБЛИЦА 2 (ЛР 3) - ЖЕСТКАЯ СЕТКА
+   ========================================= */
+
+.lab-table-dense {
+    width: 100%;
+    border-collapse: collapse; /* Схлопываем границы для ровных линий */
+    font-size: 0.85rem;
+    text-align: center;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+}
+
+/* Шапка */
+.lab-table-dense thead th {
+    background-color: rgba(0, 168, 150, 0.15);
+    color: var(--accent);
+    font-weight: 600;
+    padding: 8px 4px;
+    border: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--accent);
+}
+
+/* Все ячейки (чтобы не было дыр) */
+.lab-table-dense tbody td {
+    padding: 6px 4px;
+    border: 1px solid var(--border-color); /* Тонкая сетка везде */
+    color: var(--text-main);
+}
+
+/* Жирная горизонтальная линия между вариантами */
+.lab-table-dense tbody tr.variant-end td {
+    border-bottom: 2px solid var(--accent);
+}
+
+/* Выделение номеров вариантов */
+.lab-table-dense td[rowspan] {
+    font-weight: 600;
+    color: var(--text-main);
+    background-color: rgba(0, 0, 0, 0.1); /* Легкий фон для колонки с номерами */
+}
