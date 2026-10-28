@@ -165,7 +165,7 @@
             <a href="#labs" class="lesson" onclick="showPage('labs'); return false;">Лабораторный практикум</a>
             <a href="#lab-1" class="lesson" onclick="showPage('lab-1'); return false;">ЛР 1. Решение трансцендентных уравнений</a>
             <a href="#lab-2" class="lesson" onclick="showPage('lab-2'); return false;">ЛР 2. Решение СЛАУ</a>
-            <a href="#lab-3" class="lesson" onclick="showPage('lab-3'); return false;">ЛР 3. СЛАУ</a>
+            <a href="#lab-3" class="lesson" onclick="showPage('lab-3'); return false;">ЛР 3. Интерполяция и экстраполяция функций</a>
             <a href="#lab-4" class="lesson" onclick="showPage('lab-4'); return false;">ЛР 4. Интерполяция</a>
             <a href="#lab-5" class="lesson" onclick="showPage('lab-5'); return false;">ЛР 5. Интегрирование</a>
             <a href="#lab-6" class="lesson" onclick="showPage('lab-6'); return false;">ЛР 6. ОДУ</a>
@@ -4431,6 +4431,365 @@
             <p>Условия сходимости данного метода схожи с аналогичными условиями метода простой итерации.</p>
 
             <p><strong>7. Вектор невязки.</strong> При численном решении СЛАУ получается приближённое решение. Поэтому при подстановке найденного решения в уравнения системы вместо заданного вектора правой части \(b\) получится другой вектор \(\tilde{b}\). В связи с этим необходимо определить меру удовлетворения системы найденным решениям, в качестве которой рекомендуется принимать вектор $(b - \tilde{b})$, называемый вектором невязки.</p>
+        </div>
+    </section>
+
+    <!-- СТРАНИЦА ЛР 3 -->
+    <section class="content-page" id="page-lab-3">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#labs" onclick="showPage('labs'); return false;">Лабораторный практикум</a>
+            <span>/</span>
+            <span class="current">ЛР 3</span>
+        </nav>
+        <div class="content-header">
+            <h2>Лабораторная работа 3. Интерполяция и экстраполяция функций</h2>
+        </div>
+
+        <div class="lab-card">
+            <!-- Постановка задачи -->
+            <h3 class="lab-subtitle">Постановка задачи</h3>
+            <p>Для $n+1$ точки $x_0, x_1, \dots, x_n$, называемых узлами интерполяции, и значений некоторой функции $y_i = f(x_i), i = 0, 1, 2, \dots, n$, требуется построить интерполяционный полином $P_n(x)$ степени не выше $n$, проходящий через узлы интерполяции, т.е.</p>
+
+            <p>$$P_n(x_0) = y_0; \quad P_n(x_1) = y_1; \dots, P_n(x_n) = y_n,$$</p>
+
+            <p>и вычислить с помощью $P_n(x)$ значения функций в заданных точках $x_j, j = 1, 2, \dots, m$.</p>
+
+            <!-- Порядок выполнения -->
+            <h3 class="lab-subtitle">Порядок выполнения</h3>
+            <ol class="lab-list">
+                <li>Разработать алгоритм интерполяции функций, составить его блок-схему и дать её описание.</li>
+                <li>Составить и отладить программу интерполяции функций. Оформить её в виде описания процедуры.</li>
+                <li>В качестве результатов выдать на печать значения $x_j, f(x_j); P_n(x_j), j = 1, 2, \dots, m$ в табличной форме.</li>
+            </ol>
+
+            <!-- Варианты заданий -->
+            <h3 class="lab-subtitle">Варианты заданий</h3>
+            <p>Вариант задания состоит из двух чисел (например: 4,12): первое означает метод интерполяции (табл. 1); второе – значения узлов интерполяции $x_i$, функции $y_i = f(x_i)$ (табл. 2) и точек $x_j$, в которых следует вычислить значения функции.</p>
+
+            <!-- Таблица 1 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 1</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Первое число варианта</th>
+                        <th>Интерполяция функции с помощью многочлена (формулы)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>Лагранжа</td></tr>
+                    <tr><td>2</td><td>Первая формула Ньютона (интерполирование вперёд)</td></tr>
+                    <tr><td>3</td><td>Вторая формула Ньютона (интерполирование назад)</td></tr>
+                    <tr><td>4</td><td>Первая формула Гаусса</td></tr>
+                    <tr><td>5</td><td>Вторая формула Гаусса</td></tr>
+                    <tr><td>6</td><td>Бесселя</td></tr>
+                    <tr><td>7</td><td>Стирлинга</td></tr>
+                    <tr><td>8</td><td>В-сплайнов первого и третьего порядка</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 2 (12 ВАРИАНТОВ) -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 2</p>
+                <table class="lab-table-dense">
+                    <thead>
+                    <tr>
+                        <th>Второе<br>число<br>варианта</th>
+                        <th>$x_i$</th>
+                        <th>$y_i = f(x_i)$</th>
+                        <th>$x_j$</th>
+                        <th class="variant-sep">Второе<br>число<br>варианта</th>
+                        <th>$x_i$</th>
+                        <th>$y_i = f(x_i)$</th>
+                        <th>$x_j$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- ВАРИАНТ 1 и 2 -->
+                    <tr>
+                        <td rowspan="6">1</td>
+                        <td>0,43</td><td>1,63597</td><td>0,702</td>
+                        <td class="variant-sep" rowspan="6">2</td>
+                        <td>0,02</td><td>1,02316</td><td>0,102</td>
+                    </tr>
+                    <tr><td>0,48</td><td>1,73234</td><td>0,512</td><td>0,08</td><td>1,09590</td><td>0,114</td></tr>
+                    <tr><td>0,55</td><td>1,87686</td><td>0,645</td><td>0,12</td><td>1,14725</td><td>0,125</td></tr>
+                    <tr><td>0,62</td><td>2,03345</td><td>0,736</td><td>0,17</td><td>1,21483</td><td>0,203</td></tr>
+                    <tr><td>0,70</td><td>2,22846</td><td>0,608</td><td>0,23</td><td>1,30120</td><td>0,154</td></tr>
+                    <tr class="variant-end"><td>0,75</td><td>2,35973</td><td></td><td>0,30</td><td>1,40976</td><td></td></tr>
+
+                    <!-- ВАРИАНТ 3 и 4 -->
+                    <tr>
+                        <td rowspan="6">3</td>
+                        <td>0,41</td><td>2,57418</td><td>0,616</td>
+                        <td class="variant-sep" rowspan="6">4</td>
+                        <td>0,11</td><td>9,05421</td><td>0,314</td>
+                    </tr>
+                    <tr><td>0,46</td><td>2,32513</td><td>0,478</td><td>0,15</td><td>6,61659</td><td>0,235</td></tr>
+                    <tr><td>0,52</td><td>2,09336</td><td>0,665</td><td>0,21</td><td>4,69170</td><td>0,332</td></tr>
+                    <tr><td>0,60</td><td>1,86203</td><td>0,537</td><td>0,29</td><td>3,35106</td><td>0,275</td></tr>
+                    <tr><td>0,65</td><td>1,74926</td><td>0,673</td><td>0,35</td><td>2,73951</td><td>0,186</td></tr>
+                    <tr class="variant-end"><td>0,72</td><td>1,62098</td><td></td><td>0,40</td><td>2,36522</td><td></td></tr>
+
+                    <!-- ВАРИАНТ 5 и 6 -->
+                    <tr>
+                        <td rowspan="11">5</td>
+                        <td>1,415</td><td>0,888551</td><td>1,4161</td>
+                        <td class="variant-sep" rowspan="11">6</td>
+                        <td>0,101</td><td>1,26183</td><td>0,1035</td>
+                    </tr>
+                    <tr><td>1,420</td><td>0,889599</td><td>1,4625</td><td>0,106</td><td>1,27644</td><td>0,1492</td></tr>
+                    <tr><td>1,425</td><td>0,890637</td><td>1,4135</td><td>0,111</td><td>1,29122</td><td>0,0960</td></tr>
+                    <tr><td>1,430</td><td>0,891667</td><td>1,470</td><td>0,121</td><td>1,32130</td><td>0,1530</td></tr>
+                    <tr><td>1,435</td><td>0,892687</td><td>1,41</td><td>0,126</td><td>1,33660</td><td>0,1074</td></tr>
+                    <tr><td>1,440</td><td>0,893698</td><td></td><td>0,131</td><td>1,35207</td><td></td></tr>
+                    <tr><td>1,445</td><td>0,894700</td><td></td><td>0,136</td><td>1,36773</td><td></td></tr>
+                    <tr><td>1,450</td><td>0,895693</td><td></td><td>0,141</td><td>1,38357</td><td></td></tr>
+                    <tr><td>1,455</td><td>0,896677</td><td></td><td>0,146</td><td>1,39959</td><td></td></tr>
+                    <tr><td>1,460</td><td>0,897653</td><td></td><td>0,151</td><td>1,41597</td><td></td></tr>
+                    <tr class="variant-end"><td>1,465</td><td>0,898619</td><td></td><td></td><td></td><td></td></tr>
+
+                    <!-- ВАРИАНТ 7 и 8 -->
+                    <tr>
+                        <td rowspan="13">7</td>
+                        <td>0,15</td><td>0,860708</td><td>0,1535</td>
+                        <td class="variant-sep" rowspan="13">8</td>
+                        <td>3,50</td><td>33,1154</td><td>3,522</td>
+                    </tr>
+                    <tr><td>0,20</td><td>0,818731</td><td>0,7333</td><td>3,55</td><td>34,8138</td><td>4,176</td></tr>
+                    <tr><td>0,25</td><td>0,778801</td><td>0,1000</td><td>3,60</td><td>36,5982</td><td>3,475</td></tr>
+                    <tr><td>0,30</td><td>0,740818</td><td>0,7540</td><td>3,65</td><td>38,4747</td><td>4,250</td></tr>
+                    <tr><td>0,35</td><td>0,704688</td><td>0,6730</td><td>3,70</td><td>40,4473</td><td>3,575</td></tr>
+                    <tr><td>0,40</td><td>0,670320</td><td></td><td>3,75</td><td>42,5211</td><td></td></tr>
+                    <tr><td>0,45</td><td>0,637628</td><td></td><td>3,80</td><td>44,7012</td><td></td></tr>
+                    <tr><td>0,50</td><td>0,606531</td><td></td><td>3,85</td><td>46,9931</td><td></td></tr>
+                    <tr><td>0,55</td><td>0,576950</td><td></td><td>3,90</td><td>49,4024</td><td></td></tr>
+                    <tr><td>0,60</td><td>0,548812</td><td></td><td>3,95</td><td>51,9354</td><td></td></tr>
+                    <tr><td>0,65</td><td>0,522046</td><td></td><td>4,00</td><td>54,5982</td><td></td></tr>
+                    <tr><td>0,70</td><td>0,496585</td><td></td><td>4,05</td><td>57,3975</td><td></td></tr>
+                    <tr class="variant-end"><td>0,75</td><td>0,472367</td><td></td><td>4,10</td><td>60,3403</td><td></td></tr>
+
+                    <!-- ВАРИАНТ 9 и 10 -->
+                    <tr>
+                        <td rowspan="7">9</td>
+                        <td>0,150</td><td>6,61659</td><td></td>
+                        <td class="variant-sep" rowspan="7">10</td>
+                        <td>1,375</td><td>5,04192</td><td></td>
+                    </tr>
+                    <tr><td>0,155</td><td>6,39986</td><td></td><td>1,380</td><td>5,17744</td><td></td></tr>
+                    <tr><td>0,160</td><td>6,19658</td><td></td><td>1,385</td><td>5,32016</td><td></td></tr>
+                    <tr><td>0,165</td><td>6,00551</td><td></td><td>1,390</td><td>5,47069</td><td></td></tr>
+                    <tr><td>0,170</td><td>5,82558</td><td></td><td>1,395</td><td>5,62968</td><td></td></tr>
+                    <tr><td>0,175</td><td>5,65583</td><td></td><td></td><td></td><td></td></tr>
+                    <tr class="variant-end"><td>0,180</td><td>5,49543</td><td></td><td></td><td></td><td></td></tr>
+
+                    <!-- ВАРИАНТ 11 и 12 -->
+                    <tr>
+                        <td rowspan="12">11</td>
+                        <td>0,01</td><td>0,991824</td><td>0,070</td>
+                        <td class="variant-sep" rowspan="12">12</td>
+                        <td>0,45</td><td>20,1946</td><td>0,463</td>
+                    </tr>
+                    <tr><td>0,06</td><td>0,951935</td><td>0,170</td><td>0,46</td><td>19,6133</td><td>0,487</td></tr>
+                    <tr><td>0,11</td><td>0,913650</td><td>0,330</td><td>0,47</td><td>18,9425</td><td>0,505</td></tr>
+                    <tr><td>0,16</td><td>0,876905</td><td>0,450</td><td>0,48</td><td>18,1746</td><td>0,536</td></tr>
+                    <tr><td>0,21</td><td>0,841638</td><td>0,468</td><td>0,49</td><td>17,3010</td><td>0,542</td></tr>
+                    <tr><td>0,26</td><td>0,807789</td><td></td><td>0,50</td><td>16,3123</td><td></td></tr>
+                    <tr><td>0,31</td><td>0,775301</td><td></td><td>0,51</td><td>15,1984</td><td></td></tr>
+                    <tr><td>0,36</td><td>0,744120</td><td></td><td>0,52</td><td>13,9484</td><td></td></tr>
+                    <tr><td>0,41</td><td>0,714193</td><td></td><td>0,53</td><td>12,5508</td><td></td></tr>
+                    <tr><td>0,46</td><td>0,685470</td><td></td><td>0,54</td><td>10,9937</td><td></td></tr>
+                    <tr><td>0,51</td><td>0,657902</td><td></td><td>0,55</td><td>9,2647</td><td></td></tr>
+                    <tr class="variant-end"><td>0,56</td><td>0,631442</td><td></td><td>0,56</td><td>7,3510</td><td></td></tr>
+                    <!-- ВАРИАНТ 13 и 14 -->
+                    <tr>
+                        <td rowspan="6">13</td>
+                        <td>1,375</td><td>5,04192</td><td>1,3832</td>
+                        <td class="variant-sep" rowspan="6">14</td>
+                        <td>0,180</td><td>5,61543</td><td>0,1838</td>
+                    </tr>
+                    <tr><td>1,380</td><td>5,17744</td><td>1,3926</td><td>0,185</td><td>5,46693</td><td>0,1875</td></tr>
+                    <tr><td>1,385</td><td>5,32016</td><td>1,3862</td><td>0,190</td><td>5,32634</td><td>0,1944</td></tr>
+                    <tr><td>1,390</td><td>5,47069</td><td>1,3866</td><td>0,195</td><td>5,19304</td><td>0,1976</td></tr>
+                    <tr><td>1,395</td><td>5,62968</td><td>1,3934</td><td>0,200</td><td>5,06649</td><td>0,2038</td></tr>
+                    <tr class="variant-end"><td>1,400</td><td>5,79788</td><td></td><td>0,205</td><td>4,94619</td><td></td></tr>
+
+                    <!-- ВАРИАНТ 15 и 16 -->
+                    <tr>
+                        <td rowspan="7">15</td>
+                        <td>0,593</td><td>0,532050</td><td>0,608</td>
+                        <td class="variant-sep" rowspan="7">16</td>
+                        <td>0,298</td><td>3,25578</td><td>0,308</td>
+                    </tr>
+                    <tr><td>0,598</td><td>0,535625</td><td>0,615</td><td>0,303</td><td>3,17639</td><td>0,314</td></tr>
+                    <tr><td>0,605</td><td>0,540598</td><td>0,622</td><td>0,310</td><td>3,12180</td><td>0,325</td></tr>
+                    <tr><td>0,613</td><td>0,546235</td><td>0,594</td><td>0,317</td><td>3,04819</td><td>0,321</td></tr>
+                    <tr><td>0,619</td><td>0,550431</td><td>0,628</td><td>0,323</td><td>2,98755</td><td>0,336</td></tr>
+                    <tr><td>0,627</td><td>0,555983</td><td></td><td>0,330</td><td>2,91950</td><td></td></tr>
+                    <tr class="variant-end"><td>0,632</td><td>0,559428</td><td></td><td>0,339</td><td>2,83598</td><td></td></tr>
+
+                    <!-- ВАРИАНТ 17 и 18 -->
+                    <tr>
+                        <td rowspan="13">17</td>
+                        <td>1,50</td><td>15,132</td><td>1,60+</td>
+                        <td class="variant-sep" rowspan="13">18</td>
+                        <td>0,698</td><td>2,22336</td><td>0,720</td>
+                    </tr>
+                    <tr><td>1,55</td><td>17,422</td><td>+0,006n</td><td>0,706</td><td>2,24382</td><td>0,740</td></tr>
+                    <tr><td>1,60</td><td>20,393</td><td>1,83+</td><td>0,714</td><td>2,26446</td><td>0,705</td></tr>
+                    <tr><td>1,65</td><td>23,994</td><td>+0,003n</td><td>0,727</td><td>2,29841</td><td>0,750</td></tr>
+                    <tr><td>1,70</td><td>28,160</td><td>1,725+</td><td>0,736</td><td>2,32221</td><td>0,765</td></tr>
+                    <tr><td>1,75</td><td>32,812</td><td>+0,002n</td><td>0,747</td><td>2,35164</td><td>0,755</td></tr>
+                    <tr><td>1,80</td><td>37,857</td><td>2,00-</td><td>0,760</td><td>2,38690</td><td></td></tr>
+                    <tr><td>1,85</td><td>43,189</td><td>-0,013n</td><td>0,769</td><td>2,41162</td><td></td></tr>
+                    <tr><td>1,90</td><td>48,689</td><td></td><td>0,782</td><td>2,44777</td><td></td></tr>
+                    <tr><td>1,95</td><td>54,225</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>2,00</td><td>59,653</td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>2,05</td><td>64,817</td><td></td><td></td><td></td><td></td></tr>
+                    <tr class="variant-end"><td>2,10</td><td>69,550</td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Методические указания -->
+            <h3 class="lab-subtitle">Методические указания</h3>
+            <p><strong>1. Многочлен Лагранжа.</strong> При интерполировании с помощью многочлена Лагранжа пользуются следующей формулой:</p>
+
+            <p>$$P_n(x) = \sum_{i=0}^n y_i \frac{(x - x_0)(x - x_1)\dots(x - x_{i-1})(x - x_{i+1})\dots(x - x_n)}{(x_i - x_0)(x_i - x_1)\dots(x_i - x_{i-1})(x_i - x_{i+1})\dots(x_i - x_n)} =$$</p>
+            <p>$$= \sum_{i=0}^n \left[ y_i \prod_{j=0, j \ne i}^n \frac{x - x_j}{x_i - x_j} \right].$$</p>
+
+            <p>Дать оценку погрешности интерполяции можно с использованием соотношения для вычисления остаточного члена:</p>
+
+            <p>$$|R_n(x)| \le \frac{\max_{[a,b]} |f^{(n+1)}(x)|}{(n+1)!} (x - x_0)(x - x_1)\dots(x - x_n).$$</p>
+
+            <p><strong>2. Формула Ньютона.</strong> В случае применения интерполяционной формулы Ньютона необходимо выбрать требуемую разновидность формулы.</p>
+            <p><em>Первая интерполяционная формула Ньютона для равноотстоящих узлов (интерполирование вперед):</em></p>
+
+            <p>$$P_n(x) = y_0 + q\Delta y_0 + q(q-1)\Delta^2 y_0 / 2! + \dots + q(q-1)\dots(q-n+1)\Delta^n y_0 / n! =$$</p>
+            <p>$$= y_0 + \sum_{i=1}^n \frac{\prod_{j=0}^{i-1} (q - j)}{i!} \Delta^i y_0,$$</p>
+
+            <p>где $q = (x - x_0)/h, \ h = x_{i+1} - x_i, \ i = 0, 1, 2, \dots, n$; $\Delta^i y_0$ – конечная разность $i$-го порядка, причём $\Delta^i y_0 = \Delta^{i-1} y_1 - \Delta^{i-1} y_0$.</p>
+            <p>Остаточный член $R_n(x)$ этой формулы имеет вид</p>
+
+            <p>$$R_n(x) = h^{n+1} q(q-1)\dots(q-n) f^{(n+1)}(\xi) / (n+1)!,$$</p>
+
+            <p>где $\xi$ – некоторая внутренняя точка промежутка, содержащего все узлы $x_i, i = 0, 1, \dots, n$ и точку $x$.</p>
+
+            <p><em>Вторая интерполяционная формула Ньютона для равноотстоящих узлов (интерполирование назад):</em></p>
+
+            <p>$$P_n(x) = y_n + q\Delta y_{n-1} + q(q+1)\Delta^2 y_{n-2} / 2! + \dots + q(q+1)\dots(q+n-1)\Delta^n y_0 / n! =$$</p>
+            <p>$$= y_n + \sum_{i=1}^n \frac{\prod_{j=0}^{i-1} (q + j)}{i!} \Delta^i y_{n-i},$$</p>
+
+            <p>где $q = (x - x_n)/h, \ h = x_{i+1} - x_i, \ i = 0, 1, 2, \dots, n$; $\Delta^i y$ – конечные разности $i$-го порядка, остаточный член</p>
+
+            <p>$$R_n(x) = h^{n+1} q(q+1)\dots(q+n) f^{(n+1)}(\xi) / (n+1)!.$$</p>
+
+            <p>При вычислении конечных разностей, входящих в интерполяционную формулу Ньютона, рекомендуется составить таблицу конечных разностей (табл. 3).</p>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 30px 0; align-items: flex-start;">
+                
+                <div style="flex: 1; min-width: 300px; overflow-x: auto;">
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; color: var(--text-muted);">Таблица 3</p>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: center; border: 1px solid var(--text-muted);">
+                        <tbody>
+                        <tr>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$x_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^4 y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^5 y_i$</td>
+                        </tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^4 y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^5 y_0$</td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^4 y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_4$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_4$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_4$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_5$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_5$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p>Нужно отметить, что в формуле интерполирования вперед используется верхняя горизонтальная строка таблицы разностей, а в формуле интерполирования назад – самая нижняя наклонная строка (элементы этой строки подчеркнуты).</p>
+
+            <p><strong>3. Неравноотстоящие узлы.</strong> В случае, если заданы неравноотстоящие узлы интерполяции, то необходимо использовать интерполяционную формулу Ньютона следующего вида:</p>
+
+            <p>$$P_n(x) = y_0 + (x - x_0)\delta(x_0, x_1) + (x - x_0)(x - x_1)\delta(x_0, x_1, x_2) + \dots + (x - x_0)(x - x_1)\dots(x - x_{n-1})\delta(x_0, x_1, \dots, x_n),$$</p>
+
+            <p>где $\delta(x_0, x_1, \dots, x_i) = \frac{\delta(x_1, x_2, \dots, x_i) - \delta(x_0, x_1, \dots, x_{i-1})}{x_i - x_0}$ – разделённая разность $i$-го порядка.</p>
+
+            <p><strong>4. Формула Гаусса.</strong> Интерполяционная формула Гаусса записывается для случая равноотстоящих узлов и также имеет две формы.</p>
+            <p><em>Первая формула Гаусса:</em></p>
+
+            <p>$$P(x) = y_0 + q\Delta y_0 + \frac{q(q-1)}{2!}\Delta^2 y_{-1} + \frac{(q+1)q(q-1)}{3!}\Delta^3 y_{-1} +$$</p>
+            <p>$$+ \frac{(q+1)q(q-1)(q-2)}{4!}\Delta^4 y_{-2} + \frac{(q+2)(q+1)q(q-1)(q-2)}{5!}\Delta^5 y_{-2} + \dots$$</p>
+            <p>$$\dots + \frac{(q+n-1)\dots(q-n+1)}{(2n-1)!}\Delta^{2n-1} y_{-(n-1)} + \frac{(q+n-1)\dots(q-n)}{(2n)!}\Delta^{2n} y_{-n} =$$</p>
+            <p>$$= y_0 + \sum_{i=1}^n \left[ \frac{\prod_{j=-(i-1)}^{i-1} (q+j)}{(2i-1)!} \Delta^{2i-1} y_{-(i-1)} + \frac{\prod_{j=-i}^{i-1} (q+j)}{(2i)!} \Delta^{2i} y_{-i} \right],$$</p>
+
+            <p>где $q = (x - x_0)/h$.</p>
+            <p>Разности $\Delta y_0, \Delta^2 y_{-1}, \Delta^3 y_{-1}, \Delta^4 y_{-2}, \Delta^5 y_{-2}, \Delta^6 y_{-3}$, содержащиеся в первой интерполяционной формуле Гаусса, образуют нижнюю ломаную линию в табл. 4.</p>
+
+            <p><em>Вторая интерполяционная формула Гаусса записывается в виде:</em></p>
+
+            <p>$$P(x) = y_0 + q\Delta y_{-1} + \frac{(q+1)q}{2!}\Delta^2 y_{-1} + \frac{(q+1)q(q-1)}{3!}\Delta^3 y_{-2} +$$</p>
+            <p>$$+ \frac{(q+2)(q+1)q(q-1)}{4!}\Delta^4 y_{-2} + \dots + \frac{(q+n-1)\dots(q-n+1)}{(2n-1)!}\Delta^{2n-1} y_{-n} +$$</p>
+            <p>$$+ \frac{(q+n)(q+n-1)\dots(q-n+1)}{(2n)!}\Delta^{2n} y_{-n} =$$</p>
+            <p>$$= y_0 + \sum_{i=1}^n \left[ \frac{\prod_{j=-(i-1)}^{i-1} (q+j)}{(2i-1)!} \Delta^{2i-1} y_{-i} + \frac{\prod_{j=-i}^{i-1} (q+j)}{(2i)!} \Delta^{2i} y_{-i} \right].$$</p>
+
+            <p>Разности $\Delta y_{-1}, \Delta^2 y_{-1}, \Delta^3 y_{-2}, \Delta^4 y_{-2}, \Delta^5 y_{-3}, \Delta^6 y_{-3}$ образуют верхнюю ломаную линию в табл. 4.</p>
+            <figure class="content-image" style="max-width: 1000px; margin: 30px auto; text-align: center;">
+                <img src="img/chapter5_2.png" alt="Таблица 4" style="width: 100%; border-radius: 8px;">
+                <figcaption>Таблица 4</figcaption>
+            </figure>
+            <p>Остаточный член для обеих формул Гаусса будет равен</p>
+
+            <p>$$R(x) = \frac{h^{2n+1} f^{(2n+1)}(\xi)}{(2n+1)!} q(q^2 - 1^2)(q^2 - 2^2)\dots(q^2 - n^2),$$</p>
+
+            <p>где $\xi$ – некоторое промежуточное значение, находящееся между точками $x_{-n}, x_{-(n-1)}, \dots, x_0, x_1, \dots, x_n$ и точкой $x$.</p>
+
+            <p><strong>5. Формула Стирлинга.</strong> Интерполяционная формула Стирлинга получается из первой и второй интерполяционных формул Гаусса как их среднее арифметическое. Она имеет вид</p>
+
+            <p>$$P(x) = y_0 + q\frac{\Delta y_{-1} + \Delta y_0}{2} + \frac{q^2}{2}\Delta^2 y_{-1} + \frac{q(q^2 - 1^2)}{3!}\frac{\Delta^3 y_{-2} + \Delta^3 y_{-1}}{2} +$$</p>
+            <p>$$+ \frac{q^2(q^2 - 1^2)}{4!}\Delta^4 y_{-2} + \frac{q(q^2 - 1^2)(q^2 - 2^2)}{5!}\frac{\Delta^5 y_{-3} + \Delta^5 y_{-2}}{2} + \dots$$</p>
+            <p>$$\dots + \frac{q(q^2 - 1^2)(q^2 - 2^2)\dots(q^2 - (n-1)^2)}{(2n-1)!}\frac{\Delta^{2n-1} y_{-n} + \Delta^{2n-1} y_{-(n-1)}}{2} +$$</p>
+            <p>$$+ \frac{q^2(q^2 - 1^2)(q^2 - 2^2)\dots(q^2 - (n-1)^2)}{(2n)!}\Delta^{2n} y_{-n},$$</p>
+
+            <p>где $q = (x - x_0)/h$.</p>
+            <p>Погрешность интерполяционной формулы Стирлинга может быть определена в соответствии с выражением для остаточного члена формулы Гаусса. Следует помнить, что эта формула применяется для интерполирования в середине таблицы центральных разностей при значениях $q$, близких к нулю. Практически её используют при $|q| \le 0,25$.</p>
+
+            <p><strong>6. Формула Бесселя.</strong> Интерполяционная формула Бесселя также, как и формула Стирлинга, получается путём некоторых преобразований из формул Гаусса. Она имеет следующий вид:</p>
+
+            <p>$$P(x) = \frac{y_0 + y_1}{2} + (q - 0,5)\Delta y_0 + \frac{q(q-1)}{2!}\frac{\Delta^2 y_{-1} + \Delta^2 y_0}{2} + \frac{(q - 0,5)q(q-1)}{3!}\Delta^3 y_{-1} +$$</p>
+            <p>$$+ \frac{q(q-1)(q+1)(q-2)}{4!}\frac{\Delta^4 y_{-2} + \Delta^4 y_{-1}}{2} + \frac{(q - 0,5)q(q-1)(q+1)(q-2)}{5!}\Delta^5 y_{-2} +$$</p>
+            <p>$$+ \frac{q(q-1)(q+1)(q-2)(q+2)(q-3)}{6!}\frac{\Delta^6 y_{-3} + \Delta^6 y_{-2}}{2} + \dots$$</p>
+            <p>$$\dots + \frac{q(q-1)(q+1)(q-2)(q+2)\dots(q-n)(q+n-1)}{(2n)!}\frac{\Delta^{2n} y_{-n} + \Delta^{2n} y_{-n+1}}{2} +$$</p>
+            <p>$$+ \frac{(q-0,5)q(q-1)(q+1)(q-2)(q+2)\dots(q-n)(q+n-1)}{(2n+1)!}\Delta^{2n+1} y_{-n},$$</p>
+
+            <p>где $q = (x - x_0)/h$.</p>
+            <p>Остаточный член интерполяционной формулы Бесселя, определяющий погрешность интерполяции, вычисляется по формуле</p>
+
+            <p>$$R(x) = \frac{h^{2n+2}}{(2n+2)!} f^{(2n+2)}(\xi) q(q^2 - 1^2)(q^2 - 2^2)\dots(q^2 - n^2)(q - (n+1)),$$</p>
+
+            <p>где $\xi \in [x_0 - nh, x_0 + (n+1)h]$.</p>
+
+            <p><strong>7. Сплайн-интерполяция.</strong> Интерполирование одним из приведённых выше многочленов на всём отрезке $[a, b]$ с использованием большого числа узлов интерполяции часто приводит к плохому приближению, что объясняется сильным накоплением погрешностей в процессе вычислений. Для избежания этого поступают следующим образом: весь отрезок $[a, b]$ разбивают на отрезки $[x_{i-1}, x_i], \ i = 1, n$ и на каждом из частичных отрезков приближенно заменяют функцию $y = f(x)$ многочленом невысокой степени. Одним из способов такого интерполирования функции $y = f(x)$ на всем отрезке $[a, b]$ является интерполирование с помощью сплайн-функций (сплайнов).</p>
+            <p><em>Сплайном</em> называется функция, которая вместе с несколькими производными непрерывна на всем заданном отрезке $[a, b]$, а на каждом частичном отрезке $[x_{i-1}, x_i]$ в отдельности является некоторым алгебраическим многочленом.</p>
+            <p><em>Сплайн первого порядка (линейный сплайн):</em></p>
+
+            <p>$$S_1(x) = \sum_{i=k}^{k+1} f_i S_{i,1}(x), \ x \in [x_k, x_{k+1}],$$</p>
+
+            <p>где $S_{k,1}(x) = (x_{k+1} - x)/h, \ S_{k+1,1}(x) = (x - x_k)/h$.</p>
+
+            <p>Для построения сплайнов третьего порядка (кубического сплайна) существует множество способов, позволяющих получить кубические сплайны с различным дефектом. Одним из наиболее простых способов являются построение кубических сплайнов с использованием наклонов сплайна либо следующее выражение:</p>
+
+            <p>$$S_3(x) = \frac{2}{3} \sum_{i=k-1}^{k+2} f_i S_{i,3}(x), \ x \in [x_k, x_{k+1}],$$</p>
+
+            <p>где $S_{k-1,3}(x) = (x_{k+1} - x)^3 / 4h^3$,</p>
+            <p>$$S_{k,3}(x) = [(x_{k+2} - x)^3 - 4(x_{k+1} - x)^3] / 4h^3,$$</p>
+            <p>$$S_{k+1,3}(x) = [(x - x_{k-1})^3 - 4(x - x_k)^3] / 4h^3,$$</p>
+            <p>$$S_{k+2,3}(x) = (x - x_k)^3 / 4h^3.$$</p>
         </div>
     </section>
 </main>
