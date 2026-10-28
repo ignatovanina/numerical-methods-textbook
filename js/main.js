@@ -232,3 +232,26 @@ function checkTF(button, isCorrect, resultId) {
         resultDiv.className = 'quiz-result incorrect';
     }
 }
+// Переключение между лабораторными работами на одной странице
+function showLab(labId) {
+    const labCards = document.querySelectorAll('.lab-card');
+    const introBlock = document.querySelector('.lab-intro');
+
+    if (labId === 'all') {
+        // Показываем всё (и вводную часть, и все карточки)
+        if (introBlock) introBlock.style.display = 'block';
+        labCards.forEach(card => {
+            card.style.display = 'block';
+        });
+    } else {
+        // Скрываем вводную часть и все карточки, кроме выбранной
+        if (introBlock) introBlock.style.display = 'none';
+        labCards.forEach(card => {
+            if (card.id === labId) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+}
