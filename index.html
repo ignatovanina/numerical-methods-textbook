@@ -166,7 +166,7 @@
             <a href="#lab-1" class="lesson" onclick="showPage('lab-1'); return false;">ЛР 1. Решение трансцендентных уравнений</a>
             <a href="#lab-2" class="lesson" onclick="showPage('lab-2'); return false;">ЛР 2. Решение СЛАУ</a>
             <a href="#lab-3" class="lesson" onclick="showPage('lab-3'); return false;">ЛР 3. Интерполяция и экстраполяция функций</a>
-            <a href="#lab-4" class="lesson" onclick="showPage('lab-4'); return false;">ЛР 4. Интерполяция</a>
+            <a href="#lab-4" class="lesson" onclick="showPage('lab-4'); return false;">ЛР 4. Интегрирование</a>
             <a href="#lab-5" class="lesson" onclick="showPage('lab-5'); return false;">ЛР 5. Интегрирование</a>
             <a href="#lab-6" class="lesson" onclick="showPage('lab-6'); return false;">ЛР 6. ОДУ</a>
         </div>
@@ -4790,6 +4790,303 @@
             <p>$$S_{k,3}(x) = [(x_{k+2} - x)^3 - 4(x_{k+1} - x)^3] / 4h^3,$$</p>
             <p>$$S_{k+1,3}(x) = [(x - x_{k-1})^3 - 4(x - x_k)^3] / 4h^3,$$</p>
             <p>$$S_{k+2,3}(x) = (x - x_k)^3 / 4h^3.$$</p>
+        </div>
+    </section>
+    <!-- СТРАНИЦА ЛР 4 -->
+    <section class="content-page" id="page-lab-4">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#labs" onclick="showPage('labs'); return false;">Лабораторный практикум</a>
+            <span>/</span>
+            <span class="current">ЛР 4</span>
+        </nav>
+        <div class="content-header">
+            <h2>Лабораторная работа 4. Вычисление определённых интегралов</h2>
+        </div>
+
+        <div class="lab-card">
+            <!-- Постановка задачи -->
+            <h3 class="lab-subtitle">Постановка задачи</h3>
+            <p>Вычислить с точностью $\varepsilon_1 = 10^{-5}$ значение $u = \int_{a_1}^{b_1} f_1(x) \,dx$, а также получить таблицу значений функции $F(t) = \int_{a_2}^{b_2} f_2(x, t) \,dx$, вычисленных с точностью $\varepsilon_2 = 10^{-4}$ в точках $t_i = c + ih, \ i = 0, 1, \dots, m$, где $h = (d - c)/m$. Функция $f_2(x, t)$ представляется выражением вида</p>
+
+            <p>$$f_2(x, t) = \varphi(z)\psi(x) = \varphi\left(\frac{t}{1 + x^2} + \mu x\right)\psi(x).$$</p>
+
+            <!-- Порядок выполнения -->
+            <h3 class="lab-subtitle">Порядок выполнения</h3>
+            <ol class="lab-list">
+                <li>Изучить методы приближённого вычисления значения интеграла, составить блок-схему алгоритма и дать её описание.</li>
+                <li>Разработать и отладить программу вычисления определённого интеграла, оформив вычисление значений функций $f_1(x)$ и $f_2(x, t)$ в виде подпрограммы.</li>
+                <li>В качестве результата вывести на печать значение $u$, последовательность значений $t_i$ и $F(t_i), \ i = 1, 2, \dots, n$. Построить график функции $F(t)$.</li>
+            </ol>
+
+            <!-- Варианты заданий -->
+            <h3 class="lab-subtitle">Варианты заданий</h3>
+            <p>Вариант задания состоит из шести чисел (например: 4, 19, 13, 3, 4): первое означает квадратурную формулу (табл. 1); второе – функцию $f_1(x), \ a_1, \ b_1$ (табл. 2); третье – функцию $\varphi(z)$ (табл. 3); четвёртое – функцию $\psi(x)$ (табл. 4); пятое – коэффициент $\mu$; шестое – значения $a_2, b_2, c, d, m$ (табл. 6).</p>
+            <p>Алгоритм вычисления значения определённого интеграла с задаваемой точностью должен быть оформлен в виде подпрограммы.</p>
+
+            <!-- Таблица 1 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 1</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr><th>Первое число варианта</th><th>Квадратурная формула</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>Прямоугольников</td></tr>
+                    <tr><td>2</td><td>Трапеций</td></tr>
+                    <tr><td>3</td><td>Симпсона</td></tr>
+                    <tr><td>4</td><td>Ньютона</td></tr>
+                    <tr><td>5</td><td>Гаусса</td></tr>
+                    <tr><td>6</td><td>Монте-Карло</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 2 (ТОЧНО КАК НА СКРИНШОТЕ) -->
+            <div class="table-container" style="max-height: 600px; overflow-y: auto;">
+                <p class="table-caption">Таблица 2</p>
+                <table class="lab-table" style="font-size: 0.8rem;">
+                    <thead>
+                    <tr>
+                        <th>Второе<br>число<br>варианта</th>
+                        <th>$f_1(x)$</th>
+                        <th>$a_1$</th>
+                        <th>$b_1$</th>
+                        <th>Второе<br>число<br>варианта</th>
+                        <th>$f_1(x)$</th>
+                        <th>$a_1$</th>
+                        <th>$b_1$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>$\sqrt{e^x - 1}$</td><td>0,1</td><td>2</td>
+                        <td>14</td>
+                        <td>$(x+1)\sqrt{x^2+1}$</td><td>0</td><td>3/4</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>$e^x \sin x$</td><td>0</td><td>$\pi$</td>
+                        <td>15</td>
+                        <td>$\sqrt{x}\sin x$</td><td>0</td><td>1</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>$(x^2-1)\cdot 10^{-2x}$</td><td>0</td><td>1</td>
+                        <td>16</td>
+                        <td>$1/(x+\sqrt{\cos x})$</td><td>0</td><td>$\pi/2$</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>$x\sqrt[3]{1+x}$</td><td>1</td><td>9</td>
+                        <td>17</td>
+                        <td>$1/(x+\sqrt{\ln x})$</td><td>2</td><td>3</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>$1/(3+2\cos x)$</td><td>0</td><td>$\pi$</td>
+                        <td>18</td>
+                        <td>$e^{-5x^2+x+0,5}$</td><td>0</td><td>1</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>$1/(x\ln^2 x)$</td><td>2</td><td>3</td>
+                        <td>19</td>
+                        <td>$\sqrt{1-0,5\sin^2 x}$</td><td>0</td><td>$\pi/2$</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>$\frac{\arcsin\sqrt{x}}{\sqrt{x(1-x)}}$</td><td>0,2</td><td>0,3</td>
+                        <td>20</td>
+                        <td>$\frac{\ln(1+\sqrt{x})}{\sqrt[3]{x}}$</td><td>0</td><td>1</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>$x^3 e^{2x}$</td><td>0</td><td>1</td>
+                        <td>21</td>
+                        <td>$\frac{\sqrt{0,7+x^2}}{1+\cos 0,7x}$</td><td>0</td><td>1</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>$\text{tg}^3\left(\frac{x}{2}+\frac{\pi}{4}\right)$</td><td>0</td><td>$\pi/4$</td>
+                        <td>22</td>
+                        <td>$\sqrt{\frac{1-0,75x^2}{1-x^2}}$</td><td>0</td><td>1/2</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>$x \text{arctg } x$</td><td>0</td><td>$\sqrt{3}$</td>
+                        <td>23</td>
+                        <td>$\frac{(\text{arctg } x)^2}{x}$</td><td>0</td><td>1/2</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>$1/(1+\sqrt{x})$</td><td>0</td><td>4</td>
+                        <td>24</td>
+                        <td>$\frac{e^{-x^2}\sin 0,8x}{0,8+x^2}$</td><td>0</td><td>1</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>$\frac{1}{5-3\cos x}$</td><td>0</td><td>$2\pi$</td>
+                        <td>25</td>
+                        <td>$\frac{1}{1+\sin^3 x}$</td><td>0</td><td>$\pi$</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>$\frac{2^x}{1-4^x}$</td><td>0</td><td>3/4</td>
+                        <td></td>
+                        <td></td><td></td><td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Таблица 3 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 3</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Третье число</th><th>$\varphi(z)$</th>
+                        <th>Третье число</th><th>$\varphi(z)$</th>
+                        <th>Третье число</th><th>$\varphi(z)$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>$\sin z$</td><td>6</td><td>$\text{sh } z$</td><td>11</td><td>$\text{th}^2 z$</td></tr>
+                    <tr><td>2</td><td>$\sqrt{2-\cos z}$</td><td>7</td><td>$\sqrt{1+\sin^2 z}$</td><td>12</td><td>$\ln(1+z^2)$</td></tr>
+                    <tr><td>3</td><td>$\cos z$</td><td>8</td><td>$\text{ch } z$</td><td>13</td><td>$\sqrt{\text{ch } z}$</td></tr>
+                    <tr><td>4</td><td>$e^{-z}$</td><td>9</td><td>$\text{th } z$</td><td>14</td><td>$\sqrt{1+e^{2z}}$</td></tr>
+                    <tr><td>5</td><td>$\sqrt{\pi - \text{arctg } z}$</td><td>10</td><td>$\text{arctg } z$</td><td>15</td><td>$\sqrt{2\text{ch } z - 1}$</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 4 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 4</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Четвёртое число</th><th>$\psi(x)$</th>
+                        <th>Четвёртое число</th><th>$\psi(x)$</th>
+                        <th>Четвёртое число</th><th>$\psi(x)$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>$\frac{1-x^2}{1+x^2}$</td><td>3</td><td>$\frac{x-1}{x^2+x+1}$</td><td>5</td><td>$\frac{2-3x}{4+x^2}$</td></tr>
+                    <tr><td>2</td><td>$\frac{2+x}{x^2-x+1}$</td><td>4</td><td>$\frac{\sqrt{x^2+1}}{x^2+3}$</td><td>6</td><td>$\frac{x+1}{x^2+x+1}$</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 5 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 5</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr><th>Пятое число варианта</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>$\mu$</td><td>-0,01</td><td>-0,05</td><td>0,05</td><td>0,01</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 6 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 6</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Шестое число</th><th>$a_2$</th><th>$b_2$</th><th>$c$</th><th>$d$</th><th>$m$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>0</td><td>$\pi/2$</td><td>1/2</td><td>3/2</td><td>10</td></tr>
+                    <tr><td>2</td><td>0</td><td>1</td><td>1</td><td>2</td><td>20</td></tr>
+                    <tr><td>3</td><td>$\pi/4$</td><td>$3\pi/4$</td><td>1</td><td>2,5</td><td>15</td></tr>
+                    <tr><td>4</td><td>1/2</td><td>3/2</td><td>2</td><td>3</td><td>10</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Методические указания -->
+            <h3 class="lab-subtitle">Методические указания</h3>
+
+            <p>1. Для вычисления значения определённого интеграла $I = \int_a^b f(x)dx$ с заданной точностью $\varepsilon > 0$ рекомендуется использовать квадратурную формулу вида</p>
+
+            <p>$$I = \sum_{i=0}^N A_i f_i + R,$$</p>
+
+            <p>где $f_i = f(x_i)$, а $x_i$ и $A_i$ определяются типом квадратурной формулы; $R$ – остаточный член формулы, определяющий погрешность вычисления интегралов.</p>
+
+            <p><strong>1) Формулы прямоугольников.</strong> Различают формулы левых, правых и центральных прямоугольников:</p>
+
+            <p>$$I = \int_a^b f(x)dx \approx h(f_0 + f_1 + \dots + f_{N-1}),$$</p>
+
+            <p>где $f_i = f(x_i)$, $h = (b - a)/N$.</p>
+            <p>В формуле левых прямоугольников $x_i = a + ih$, правых – $x_i = a + (i+1)h$, центральных – $x_i = a + (i+1/2)h$.</p>
+
+            <p><strong>2) Формула трапеций:</strong></p>
+
+            <p>$$I = \int_a^b f(x)dx \approx h\left(\frac{1}{2}f_0 + f_1 + \dots + f_{N-1} + \frac{1}{2}f_N\right),$$</p>
+
+            <p>где $f_i = f(x_i)$, $x_i = a + ih$, $h = (b - a)/N$.</p>
+
+            <p><strong>3) Формула парабол (Симпсона):</strong></p>
+
+            <p>$$I = \int_a^b f(x)dx \approx \frac{h}{3}(f_0 + 4f_1 + 2f_2 + 4f_3 + 2f_4 \dots + 2f_{N-2} + 4f_{N-1} + f_N),$$</p>
+
+            <p>где $f_i = f(x_i)$, $x_i = a + ih$, $h = (b - a)/N$, $N$ – кратно двум.</p>
+
+            <p><strong>4) Формула Ньютона («правило 3/8»):</strong></p>
+
+            <p>$$I = \int_a^b f(x)dx \approx \frac{3h}{8}(f_0 + 3f_1 + 3f_2 + 2f_3 + \dots + 2f_{N-3} + 3f_{N-2} + 3f_{N-1} + f_N),$$</p>
+
+            <p>где $f_i = f(x_i)$, $x_i = a + ih$, $h = (b - a)/N$, $N$ – кратно трём.</p>
+
+            <p><strong>5) Формула Гаусса:</strong></p>
+
+            <p>$$\int_{-1}^1 f(t)dt = \sum_{i=1}^n A_i f(t_i) + R_n(f),$$</p>
+
+            <p>где $A_i$ и $t_i, \ i = 1, 2, \dots, n$ подбираются так, чтобы формула была точной для всех многочленов наивысшей возможной степени $N$. Коэффициенты квадратурной формулы Гаусса выбрать из табл. 6 (в методичке она Таблица 7).</p>
+
+            <!-- Таблица 7 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 7</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>$n$</th>
+                        <th>$t_i$</th>
+                        <th>$A_i$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>$t_1 = 0$</td><td>$A_1 = 2$</td></tr>
+                    <tr><td>2</td><td>$-t_1 = t_2 = 0,57735027$</td><td>$A_1 = A_2 = 1$</td></tr>
+                    <tr><td>3</td><td>$-t_1 = t_3 = 0,77459667$<br>$t_2 = 0$</td><td>$A_1 = A_3 = 5/9$<br>$A_2 = 8/9$</td></tr>
+                    <tr><td>4</td><td>$-t_1 = t_4 = 0,86113631$<br>$-t_2 = t_3 = 0,33998104$</td><td>$A_1 = A_4 = 0,34785484$<br>$A_2 = A_3 = 0,65214516$</td></tr>
+                    <tr><td>5</td><td>$-t_1 = t_5 = 0,90617985$<br>$-t_2 = t_4 = 0,53846931$<br>$t_3 = 0$</td><td>$A_1 = A_5 = 0,23692688$<br>$A_2 = A_4 = 0,47862868$<br>$A_3 = 0,56888889$</td></tr>
+                    <tr><td>6</td><td>$-t_1 = t_6 = 0,93246951$<br>$-t_2 = t_5 = 0,66120939$<br>$-t_3 = t_4 = 0,23861919$</td><td>$A_1 = A_6 = 0,17132450$<br>$A_2 = A_5 = 0,36076158$<br>$A_3 = A_4 = 0,46791394$</td></tr>
+                    <tr><td>7</td><td>$-t_1 = t_7 = 0,94910791$<br>$-t_2 = t_6 = 0,74153119$<br>$-t_3 = t_5 = 0,40584515$<br>$t_4 = 0$</td><td>$A_1 = A_7 = 0,12948496$<br>$A_2 = A_6 = 0,27970540$<br>$A_3 = A_5 = 0,38183006$<br>$A_4 = 0,41795918$</td></tr>
+                    <tr><td>8</td><td>$-t_1 = t_8 = 0,96028986$<br>$-t_2 = t_7 = 0,79666648$<br>$-t_3 = t_6 = 0,52553242$<br>$-t_4 = t_5 = 0,18343464$</td><td>$A_1 = A_8 = 0,10122854$<br>$A_2 = A_7 = 0,22238104$<br>$A_3 = A_6 = 0,31370664$<br>$A_4 = A_5 = 0,36268378$</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>При вычислении интеграла вида $\int_a^b f(x)dx$ следует сделать замену переменной $x = (b-a)/2 + (b-a)t/2$. Тогда формула Гаусса примет вид</p>
+
+            <p>$$\int_a^b f(x)dx \approx \frac{b-a}{2} \sum_{i=1}^n A_i f\left(\frac{b+a}{2} + \frac{b-a}{2}t_i\right).$$</p>
+
+            <p><strong>6) Метод Монте-Карло:</strong></p>
+
+            <p>$$\int_a^b f(x)dx \approx \frac{b-a}{M} \sum_{i=1}^M f(a + (b-a)R_i),$$</p>
+
+            <p>где $R_i$ – равномерно распределенное случайное число из диапазона 0 ... 1; $M$ – количество вычислений подынтегральной функции (должно быть достаточно большим).</p>
+
+            <p>2. Для обеспечения требуемой точности при приближенном вычислении интеграла по квадратурной формуле нужно выбрать соответствующее значение шага $h$ (или число шагов $N$, на которое делится отрезок интегрирования). Для этого можно воспользоваться существующими формулами для остаточных членов квадратурных формул, однако оценка значения соответствующей производной подынтегральной функции, входящей в формулу остаточного члена, нередко вызывает большие трудности. Кроме того эту оценку приходится делать для каждой новой подынтегральной функции.</p>
+            <p>На практике для достижения требуемой точности вычисления интеграла по квадратурной формуле часто используется метод последовательного удвоения шагов (двойной пересчёт), в соответствии с которым интеграл $I$ вычисляется дважды: сначала при числе шагов, равном $n$, а затем при числе шагов, равном $2n$. Обозначив результаты вычислений через $I_n$ и $I_{2n}$, соответственно, сравнивают их, проверяя выполнение неравенства $\Delta I = |I_n - I_{2n}| < \varepsilon$. Если неравенство выполняется, то приближенное значение интеграла найдено. В противном случае вычисления продолжают с увеличенным числом шагов. Таким образом, $I_n$ вычисляется для последовательных значений $n = N_0, 2N_0, 4N_0$ и т.д., где $N_0$ – начальное число шагов. Процесс вычислений заканчивается, когда для очередного значения $n$ будет получена погрешность $\Delta I < \varepsilon$.</p>
+            <p>3. Для получения эффективного алгоритма вычисления определённого интеграла следует учесть, что при использовании некоторых квадратурных формул при удвоении числа шагов нет необходимости заново вычислять значения подынтегральной функции во всех узлах сетки, так как все узлы сетки, полученные при числе шагов, равном $n$, являются узлами сетки и при числе шагов, равном $2n$.</p>
         </div>
     </section>
 </main>
