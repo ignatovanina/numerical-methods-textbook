@@ -479,3 +479,116 @@ header h1 {
 .lab-intro ol li {
     margin-bottom: 5px;
 }
+/* =========================================
+   СТИЛИ ДЛЯ ЛАБОРАТОРНЫХ РАБОТ
+   ========================================= */
+
+/* Подзаголовки в лабораторных (Постановка задачи, Порядок выполнения и т.д.) */
+.lab-subtitle {
+    color: var(--accent);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+/* Меньшие подзаголовки (Описание методов) */
+.lab-subtitle-small {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+/* Списки (нумерованные и маркированные) */
+.lab-list {
+    line-height: 1.8;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.lab-list li {
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+
+/* Контейнер для таблиц (чтобы можно было скроллить на телефоне) */
+.table-container {
+    overflow-x: auto;
+    margin: 25px 0;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+/* Подпись к таблице (Таблица 1) */
+.table-caption {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Сами таблицы в лабораторных */
+.lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    text-align: center;
+    background-color: var(--bg-card);
+}
+
+.lab-table th {
+    background-color: rgba(0, 168, 150, 0.15); /* Легкий бирюзовый фон для шапки */
+    color: var(--accent);
+    border: 1px solid var(--border-color);
+    padding: 12px 8px;
+    font-weight: 600;
+}
+
+.lab-table td {
+    border: 1px solid var(--border-color);
+    padding: 10px 8px;
+    color: var(--text-main);
+}
+
+/* Эффект при наведении на строку таблицы */
+.lab-table tr:hover td {
+    background-color: rgba(244, 241, 222, 0.05);
+}
+
+/* Улучшенное отображение формул в лабораторных */
+.lab-card .katex-display {
+    margin: 1.5em 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+/* Выделение названий методов в лабораторных работах */
+.lab-card strong {
+    color: var(--accent); /* Бирюзовый цвет из вашей палитры */
+    font-weight: 600;
+}
+/* Отступ между методами в лабораторных работах */
+.lab-card strong {
+    color: var(--accent); /* Зеленый цвет для названий методов */
+    font-weight: 600;
+}
+
+/* Добавляем отступ у абзацев, которые идут перед методами */
+.lab-card p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+.table-caption {
+    font-size: 0.9rem;
+    color: var(--text-muted); /* Приглушенный цвет, как у подписей к картинкам */
+    font-style: italic; /* Курсив, чтобы отличать от основного текста */
+    margin-bottom: 10px;
+    margin-left: 5px; /* Небольшой отступ слева, чтобы не прилипало к краю */
+    letter-spacing: normal; /* Убираем агрессивный разряд */
+    text-transform: none; /* Убираем КАПС */
+}
