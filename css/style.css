@@ -450,3 +450,32 @@ header h1 {
     background-color: rgba(255, 77, 77, 0.2);
     border-color: #ff4d4d;
 }
+/* Вводная часть лабораторных */
+.lab-intro {
+    background-color: rgba(0, 168, 150, 0.08); /* Легкий бирюзовый оттенок */
+    border: 1px solid rgba(0, 168, 150, 0.3); /* Тонкая рамка в тон */
+    border-radius: 12px; /* Скругленные углы */
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.lab-intro h3 {
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.lab-intro p {
+    margin-bottom: 15px;
+    color: var(--text-main);
+}
+
+.lab-intro ol {
+    margin-left: 20px;
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+.lab-intro ol li {
+    margin-bottom: 5px;
+}
