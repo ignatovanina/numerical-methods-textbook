@@ -4222,6 +4222,20 @@
             <p>$$x_k = x_{k-1} - f(x_{k-1}) / f'(x_0), \ k = 1, 2, \dots.$$</p>
 
             <p>Выбор начального приближения, алгоритм и критерий окончания поиска в данном методе такие же что и в обычном методе Ньютона.</p>
+            <div class="calc-card" id="calc-isolate">
+                <h3 class="lab-subtitle">Калькулятор 0. Отделение корня</h3>
+                <p class="calc-hint">Табулирование + график. Помогает найти отрезок <code>[a, b]</code>, где функция меняет знак.</p>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="is-f" value="1/(1+x*x) - t*x"></label>
+                    <label>t: <input id="is-t" type="number" value="1" step="any"></label>
+                    <label>x от: <input id="is-min" type="number" value="-3" step="any"></label>
+                    <label>x до: <input id="is-max" type="number" value="3" step="any"></label>
+                    <label>шаг: <input id="is-step" type="number" value="0.25" step="any"></label>
+                </div>
+                <button onclick="calcIsolate()">Построить</button>
+                <div class="calc-result" id="is-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="is-canvas" height="280"></canvas></div>
+            </div>
         </div>
     </section>
 
