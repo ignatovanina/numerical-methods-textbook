@@ -4236,6 +4236,108 @@
                 <div class="calc-result" id="is-out"></div>
                 <div class="calc-canvas-wrap"><canvas id="is-canvas" height="280"></canvas></div>
             </div>
+            <!-- 1. Половинное деление -->
+            <div class="calc-card" id="calc-bisection">
+                <h3 class="lab-subtitle">Калькулятор 1. Метод половинного деления <span class="calc-badge">метод 1</span></h3>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="bi-f" value="1/(1+x*x) - t*x"></label>
+                    <label>a: <input id="bi-a" type="number" value="0.1" step="any"></label>
+                    <label>b: <input id="bi-b" type="number" value="2" step="any"></label>
+                    <label>t: <input id="bi-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="bi-eps" type="number" value="0.001" step="any"></label>
+                </div>
+                <button onclick="calcBisection()">Вычислить</button>
+                <div class="calc-result" id="bi-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="bi-canvas" height="280"></canvas></div>
+            </div>
+
+            <!-- 2. Хорды -->
+            <div class="calc-card" id="calc-chord">
+                <h3 class="lab-subtitle">Калькулятор 2. Метод хорд <span class="calc-badge">метод 2</span></h3>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="ch-f" value="1/(1+x*x) - t*x"></label>
+                    <label>a: <input id="ch-a" type="number" value="0.1" step="any"></label>
+                    <label>b: <input id="ch-b" type="number" value="2" step="any"></label>
+                    <label>t: <input id="ch-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="ch-eps" type="number" value="0.001" step="any"></label>
+                </div>
+                <button onclick="calcChord()">Вычислить</button>
+                <div class="calc-result" id="ch-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="ch-canvas" height="280"></canvas></div>
+            </div>
+
+            <!-- 3. Ньютон -->
+            <div class="calc-card" id="calc-newton">
+                <h3 class="lab-subtitle">Калькулятор 3. Метод касательных (Ньютона) <span class="calc-badge">метод 3</span></h3>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="nt-f" value="1/(1+x*x) - t*x"></label>
+                    <label>x₀: <input id="nt-x0" type="number" value="1" step="any"></label>
+                    <label>t: <input id="nt-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="nt-eps" type="number" value="0.001" step="any"></label>
+                </div>
+                <button onclick="calcNewton()">Вычислить</button>
+                <div class="calc-result" id="nt-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="nt-canvas" height="280"></canvas></div>
+            </div>
+
+            <!-- 4. Комбинированный -->
+            <div class="calc-card" id="calc-combo">
+                <h3 class="lab-subtitle">Калькулятор 4. Комбинированный метод <span class="calc-badge">метод 4</span></h3>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="cb-f" value="1/(1+x*x) - t*x"></label>
+                    <label>a: <input id="cb-a" type="number" value="0.1" step="any"></label>
+                    <label>b: <input id="cb-b" type="number" value="2" step="any"></label>
+                    <label>t: <input id="cb-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="cb-eps" type="number" value="0.001" step="any"></label>
+                </div>
+                <button onclick="calcCombo()">Вычислить</button>
+                <div class="calc-result" id="cb-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="cb-canvas" height="280"></canvas></div>
+            </div>
+
+            <!-- 5. Секущие -->
+            <div class="calc-card" id="calc-secant">
+                <h3 class="lab-subtitle">Калькулятор 5. Метод секущих <span class="calc-badge">метод 5</span></h3>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="sc-f" value="1/(1+x*x) - t*x"></label>
+                    <label>x₀: <input id="sc-x0" type="number" value="1.2" step="any"></label>
+                    <label>x₁: <input id="sc-x1" type="number" value="0.8" step="any"></label>
+                    <label>t: <input id="sc-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="sc-eps" type="number" value="0.001" step="any"></label>
+                </div>
+                <button onclick="calcSecant()">Вычислить</button>
+                <div class="calc-result" id="sc-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="sc-canvas" height="280"></canvas></div>
+            </div>
+
+            <!-- 6. Модифицированный Ньютон -->
+            <div class="calc-card" id="calc-mnewton">
+                <h3 class="lab-subtitle">Калькулятор 6. Модифицированный метод Ньютона <span class="calc-badge">метод 6</span></h3>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="mn-f" value="1/(1+x*x) - t*x"></label>
+                    <label>x₀: <input id="mn-x0" type="number" value="1" step="any"></label>
+                    <label>t: <input id="mn-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="mn-eps" type="number" value="0.001" step="any"></label>
+                </div>
+                <button onclick="calcMNewton()">Вычислить</button>
+                <div class="calc-result" id="mn-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="mn-canvas" height="280"></canvas></div>
+            </div>
+
+            <!-- 7. Простая итерация -->
+            <div class="calc-card" id="calc-iter">
+                <h3 class="lab-subtitle">Калькулятор 7. Метод простой итерации <span class="calc-badge">метод 7</span></h3>
+                <p class="calc-hint">Уравнение приводится к виду <code>x = g(x, t)</code>. Для <code>1/(1+x²) − tx = 0</code> можно взять <code>g = 1/(t(1+x²))</code>.</p>
+                <div class="calc-grid">
+                    <label>g(x, t): <input id="it-g" value="1/(t*(1+x*x))"></label>
+                    <label>x₀: <input id="it-x0" type="number" value="1" step="any"></label>
+                    <label>t: <input id="it-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="it-eps" type="number" value="0.001" step="any"></label>
+                </div>
+                <button onclick="calcIter()">Вычислить</button>
+                <div class="calc-result" id="it-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="it-canvas" height="280"></canvas></div>
+            </div>
         </div>
     </section>
 
