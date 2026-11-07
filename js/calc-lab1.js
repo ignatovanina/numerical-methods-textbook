@@ -120,3 +120,20 @@ function calcSecant() {
         roots: [{ x: res.root, y: 0 }]
     });
 }
+function calcMNewton() {
+    const f = makeF('mn-f', 'mn-out'); if (!f) return;
+    const x0 = val('mn-x0'), t = val('mn-t'), eps = val('mn-eps');
+    const res = Num.modNewton(f, x0, t, eps);
+    if (res.error) { document.getElementById('mn-out').innerHTML = errBox(res.error); return; }
+    const rows = res.rows.map(r =>
+        `<tr><td>${r.i}</td><td>${fmt(r.x, 8)}</td><td>${fmt(r.fx, 3)}</td></tr>`
+    ).join('');
+    document.getElementById('mn-out').innerHTML =
+        `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
+         <table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>f(xᵢ)</th></tr></thead><tbody>${rows}</tbody></table>`;
+    const half = Math.max(1, Math.abs(res.root - x0)) * 1.4;
+    Graph.draw(document.getElementById('mn-canvas'), f, t, res.root - half, res.root + half, {
+        title: `Модифицированный Ньютон, x₀ = ${fmt(x0, 4)}`,
+        roots: [{ x: res.root, y: 0 }]
+    });
+}
