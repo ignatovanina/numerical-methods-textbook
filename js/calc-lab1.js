@@ -557,10 +557,180 @@ function calcCombo() {
     document.getElementById('cb-out').innerHTML =
         `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
          ${hiddenTable(tableHtml)}`;
-    Graph.draw(document.getElementById('cb-canvas'), f, t, a - 0.3, b + 0.3, {
-        title: `Комбинированный, корень ≈ ${fmt(res.root, 5)}`,
-        segment: [a, b], roots: [{ x: res.root, y: 0 }]
+    // --- Отрисовка графика комбинированного метода ---
+    const cv = document.getElementById('cb-canvas');
+    const ctx = cv.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const W = cv.clientWidth, H = cv.clientHeight;
+    cv.width = W * dpr;
+    cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    ctx.fillStyle = '#14161a';
+    ctx.fillRect(0, 0, W, H);
+
+    const pad = { l: 46, r: 16, t: 26, b: 30 };
+    const pw = W - pad.l - pad.r;
+    const ph = H - pad.t - pad.b;
+
+    const lo = a - 0.5;
+    const hi = b + 0.5;
+
+    // Считаем Y-диапазон
+    const fin = [];
+    for (let i = 0; i <= 200; i++) {
+        const x = lo + (hi - lo) * i / 200;
+        try { const y = f(x, t); if (isFinite(y)) fin.push(y); } catch (_) {}
+    }
+    let ymin = Math.min(...fin, 0);
+    let ymax = Math.max(...fin, 0);
+    const yPad = (ymax - ymin) * 0.1;
+    ymin -= yPad; ymax += yPad;
+
+    const X = x => pad.l + (x - lo) / (hi - lo) * pw;
+    const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
+
+    // 1. Сетка
+    ctx.strokeStyle = 'rgba(244,241,222,0.1)';
+    ctx.lineWidth = 1;
+    ctx.font = '11px "Courier New", monospace';
+    Graph.ticks(lo, hi, 8).forEach(v => {
+        if (v === 0) return;
+        ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
+        ctx.fillStyle = 'rgba(244,241,222,0.5)';
+        ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
     });
+    Graph.ticks(ymin, ymax, 6).forEach(v => {
+        if (v === 0) return;
+        ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
+        ctx.fillStyle = 'rgba(244,241,222,0.5)';
+        ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
+    });
+
+    // 2. Оси
+    ctx.strokeStyle = 'rgba(244,241,222,0.5)';
+    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke(); // X
+    ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke(); // Y
+
+    // 3. Кривая
+    ctx.strokeStyle = '#00A896';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    let started = false;
+    for (let i = 0; i <= 200; i++) {
+        const x = lo + (hi - lo) * i / 200;
+        let y;
+        try { y = f(x, t); } catch (_) { y = NaN; }
+        if (!isFinite(y)) { started = false; continue; }
+        if (!started) { ctx.moveTo(X(x), Y(y)); started = true; }
+        else ctx.lineTo(X(x), Y(y));
+    }
+    ctx.stroke();
+
+    // 4. Итерации (касательные и хорды)
+    ctx.font = '11px "Courier New", monospace';
+    const maxDrawIter = Math.min(res.rows.length, 3);
+
+    // Определяем, с какой стороны метод начинает (зависит от знака f'' и f')
+    // В методе комбинированном: касательная идет от того конца, где f(x)*f''(x) > 0
+    const s2 = Num.d2(f, (a + b) / 2, t);
+    const fixedIsA = (f(a, t) * s2 > 0);
+
+    let currXTan = fixedIsA ? a : b; // Откуда идут касательные
+    let currY_Tan = f(currXTan, t);
+
+    let currXChord = fixedIsA ? b : a; // Откуда идут хорды
+    let currY_Chord = f(currXChord, t);
+
+    // Рисуем начальные точки
+    ctx.fillStyle = '#F4F1DE';
+    ctx.strokeStyle = '#00A896';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(X(currXTan), Y(currY_Tan), 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.arc(X(currXChord), Y(currY_Chord), 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+    ctx.fillStyle = 'rgba(244,241,222,0.8)';
+    ctx.textAlign = 'center';
+    ctx.fillText(fixedIsA ? 'a' : 'b', X(currXTan), Y(0) + 15);
+    ctx.fillText(fixedIsA ? 'b' : 'a', X(currXChord), Y(0) + 15);
+
+    for (let k = 0; k < maxDrawIter; k++) {
+        const row = res.rows[k];
+
+        // 1. Касательная (от currXTan)
+        const slopeTan = Num.d1(f, currXTan, t);
+        const x_top = currXTan + (ymax - currY_Tan) / slopeTan;
+        const x_bottom = currXTan + (ymin - currY_Tan) / slopeTan;
+        const lineX1 = Math.max(lo, Math.min(x_top, x_bottom));
+        const lineX2 = Math.min(hi, Math.max(x_top, x_bottom));
+
+        ctx.strokeStyle = 'rgba(0, 168, 150, 0.6)'; // Бирюзовый - касательная
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(X(lineX1), Y(currY_Tan + slopeTan * (lineX1 - currXTan)));
+        ctx.lineTo(X(lineX2), Y(currY_Tan + slopeTan * (lineX2 - currXTan)));
+        ctx.stroke();
+
+        // Точка на оси X от касательной (это будет новый currXTan)
+        const nextXTan = row.xl;
+        ctx.fillStyle = '#00A896';
+        ctx.beginPath(); ctx.arc(X(nextXTan), Y(0), 3, 0, Math.PI * 2); ctx.fill();
+
+        // 2. Хорда (между currXTan и currXChord)
+        const chordSlope = (currY_Chord - currY_Tan) / (currXChord - currXTan);
+        const chordX_top = currXChord + (ymax - currY_Chord) / chordSlope;
+        const chordX_bottom = currXChord + (ymin - currY_Chord) / chordSlope;
+        const chordLineX1 = Math.max(lo, Math.min(chordX_top, chordX_bottom));
+        const chordLineX2 = Math.min(hi, Math.max(chordX_top, chordX_bottom));
+
+        ctx.strokeStyle = 'rgba(255, 183, 3, 0.6)'; // Желтый - хорда
+        ctx.beginPath();
+        ctx.moveTo(X(chordLineX1), Y(currY_Chord + chordSlope * (chordLineX1 - currXChord)));
+        ctx.lineTo(X(chordLineX2), Y(currY_Chord + chordSlope * (chordLineX2 - currXChord)));
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Точка на оси X от хорды (это будет новый currXChord)
+        const nextXChord = row.xr;
+        ctx.fillStyle = '#ffb703';
+        ctx.beginPath(); ctx.arc(X(nextXChord), Y(0), 3, 0, Math.PI * 2); ctx.fill();
+
+        // 3. Переход к следующему шагу
+        currXTan = nextXTan;
+        currY_Tan = f(currXTan, t);
+
+        currXChord = nextXChord;
+        currY_Chord = f(currXChord, t);
+
+        // Рисуем новые точки на кривой
+        ctx.fillStyle = '#F4F1DE';
+        ctx.strokeStyle = '#00A896';
+        ctx.beginPath(); ctx.arc(X(currXTan), Y(currY_Tan), 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+        ctx.strokeStyle = '#ffb703';
+        ctx.beginPath(); ctx.arc(X(currXChord), Y(currY_Chord), 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+        // Подписи шагов (только для первых двух, чтобы не наслаивались)
+        if (k < 2) {
+            ctx.fillStyle = 'rgba(244,241,222,0.8)';
+            // Подпись для касательной
+            ctx.fillText(`x${k+1}`, X(currXTan), Y(0) - 10);
+            // Подпись для хорды
+            ctx.fillText(`x̄${k+1}`, X(currXChord), Y(0) - 25); // Чуть выше, чтобы не перекрывалось
+        }
+    }
+
+    // 5. Истинный корень
+    ctx.fillStyle = '#00A896';
+    ctx.font = 'italic 14px "Inter", sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('x*', X(res.root) + 10, Y(0) - 10);
+
+    // 6. Заголовок
+    ctx.fillStyle = 'rgba(244,241,222,0.85)';
+    ctx.font = '12px "Inter", sans-serif';
+    ctx.fillText(`Комбинированный метод, t = ${t}`, pad.l, 16);
 }
 function calcSecant() {
     const f = makeF('sc-f', 'sc-out'); if (!f) return;
