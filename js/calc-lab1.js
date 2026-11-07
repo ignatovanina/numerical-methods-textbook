@@ -53,10 +53,150 @@ function calcBisection() {
     document.getElementById('bi-out').innerHTML =
         `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
          ${hiddenTable(tableHtml)}`;
-    Graph.draw(document.getElementById('bi-canvas'), f, t, a - 0.3, b + 0.3, {
-        title: `Половинное деление, корень ≈ ${fmt(res.root, 5)}`,
-        segment: [a, b], roots: [{ x: res.root, y: 0 }]
+    // --- Отрисовка графика метода половинного деления ---
+    const cv = document.getElementById('bi-canvas');
+    const ctx = cv.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const W = cv.clientWidth, H = cv.clientHeight;
+    cv.width = W * dpr;
+    cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // Фон
+    ctx.fillStyle = '#14161a';
+    ctx.fillRect(0, 0, W, H);
+
+    const pad = { l: 46, r: 16, t: 26, b: 30 };
+    const pw = W - pad.l - pad.r;
+    const ph = H - pad.t - pad.b;
+
+    // Диапазон X: чуть больше исходного [a, b]
+    const xa = val('bi-a'), xb = val('bi-b');
+    const lo = xa - 0.5;
+    const hi = xb + 0.5;
+
+    // Считаем Y-диапазон
+    const fin = [];
+    for (let i = 0; i <= 200; i++) {
+        const x = lo + (hi - lo) * i / 200;
+        try { const y = f(x, t); if (isFinite(y)) fin.push(y); } catch (_) {}
+    }
+    let ymin = Math.min(...fin, 0);
+    let ymax = Math.max(...fin, 0);
+    const yPad = (ymax - ymin) * 0.1;
+    ymin -= yPad; ymax += yPad;
+
+    const X = x => pad.l + (x - lo) / (hi - lo) * pw;
+    const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
+
+    // 1. Сетка
+    ctx.strokeStyle = 'rgba(244,241,222,0.1)';
+    ctx.lineWidth = 1;
+    ctx.font = '11px "Courier New", monospace';
+    Graph.ticks(lo, hi, 8).forEach(v => {
+        if (v === 0) return;
+        ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
+        ctx.fillStyle = 'rgba(244,241,222,0.5)';
+        ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
     });
+    Graph.ticks(ymin, ymax, 6).forEach(v => {
+        if (v === 0) return;
+        ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
+        ctx.fillStyle = 'rgba(244,241,222,0.5)';
+        ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
+    });
+
+    // 2. Оси
+    ctx.strokeStyle = 'rgba(244,241,222,0.5)';
+    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke(); // X
+    ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke(); // Y
+
+    // 3. Кривая
+    ctx.strokeStyle = '#00A896';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    let started = false;
+    for (let i = 0; i <= 200; i++) {
+        const x = lo + (hi - lo) * i / 200;
+        let y;
+        try { y = f(x, t); } catch (_) { y = NaN; }
+        if (!isFinite(y)) { started = false; continue; }
+        if (!started) { ctx.moveTo(X(x), Y(y)); started = true; }
+        else ctx.lineTo(X(x), Y(y));
+    }
+    ctx.stroke();
+
+    // 4. Точка корня
+    ctx.fillStyle = '#F4F1DE';
+    ctx.strokeStyle = '#00A896';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(X(res.root), Y(0), 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+    // 5. Итерации (рисунок сужения отрезков)
+    ctx.font = '12px "Courier New", monospace';
+    ctx.textAlign = 'center';
+
+    // Покажем только первые 3 итерации, чтобы не было визуального шума
+    const maxDrawIter = Math.min(res.rows.length, 3);
+
+    for (let k = 0; k < maxDrawIter; k++) {
+        const row = res.rows[k];
+        const a_k = row.a;
+        const b_k = row.b;
+        const c_k = row.c;
+
+        let ya = f(a_k, t); if (!isFinite(ya)) ya = 0;
+        let yb = f(b_k, t); if (!isFinite(yb)) yb = 0;
+        let yc = f(c_k, t); if (!isFinite(yc)) yc = 0;
+
+        // Настраиваем стиль линий
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1.5;
+
+        // --- Линия a_k ---
+        ctx.strokeStyle = 'rgba(244, 241, 222, 0.4)'; // Светло-серый
+        ctx.beginPath(); ctx.moveTo(X(a_k), Y(0)); ctx.lineTo(X(a_k), Y(ya)); ctx.stroke();
+
+        // --- Линия b_k ---
+        ctx.beginPath(); ctx.moveTo(X(b_k), Y(0)); ctx.lineTo(X(b_k), Y(yb)); ctx.stroke();
+
+        // --- Линия c_k ---
+        ctx.strokeStyle = 'rgba(0, 168, 150, 0.8)'; // Бирюзовый
+        ctx.beginPath(); ctx.moveTo(X(c_k), Y(0)); ctx.lineTo(X(c_k), Y(yc)); ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Ставим точки на кривой
+        ctx.fillStyle = '#F4F1DE';
+        ctx.beginPath(); ctx.arc(X(a_k), Y(ya), 3, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(X(b_k), Y(yb), 3, 0, Math.PI * 2); ctx.fill();
+
+        ctx.strokeStyle = '#00A896';
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(X(c_k), Y(yc), 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+        // --- Подписи (умное размещение, чтобы не наслаивались) ---
+        if (k < 2) { // Подписываем только 1-ю и 2-ю итерации
+            ctx.fillStyle = 'rgba(244, 241, 222, 0.8)';
+
+            // Для 'a' сдвигаем текст влево, для 'b' — вправо
+            ctx.textAlign = 'right';
+            ctx.fillText(`a${k}`, X(a_k) - 5, Y(0) + 20 + k * 15);
+
+            ctx.textAlign = 'left';
+            ctx.fillText(`b${k}`, X(b_k) + 5, Y(0) + 20 + k * 15);
+
+            // Для 'c' ставим по центру, но ниже, чтобы не мешать
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#00A896';
+            ctx.fillText(`c${k}`, X(c_k), Y(0) + 25 + (k === 1 ? 15 : 0));
+        }
+    }
+    ctx.textAlign = 'start'; // Сбрасываем
+
+    // 6. Заголовок
+    ctx.fillStyle = 'rgba(244,241,222,0.85)';
+    ctx.font = '12px "Inter", sans-serif';
+    ctx.fillText(`Половинное деление, t = ${t}`, pad.l, 16);
 }
 function calcChord() {
     const f = makeF('ch-f', 'ch-out'); if (!f) return;
