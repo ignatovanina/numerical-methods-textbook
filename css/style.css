@@ -760,3 +760,25 @@ header h1 {
     width: 100%;
     height: auto;
 }
+/* Скрытие таблиц итераций */
+.iter-toggle-btn {
+    background: rgba(0, 168, 150, 0.1);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin: 10px 0;
+    transition: all 0.2s ease;
+}
+.iter-toggle-btn:hover {
+    background: rgba(0, 168, 150, 0.2);
+}
+.iter-table-wrap {
+    display: none; /* По умолчанию скрыто */
+    margin-top: 10px;
+}
+.iter-table-wrap.visible {
+    display: block;
+}
