@@ -72,5 +72,18 @@ const Num = (() => {
         }
         return { root: (xl + xr) / 2, iter, rows };
     }
-    return { makeF, d1, d2, bisection, chord, newton, combined };
+    function secant(f, x0, x1, t, eps, maxIter = 1000) {
+        const rows = [];
+        let iter = 0;
+        while (Math.abs(x1 - x0) > eps && iter < maxIter) {
+            const f0 = f(x0, t), f1 = f(x1, t);
+            if (Math.abs(f1 - f0) < 1e-14) break;
+            const x2 = x1 - f1 * (x1 - x0) / (f1 - f0);
+            rows.push({ i: iter, x: x2, fx: f(x2, t) });
+            x0 = x1; x1 = x2; iter++;
+        }
+        return { root: x1, iter, rows };
+    }
+
+    return { makeF, d1, d2, bisection, chord, newton, combined, secant };
 })();
