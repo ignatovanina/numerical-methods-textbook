@@ -593,10 +593,162 @@ function calcMNewton() {
         `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
          ${hiddenTable(tableHtml)}`;
     const half = Math.max(1, Math.abs(res.root - x0)) * 1.4;
-    Graph.draw(document.getElementById('mn-canvas'), f, t, res.root - half, res.root + half, {
-        title: `Модифицированный Ньютон, x₀ = ${fmt(x0, 4)}`,
-        roots: [{ x: res.root, y: 0 }]
+    // --- Отрисовка графика модифицированного метода Ньютона ---
+    const cv = document.getElementById('mn-canvas');
+    const ctx = cv.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const W = cv.clientWidth, H = cv.clientHeight;
+    cv.width = W * dpr;
+    cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    ctx.fillStyle = '#14161a';
+    ctx.fillRect(0, 0, W, H);
+
+    const pad = { l: 46, r: 16, t: 26, b: 30 };
+    const pw = W - pad.l - pad.r;
+    const ph = H - pad.t - pad.b;
+
+    const lo = Math.min(x0, res.root) - 1;
+    const hi = Math.max(x0, res.root) + 1;
+
+    // Считаем Y-диапазон
+    const fin = [];
+    for (let i = 0; i <= 200; i++) {
+        const x = lo + (hi - lo) * i / 200;
+        try { const y = f(x, t); if (isFinite(y)) fin.push(y); } catch (_) {}
+    }
+    let ymin = Math.min(...fin, 0);
+    let ymax = Math.max(...fin, 0);
+    const yPad = (ymax - ymin) * 0.1;
+    ymin -= yPad; ymax += yPad;
+
+    const X = x => pad.l + (x - lo) / (hi - lo) * pw;
+    const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
+
+    // 1. Сетка
+    ctx.strokeStyle = 'rgba(244,241,222,0.1)';
+    ctx.lineWidth = 1;
+    ctx.font = '11px "Courier New", monospace';
+    Graph.ticks(lo, hi, 8).forEach(v => {
+        if (v === 0) return;
+        ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
+        ctx.fillStyle = 'rgba(244,241,222,0.5)';
+        ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
     });
+    Graph.ticks(ymin, ymax, 6).forEach(v => {
+        if (v === 0) return;
+        ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
+        ctx.fillStyle = 'rgba(244,241,222,0.5)';
+        ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
+    });
+
+    // 2. Оси
+    ctx.strokeStyle = 'rgba(244,241,222,0.5)';
+    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke(); // X
+    ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke(); // Y
+
+    // 3. Кривая
+    ctx.strokeStyle = '#00A896';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    let started = false;
+    for (let i = 0; i <= 200; i++) {
+        const x = lo + (hi - lo) * i / 200;
+        let y;
+        try { y = f(x, t); } catch (_) { y = NaN; }
+        if (!isFinite(y)) { started = false; continue; }
+        if (!started) { ctx.moveTo(X(x), Y(y)); started = true; }
+        else ctx.lineTo(X(x), Y(y));
+    }
+    ctx.stroke();
+
+    // 4. Итерации (параллельные касательные)
+    ctx.font = '11px "Courier New", monospace';
+    const maxDrawIter = Math.min(res.rows.length, 3);
+
+    // Наклон берется один раз в начальной точке x0!
+    const fixedSlope = Num.d1(f, x0, t);
+
+    let currX = x0;
+    let currY = f(currX, t);
+
+    // Отрисовываем начальную точку x0
+    ctx.fillStyle = '#F4F1DE';
+    ctx.strokeStyle = '#00A896';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(X(currX), Y(currY), 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+    // Вертикаль от x0
+    ctx.strokeStyle = 'rgba(244, 241, 222, 0.3)';
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(X(currX), Y(0)); ctx.lineTo(X(currX), Y(currY)); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Подпись x0
+    ctx.fillStyle = 'rgba(244,241,222,0.8)';
+    ctx.textAlign = 'center';
+    ctx.fillText(`x0`, X(currX), Y(0) - 10);
+
+    for (let k = 0; k < maxDrawIter; k++) {
+        const nextX = res.rows[k].x;
+
+        // Рисуем касательную с ПОСТОЯННЫМ наклоном (fixedSlope)
+        const x_top = currX + (ymax - currY) / fixedSlope;
+        const x_bottom = currX + (ymin - currY) / fixedSlope;
+        const lineX1 = Math.max(lo, Math.min(x_top, x_bottom));
+        const lineX2 = Math.min(hi, Math.max(x_top, x_bottom));
+
+        ctx.strokeStyle = 'rgba(0, 168, 150, 0.7)';
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+
+        const lineY1 = currY + fixedSlope * (lineX1 - currX);
+        const lineY2 = currY + fixedSlope * (lineX2 - currX);
+
+        ctx.moveTo(X(lineX1), Y(lineY1));
+        ctx.lineTo(X(lineX2), Y(lineY2));
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Точка на кривой
+        ctx.fillStyle = '#F4F1DE';
+        ctx.strokeStyle = '#00A896';
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(X(currX), Y(currY), 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+        // Точка на оси X
+        ctx.fillStyle = '#00A896';
+        ctx.beginPath(); ctx.arc(X(nextX), Y(0), 3, 0, Math.PI * 2); ctx.fill();
+
+        // Переход
+        currX = nextX;
+        currY = f(currX, t);
+
+        // Подпись следующей точки
+        ctx.fillStyle = 'rgba(244,241,222,0.8)';
+        ctx.fillText(`x${k+1}`, X(currX), Y(0) - 10);
+
+        // Вертикаль от следующей точки
+        if (k < maxDrawIter - 1) {
+            ctx.strokeStyle = 'rgba(244, 241, 222, 0.3)';
+            ctx.setLineDash([4, 4]);
+            ctx.beginPath(); ctx.moveTo(X(currX), Y(0)); ctx.lineTo(X(currX), Y(currY)); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+    }
+
+    // 5. Истинный корень
+    ctx.fillStyle = '#00A896';
+    ctx.font = 'italic 14px "Inter", sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('x*', X(res.root) + 10, Y(0) - 10);
+
+    // 6. Заголовок
+    ctx.fillStyle = 'rgba(244,241,222,0.85)';
+    ctx.font = '12px "Inter", sans-serif';
+    ctx.fillText(`Модифицированный метод Ньютона, t = ${t}`, pad.l, 16);
 }
 function calcIter() {
     const g = makeF('it-g', 'it-out'); if (!g) return;
