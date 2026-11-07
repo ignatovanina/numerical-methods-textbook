@@ -35,5 +35,18 @@ const Num = (() => {
         } while (Math.abs(x - prev) > eps && iter < maxIter);
         return { root: x, iter, rows };
     }
-    return { makeF, d1, d2, bisection, chord };
+    function newton(f, x0, t, eps, maxIter = 1000) {
+        let x = x0, iter = 0, prev;
+        const rows = [];
+        do {
+            const d = d1(f, x, t);
+            if (Math.abs(d) < 1e-14) return { error: 'Derivative near zero' };
+            prev = x;
+            x = x - f(x, t) / d;
+            rows.push({ i: iter, x, fx: f(x, t), dx: Math.abs(x - prev) });
+            iter++;
+        } while (Math.abs(x - prev) > eps && iter < maxIter);
+        return { root: x, iter, rows };
+    }
+    return { makeF, d1, d2, bisection, chord, newton };
 })();
