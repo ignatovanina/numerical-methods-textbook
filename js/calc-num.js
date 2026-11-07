@@ -84,6 +84,19 @@ const Num = (() => {
         }
         return { root: x1, iter, rows };
     }
+    function modNewton(f, x0, t, eps, maxIter = 1000) {
+        const d0 = d1(f, x0, t);
+        if (Math.abs(d0) < 1e-14) return { error: "f'(x0) is near zero" };
+        let x = x0, iter = 0, prev;
+        const rows = [];
+        do {
+            prev = x;
+            x = x - f(x, t) / d0;
+            rows.push({ i: iter, x, fx: f(x, t) });
+            iter++;
+        } while (Math.abs(x - prev) > eps && iter < maxIter);
+        return { root: x, iter, rows };
+    }
 
-    return { makeF, d1, d2, bisection, chord, newton, combined, secant };
+    return { makeF, d1, d2, bisection, chord, newton, combined, secant, modNewton };
 })();
