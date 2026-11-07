@@ -19,8 +19,6 @@ const Graph = (() => {
         if (Math.abs(v) >= 1e4 || Math.abs(v) < 1e-3) return v.toExponential(1);
         return (+v.toFixed(4)).toString();
     }
-    return { ticks, fmtTick };
-
     function draw(canvas, f, t, xmin, xmax, opts = {}) {
         const ctx = canvas.getContext('2d');
         const dpr = window.devicePixelRatio || 1;
@@ -78,6 +76,49 @@ const Graph = (() => {
         }
         if (xmin <= 0 && xmax >= 0) {
             ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke();
+        }
+        ctx.strokeStyle = '#00A896';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        let started = false;
+        pts.forEach(p => {
+            if (!isFinite(p.y)) { started = false; return; }
+            const py = Y(p.y);
+            if (py < pad.t - 3000 || py > pad.t + ph + 3000) { started = false; return; }
+            if (!started) { ctx.moveTo(X(p.x), py); started = true; }
+            else ctx.lineTo(X(p.x), py);
+        });
+        ctx.stroke();
+
+        if (opts.segment) {
+            const [a, b] = opts.segment;
+            ctx.fillStyle = 'rgba(0,168,150,0.12)';
+            ctx.fillRect(X(a), pad.t, X(b) - X(a), ph);
+            ctx.strokeStyle = 'rgba(0,168,150,0.6)';
+            ctx.setLineDash([4, 3]);
+            ctx.beginPath();
+            ctx.moveTo(X(a), pad.t); ctx.lineTo(X(a), pad.t + ph);
+            ctx.moveTo(X(b), pad.t); ctx.lineTo(X(b), pad.t + ph);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        (opts.roots || []).forEach(r => {
+            if (!isFinite(r.y)) r.y = f(r.x, t);
+            const px = X(r.x), py = Y(r.y);
+            ctx.fillStyle = '#F4F1DE';
+            ctx.strokeStyle = '#00A896';
+            ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.arc(px, py, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+            ctx.fillStyle = '#00A896';
+            ctx.font = 'bold 11px "Courier New", monospace';
+            ctx.fillText('x* ≈ ' + r.x.toFixed(5), px + 8, py - 8);
+        });
+
+        if (opts.title) {
+            ctx.fillStyle = 'rgba(244,241,222,0.85)';
+            ctx.font = '12px "Inter", sans-serif';
+            ctx.fillText(opts.title, pad.l, 16);
         }
     }
     return { ticks, fmtTick, draw };
