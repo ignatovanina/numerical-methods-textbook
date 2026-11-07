@@ -71,3 +71,19 @@ function calcChord() {
         segment: [a, b], roots: [{ x: res.root, y: 0 }]
     });
 }
+function calcNewton() {
+    const f = makeF('nt-f', 'nt-out'); if (!f) return;
+    const x0 = val('nt-x0'), t = val('nt-t'), eps = val('nt-eps');
+    const res = Num.newton(f, x0, t, eps);
+    if (res.error) { document.getElementById('nt-out').innerHTML = errBox(res.error); return; }
+    const rows = res.rows.map(r =>
+        `<tr><td>${r.i}</td><td>${fmt(r.x, 8)}</td><td>${fmt(r.fx, 3)}</td><td>${fmt(r.dx, 3)}</td></tr>`
+    ).join('');
+    document.getElementById('nt-out').innerHTML =
+        `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
+         <table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>f(xᵢ)</th><th>|Δx|</th></tr></thead><tbody>${rows}</tbody></table>`;
+    const half = Math.max(1, Math.abs(res.root - x0)) * 1.4;
+    Graph.draw(document.getElementById('nt-canvas'), f, t, res.root - half, res.root + half, {
+        title: `Ньютон, x₀ = ${fmt(x0, 4)}`, roots: [{ x: res.root, y: 0 }]
+    });
+}
