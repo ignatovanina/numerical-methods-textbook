@@ -302,3 +302,16 @@ function drawArrow(ctx, fromX, fromY, toX, toY) {
     ctx.closePath();
     ctx.fill();
 }
+// Универсальный генератор скрываемой таблицы
+let _tableIdCounter = 0;
+function hiddenTable(html) {
+    const id = 'iter-table-' + (++_tableIdCounter);
+    return `
+        <button class="iter-toggle-btn" onclick="document.getElementById('${id}').classList.toggle('visible'); this.textContent = document.getElementById('${id}').classList.contains('visible') ? 'Скрыть итерации' : 'Показать итерации'">
+            Показать итерации
+        </button>
+        <div id="${id}" class="iter-table-wrap">
+            ${html}
+        </div>
+    `;
+}
