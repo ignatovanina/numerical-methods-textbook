@@ -87,3 +87,19 @@ function calcNewton() {
         title: `Ньютон, x₀ = ${fmt(x0, 4)}`, roots: [{ x: res.root, y: 0 }]
     });
 }
+function calcCombo() {
+    const f = makeF('cb-f', 'cb-out'); if (!f) return;
+    const a = val('cb-a'), b = val('cb-b'), t = val('cb-t'), eps = val('cb-eps');
+    const res = Num.combined(f, a, b, t, eps);
+    if (res.error) { document.getElementById('cb-out').innerHTML = errBox(res.error); return; }
+    const rows = res.rows.map(r =>
+        `<tr><td>${r.i}</td><td>${fmt(r.xl, 8)}</td><td>${fmt(r.xr, 8)}</td><td>${fmt(r.gap, 3)}</td></tr>`
+    ).join('');
+    document.getElementById('cb-out').innerHTML =
+        `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
+         <table class="lab-table"><thead><tr><th>i</th><th>x (касат.)</th><th>x̄ (хорда)</th><th>|x̄−x|</th></tr></thead><tbody>${rows}</tbody></table>`;
+    Graph.draw(document.getElementById('cb-canvas'), f, t, a - 0.3, b + 0.3, {
+        title: `Комбинированный, корень ≈ ${fmt(res.root, 5)}`,
+        segment: [a, b], roots: [{ x: res.root, y: 0 }]
+    });
+}
