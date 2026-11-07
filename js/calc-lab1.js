@@ -31,9 +31,10 @@ function calcIsolate() {
     const rootsHtml = roots.length
         ? roots.map((r, i) => `<p>Отрезок ${i + 1}: <b>[${fmt(r.a, 4)}; ${fmt(r.b, 4)}]</b></p>`).join('')
         : '<p class="calc-warn">Смены знака не найдено — уменьшите шаг или расширьте диапазон.</p>';
+    const tableHtml = `<table class="lab-table"><thead><tr><th>x</th><th>f(x,t)</th></tr></thead><tbody>${rows}</tbody></table>`;
     document.getElementById('is-out').innerHTML =
         `<p><b>Найдено отрезков:</b> ${roots.length}</p>${rootsHtml}
-         <table class="lab-table"><thead><tr><th>x</th><th>f(x,t)</th></tr></thead><tbody>${rows}</tbody></table>`;
+         ${hiddenTable(tableHtml)}`;
     Graph.draw(document.getElementById('is-canvas'), f, t, xmin, xmax, {
         title: `f(x, t=${t})`,
         segment: roots[0] ? [roots[0].a, roots[0].b] : null
@@ -47,9 +48,11 @@ function calcBisection() {
     const rows = res.rows.map(r =>
         `<tr><td>${r.i}</td><td>${fmt(r.a, 6)}</td><td>${fmt(r.b, 6)}</td><td>${fmt(r.c, 8)}</td><td>${fmt(r.fc, 3)}</td></tr>`
     ).join('');
+    const tableHtml = `<table class="lab-table"><thead><tr><th>i</th><th>a</th><th>b</th><th>c</th><th>f(c)</th></tr></thead><tbody>${rows}</tbody></table>`;
+
     document.getElementById('bi-out').innerHTML =
         `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
-         <table class="lab-table"><thead><tr><th>i</th><th>a</th><th>b</th><th>c</th><th>f(c)</th></tr></thead><tbody>${rows}</tbody></table>`;
+         ${hiddenTable(tableHtml)}`;
     Graph.draw(document.getElementById('bi-canvas'), f, t, a - 0.3, b + 0.3, {
         title: `Половинное деление, корень ≈ ${fmt(res.root, 5)}`,
         segment: [a, b], roots: [{ x: res.root, y: 0 }]
@@ -63,9 +66,10 @@ function calcChord() {
     const rows = res.rows.map(r =>
         `<tr><td>${r.i}</td><td>${fmt(r.x, 8)}</td><td>${fmt(r.fx, 3)}</td></tr>`
     ).join('');
+    const tableHtml = `<table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>f(xᵢ)</th></tr></thead><tbody>${rows}</tbody></table>`;
     document.getElementById('ch-out').innerHTML =
         `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
-         <table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>f(xᵢ)</th></tr></thead><tbody>${rows}</tbody></table>`;
+         ${hiddenTable(tableHtml)}`;
     Graph.draw(document.getElementById('ch-canvas'), f, t, a - 0.3, b + 0.3, {
         title: `Метод хорд, корень ≈ ${fmt(res.root, 5)}`,
         segment: [a, b], roots: [{ x: res.root, y: 0 }]
@@ -79,9 +83,10 @@ function calcNewton() {
     const rows = res.rows.map(r =>
         `<tr><td>${r.i}</td><td>${fmt(r.x, 8)}</td><td>${fmt(r.fx, 3)}</td><td>${fmt(r.dx, 3)}</td></tr>`
     ).join('');
+    const tableHtml = `<table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>f(xᵢ)</th><th>|Δx|</th></tr></thead><tbody>${rows}</tbody></table>`;
     document.getElementById('nt-out').innerHTML =
         `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
-         <table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>f(xᵢ)</th><th>|Δx|</th></tr></thead><tbody>${rows}</tbody></table>`;
+         ${hiddenTable(tableHtml)}`;
     const half = Math.max(1, Math.abs(res.root - x0)) * 1.4;
     Graph.draw(document.getElementById('nt-canvas'), f, t, res.root - half, res.root + half, {
         title: `Ньютон, x₀ = ${fmt(x0, 4)}`, roots: [{ x: res.root, y: 0 }]
@@ -95,9 +100,10 @@ function calcCombo() {
     const rows = res.rows.map(r =>
         `<tr><td>${r.i}</td><td>${fmt(r.xl, 8)}</td><td>${fmt(r.xr, 8)}</td><td>${fmt(r.gap, 3)}</td></tr>`
     ).join('');
+    const tableHtml = `<table class="lab-table"><thead><tr><th>i</th><th>x (касат.)</th><th>x̄ (хорда)</th><th>|x̄−x|</th></tr></thead><tbody>${rows}</tbody></table>`;
     document.getElementById('cb-out').innerHTML =
         `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
-         <table class="lab-table"><thead><tr><th>i</th><th>x (касат.)</th><th>x̄ (хорда)</th><th>|x̄−x|</th></tr></thead><tbody>${rows}</tbody></table>`;
+         ${hiddenTable(tableHtml)}`;
     Graph.draw(document.getElementById('cb-canvas'), f, t, a - 0.3, b + 0.3, {
         title: `Комбинированный, корень ≈ ${fmt(res.root, 5)}`,
         segment: [a, b], roots: [{ x: res.root, y: 0 }]
@@ -110,9 +116,10 @@ function calcSecant() {
     const rows = res.rows.map(r =>
         `<tr><td>${r.i}</td><td>${fmt(r.x, 8)}</td><td>${fmt(r.fx, 3)}</td></tr>`
     ).join('');
+    const tableHtml = `<table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>f(xᵢ)</th></tr></thead><tbody>${rows}</tbody></table>`;
     document.getElementById('sc-out').innerHTML =
         `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
-         <table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>f(xᵢ)</th></tr></thead><tbody>${rows}</tbody></table>`;
+         ${hiddenTable(tableHtml)}`;
     const lo = Math.min(x0, x1, res.root) - 0.6;
     const hi = Math.max(x0, x1, res.root) + 0.6;
     Graph.draw(document.getElementById('sc-canvas'), f, t, lo, hi, {
@@ -128,9 +135,10 @@ function calcMNewton() {
     const rows = res.rows.map(r =>
         `<tr><td>${r.i}</td><td>${fmt(r.x, 8)}</td><td>${fmt(r.fx, 3)}</td></tr>`
     ).join('');
+    const tableHtml = `<table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>f(xᵢ)</th></tr></thead><tbody>${rows}</tbody></table>`;
     document.getElementById('mn-out').innerHTML =
         `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
-         <table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>f(xᵢ)</th></tr></thead><tbody>${rows}</tbody></table>`;
+         ${hiddenTable(tableHtml)}`;
     const half = Math.max(1, Math.abs(res.root - x0)) * 1.4;
     Graph.draw(document.getElementById('mn-canvas'), f, t, res.root - half, res.root + half, {
         title: `Модифицированный Ньютон, x₀ = ${fmt(x0, 4)}`,
@@ -149,14 +157,14 @@ function calcIter() {
         ? `<p class="calc-warn">Внимание: |g'(x₀)| ≈ ${fmt(res.q, 4)} ≥ 1 — процесс может расходиться.</p>`
         : '';
 
-    document.getElementById('it-out').innerHTML = `
-        ${rootBox(res.root)}
-        ${warn}
-        <p><b>q ≈</b> ${fmt(res.q, 4)}, <b>критерий остановки</b> |Δx| ≤ ${res.tol.toExponential(3)}</p>
-        <p><b>Итераций:</b> ${res.iter}</p>
-        <table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>|Δx|</th></tr></thead><tbody>${rows}</tbody></table>
-    `;
-
+    const tableHtml = `<table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>|Δx|</th></tr></thead><tbody>${rows}</tbody></table>`;
+    document.getElementById('it-out').innerHTML =
+        `${rootBox(res.root)}
+         ${warn}
+         <p><b>q ≈</b> ${fmt(res.q, 4)}, <b>критерий остановки</b> |Δx| ≤ ${res.tol.toExponential(3)}</p>
+         <p><b>Итераций:</b> ${res.iter}</p>
+         ${hiddenTable(tableHtml)}`;
+    
     // --- Отрисовка графика "паутинка" ---
     const cv = document.getElementById('it-canvas');
     const ctx = cv.getContext('2d');
