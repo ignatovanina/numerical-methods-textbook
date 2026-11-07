@@ -103,3 +103,20 @@ function calcCombo() {
         segment: [a, b], roots: [{ x: res.root, y: 0 }]
     });
 }
+function calcSecant() {
+    const f = makeF('sc-f', 'sc-out'); if (!f) return;
+    const x0 = val('sc-x0'), x1 = val('sc-x1'), t = val('sc-t'), eps = val('sc-eps');
+    const res = Num.secant(f, x0, x1, t, eps);
+    const rows = res.rows.map(r =>
+        `<tr><td>${r.i}</td><td>${fmt(r.x, 8)}</td><td>${fmt(r.fx, 3)}</td></tr>`
+    ).join('');
+    document.getElementById('sc-out').innerHTML =
+        `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
+         <table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>f(xᵢ)</th></tr></thead><tbody>${rows}</tbody></table>`;
+    const lo = Math.min(x0, x1, res.root) - 0.6;
+    const hi = Math.max(x0, x1, res.root) + 0.6;
+    Graph.draw(document.getElementById('sc-canvas'), f, t, lo, hi, {
+        title: `Секущие, x₀=${fmt(x0, 3)}, x₁=${fmt(x1, 3)}`,
+        roots: [{ x: res.root, y: 0 }]
+    });
+}
