@@ -39,3 +39,19 @@ function calcIsolate() {
         segment: roots[0] ? [roots[0].a, roots[0].b] : null
     });
 }
+function calcBisection() {
+    const f = makeF('bi-f', 'bi-out'); if (!f) return;
+    const a = val('bi-a'), b = val('bi-b'), t = val('bi-t'), eps = val('bi-eps');
+    const res = Num.bisection(f, a, b, t, eps);
+    if (res.error) { document.getElementById('bi-out').innerHTML = errBox(res.error); return; }
+    const rows = res.rows.map(r =>
+        `<tr><td>${r.i}</td><td>${fmt(r.a, 6)}</td><td>${fmt(r.b, 6)}</td><td>${fmt(r.c, 8)}</td><td>${fmt(r.fc, 3)}</td></tr>`
+    ).join('');
+    document.getElementById('bi-out').innerHTML =
+        `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
+         <table class="lab-table"><thead><tr><th>i</th><th>a</th><th>b</th><th>c</th><th>f(c)</th></tr></thead><tbody>${rows}</tbody></table>`;
+    Graph.draw(document.getElementById('bi-canvas'), f, t, a - 0.3, b + 0.3, {
+        title: `Половинное деление, корень ≈ ${fmt(res.root, 5)}`,
+        segment: [a, b], roots: [{ x: res.root, y: 0 }]
+    });
+}
