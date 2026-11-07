@@ -285,3 +285,20 @@ function calcIter() {
     ctx.font = '12px "Inter", sans-serif';
     ctx.fillText(`Метод простой итерации. t=${t}, x₀=${fmt(x0,3)}`, pad.l, 16);
 }
+// Вспомогательная функция: рисует пунктирную линию со стрелочкой на конце
+function drawArrow(ctx, fromX, fromY, toX, toY) {
+    ctx.beginPath();
+    ctx.moveTo(fromX, fromY);
+    ctx.lineTo(toX, toY);
+    ctx.stroke();
+
+    // Рисуем стрелочку на конце
+    const angle = Math.atan2(toY - fromY, toX - fromX);
+    const headLen = 7;
+    ctx.beginPath();
+    ctx.moveTo(toX, toY);
+    ctx.lineTo(toX - headLen * Math.cos(angle - Math.PI / 6), toY - headLen * Math.sin(angle - Math.PI / 6));
+    ctx.lineTo(toX - headLen * Math.cos(angle + Math.PI / 6), toY - headLen * Math.sin(angle + Math.PI / 6));
+    ctx.closePath();
+    ctx.fill();
+}
