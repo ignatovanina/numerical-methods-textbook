@@ -55,3 +55,19 @@ function calcBisection() {
         segment: [a, b], roots: [{ x: res.root, y: 0 }]
     });
 }
+function calcChord() {
+    const f = makeF('ch-f', 'ch-out'); if (!f) return;
+    const a = val('ch-a'), b = val('ch-b'), t = val('ch-t'), eps = val('ch-eps');
+    const res = Num.chord(f, a, b, t, eps);
+    if (res.error) { document.getElementById('ch-out').innerHTML = errBox(res.error); return; }
+    const rows = res.rows.map(r =>
+        `<tr><td>${r.i}</td><td>${fmt(r.x, 8)}</td><td>${fmt(r.fx, 3)}</td></tr>`
+    ).join('');
+    document.getElementById('ch-out').innerHTML =
+        `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
+         <table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>f(xᵢ)</th></tr></thead><tbody>${rows}</tbody></table>`;
+    Graph.draw(document.getElementById('ch-canvas'), f, t, a - 0.3, b + 0.3, {
+        title: `Метод хорд, корень ≈ ${fmt(res.root, 5)}`,
+        segment: [a, b], roots: [{ x: res.root, y: 0 }]
+    });
+}
