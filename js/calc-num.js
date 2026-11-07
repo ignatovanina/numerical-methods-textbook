@@ -48,5 +48,29 @@ const Num = (() => {
         } while (Math.abs(x - prev) > eps && iter < maxIter);
         return { root: x, iter, rows };
     }
-    return { makeF, d1, d2, bisection, chord, newton };
+    function combined(f, a, b, t, eps, maxIter = 1000) {
+        let fa = f(a, t), fb = f(b, t);
+        if (fa * fb > 0) return { error: 'f(a) and f(b) have the same sign' };
+        const s2 = d2(f, (a + b) / 2, t);
+        let xl = (s2 < 0) ? a : b;
+        let xr = (s2 < 0) ? b : a;
+        const rows = [];
+        let iter = 0;
+        while (Math.abs(xr - xl) > eps && iter < maxIter) {
+            const fl = f(xl, t), fr = f(xr, t);
+            let xln, xrn;
+            if (s2 < 0) {
+                xln = xl - fl / d1(f, xl, t);
+                xrn = xl - fl * (xr - xl) / (fr - fl);
+            } else {
+                xln = xl - fl * (xr - xl) / (fr - fl);
+                xrn = xr - fr / d1(f, xr, t);
+            }
+            xl = xln; xr = xrn;
+            rows.push({ i: iter, xl, xr, gap: Math.abs(xr - xl) });
+            iter++;
+        }
+        return { root: (xl + xr) / 2, iter, rows };
+    }
+    return { makeF, d1, d2, bisection, chord, newton, combined };
 })();
