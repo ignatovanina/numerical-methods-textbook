@@ -137,3 +137,151 @@ function calcMNewton() {
         roots: [{ x: res.root, y: 0 }]
     });
 }
+function calcIter() {
+    const g = makeF('it-g', 'it-out'); if (!g) return;
+    const x0 = val('it-x0'), t = val('it-t'), eps = val('it-eps');
+    const res = Num.simpleIter(g, x0, t, eps);
+
+    const rows = res.rows.map(r =>
+        `<tr><td>${r.i}</td><td>${fmt(r.x, 8)}</td><td>${fmt(r.dx, 3)}</td></tr>`
+    ).join('');
+    const warn = res.q >= 1
+        ? `<p class="calc-warn">Внимание: |g'(x₀)| ≈ ${fmt(res.q, 4)} ≥ 1 — процесс может расходиться.</p>`
+        : '';
+
+    document.getElementById('it-out').innerHTML = `
+        ${rootBox(res.root)}
+        ${warn}
+        <p><b>q ≈</b> ${fmt(res.q, 4)}, <b>критерий остановки</b> |Δx| ≤ ${res.tol.toExponential(3)}</p>
+        <p><b>Итераций:</b> ${res.iter}</p>
+        <table class="lab-table"><thead><tr><th>i</th><th>xᵢ</th><th>|Δx|</th></tr></thead><tbody>${rows}</tbody></table>
+    `;
+
+    // --- Отрисовка графика "паутинка" ---
+    const cv = document.getElementById('it-canvas');
+    const ctx = cv.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const W = cv.clientWidth, H = cv.clientHeight;
+    cv.width = W * dpr;
+    cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    ctx.fillStyle = '#14161a';
+    ctx.fillRect(0, 0, W, H);
+
+    const pad = { l: 46, r: 16, t: 26, b: 30 };
+    const pw = W - pad.l - pad.r;
+    const ph = H - pad.t - pad.b;
+
+    // Диапазон для X: чуть больше, чем от x0 до корня
+    const lo = Math.min(x0, res.root) - 0.5;
+    const hi = Math.max(x0, res.root) + 0.5;
+
+    // Считаем Y-диапазон
+    const fin = [];
+    for (let i = 0; i <= 200; i++) {
+        const x = lo + (hi - lo) * i / 200;
+        try { const y = g(x, t); if (isFinite(y)) fin.push(y); } catch (_) {}
+    }
+    let ymin = Math.min(...fin, lo, 0);
+    let ymax = Math.max(...fin, hi, 0);
+    const yPad = (ymax - ymin) * 0.1;
+    ymin -= yPad; ymax += yPad;
+
+    const X = x => pad.l + (x - lo) / (hi - lo) * pw;
+    const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
+
+    // 1. Рисуем оси и сетку (вручную, т.к. Graph.draw тут не подходит из-за специфики)
+    ctx.strokeStyle = 'rgba(244,241,222,0.1)';
+    ctx.lineWidth = 1;
+    ctx.font = '11px "Courier New", monospace';
+
+    Graph.ticks(lo, hi, 8).forEach(v => {
+        if (v === 0) return;
+        ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
+        ctx.fillStyle = 'rgba(244,241,222,0.5)';
+        ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
+    });
+    Graph.ticks(ymin, ymax, 6).forEach(v => {
+        if (v === 0) return;
+        ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
+        ctx.fillStyle = 'rgba(244,241,222,0.5)';
+        ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
+    });
+
+    // Оси X и Y
+    ctx.strokeStyle = 'rgba(244,241,222,0.5)';
+    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke(); // ось X
+    ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke(); // ось Y
+
+    // 2. Рисуем прямую y = x
+    ctx.strokeStyle = '#00A896';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(X(lo), Y(lo));
+    ctx.lineTo(X(hi), Y(hi));
+    ctx.stroke();
+
+    // Подпись y = x
+    ctx.fillStyle = '#00A896';
+    ctx.font = 'italic 12px "Inter"';
+    ctx.fillText('y = x', X(hi) - 40, Y(hi) + 15);
+
+    // 3. Рисуем кривую g(x)
+    ctx.strokeStyle = '#00A896';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    let started = false;
+    for (let i = 0; i <= 200; i++) {
+        const x = lo + (hi - lo) * i / 200;
+        let y;
+        try { y = g(x, t); } catch (_) { y = NaN; }
+        if (!isFinite(y)) { started = false; continue; }
+        if (!started) { ctx.moveTo(X(x), Y(y)); started = true; }
+        else ctx.lineTo(X(x), Y(y));
+    }
+    ctx.stroke();
+
+    // Подпись y = g(x)
+    ctx.fillStyle = '#00A896';
+    ctx.fillText('y = g(x)', X(hi) - 80, Y(g(hi - 0.2, t)) - 15);
+
+    // 4. Рисуем паутинку
+    ctx.strokeStyle = 'rgba(0, 168, 150, 0.7)';
+    ctx.fillStyle = 'rgba(0, 168, 150, 0.7)';
+    ctx.setLineDash([4, 4]);
+    ctx.lineWidth = 1.5;
+
+    let currX = x0;
+    // Начинаем с оси X (вертикальная линия до кривой)
+    drawArrow(ctx, X(currX), Y(0), X(currX), Y(g(currX, t)));
+    let currY = g(currX, t);
+
+    // Ограничим количество шагов, чтобы не рисовать 1000 линий
+    const maxDrawIter = Math.min(res.rows.length, 15);
+
+    for (let k = 0; k < maxDrawIter; k++) {
+        // Горизонтальная линия от кривой до y=x
+        drawArrow(ctx, X(currX), Y(currY), X(currY), Y(currY));
+        // Вертикальная линия от y=x до кривой
+        drawArrow(ctx, X(currY), Y(currY), X(currY), Y(g(currY, t)));
+
+        currX = currY;
+        currY = g(currX, t);
+    }
+    ctx.setLineDash([]);
+
+    // 5. Отмечаем корень
+    ctx.fillStyle = '#F4F1DE';
+    ctx.strokeStyle = '#00A896';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(X(res.root), Y(res.root), 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+
+    // 6. Заголовок
+    ctx.fillStyle = 'rgba(244,241,222,0.85)';
+    ctx.font = '12px "Inter", sans-serif';
+    ctx.fillText(`Метод простой итерации. t=${t}, x₀=${fmt(x0,3)}`, pad.l, 16);
+}
