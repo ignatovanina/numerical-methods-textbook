@@ -210,10 +210,162 @@ function calcChord() {
     document.getElementById('ch-out').innerHTML =
         `${rootBox(res.root)}<p><b>Итераций:</b> ${res.iter}</p>
          ${hiddenTable(tableHtml)}`;
-    Graph.draw(document.getElementById('ch-canvas'), f, t, a - 0.3, b + 0.3, {
-        title: `Метод хорд, корень ≈ ${fmt(res.root, 5)}`,
-        segment: [a, b], roots: [{ x: res.root, y: 0 }]
+    // --- Отрисовка графика метода хорд ---
+    const cv = document.getElementById('ch-canvas');
+    const ctx = cv.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const W = cv.clientWidth, H = cv.clientHeight;
+    cv.width = W * dpr;
+    cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    ctx.fillStyle = '#14161a';
+    ctx.fillRect(0, 0, W, H);
+
+    const pad = { l: 46, r: 16, t: 26, b: 30 };
+    const pw = W - pad.l - pad.r;
+    const ph = H - pad.t - pad.b;
+
+    const lo = a - 0.5;
+    const hi = b + 0.5;
+
+    // Считаем Y-диапазон
+    const fin = [];
+    for (let i = 0; i <= 200; i++) {
+        const x = lo + (hi - lo) * i / 200;
+        try { const y = f(x, t); if (isFinite(y)) fin.push(y); } catch (_) {}
+    }
+    let ymin = Math.min(...fin, 0);
+    let ymax = Math.max(...fin, 0);
+    const yPad = (ymax - ymin) * 0.1;
+    ymin -= yPad; ymax += yPad;
+
+    const X = x => pad.l + (x - lo) / (hi - lo) * pw;
+    const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
+
+    // 1. Сетка
+    ctx.strokeStyle = 'rgba(244,241,222,0.1)';
+    ctx.lineWidth = 1;
+    ctx.font = '11px "Courier New", monospace';
+    Graph.ticks(lo, hi, 8).forEach(v => {
+        if (v === 0) return;
+        ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
+        ctx.fillStyle = 'rgba(244,241,222,0.5)';
+        ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
     });
+    Graph.ticks(ymin, ymax, 6).forEach(v => {
+        if (v === 0) return;
+        ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
+        ctx.fillStyle = 'rgba(244,241,222,0.5)';
+        ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
+    });
+
+    // 2. Оси
+    ctx.strokeStyle = 'rgba(244,241,222,0.5)';
+    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke(); // X
+    ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke(); // Y
+
+    // 3. Кривая
+    ctx.strokeStyle = '#00A896';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    let started = false;
+    for (let i = 0; i <= 200; i++) {
+        const x = lo + (hi - lo) * i / 200;
+        let y;
+        try { y = f(x, t); } catch (_) { y = NaN; }
+        if (!isFinite(y)) { started = false; continue; }
+        if (!started) { ctx.moveTo(X(x), Y(y)); started = true; }
+        else ctx.lineTo(X(x), Y(y));
+    }
+    ctx.stroke();
+
+    // 4. Начальные точки A и B
+    const ya = f(a, t);
+    const yb = f(b, t);
+    ctx.fillStyle = '#F4F1DE';
+    ctx.strokeStyle = '#00A896';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(X(a), Y(ya), 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.arc(X(b), Y(yb), 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+    ctx.fillStyle = 'rgba(244,241,222,0.9)';
+    ctx.font = 'italic 13px "Inter", sans-serif';
+    ctx.fillText('A', X(a) - 15, Y(ya) + 15);
+    ctx.fillText('B', X(b) + 5, Y(yb) - 5);
+
+    // 5. Хорды (итерации)
+    // Находим "неподвижную" точку (где f(x) * f''(x) > 0)
+    const s2 = Num.d2(f, (a + b) / 2, t);
+    const isAFixed = (f(a, t) * s2 > 0);
+
+    // Неподвижная точка (от неё всегда идёт хорда)
+    const fixedX = isAFixed ? a : b;
+    const fixedY = f(fixedX, t);
+
+    // Текущая подвижная точка (начинаем с противоположного конца)
+    let currX = isAFixed ? b : a;
+    let currY = f(currX, t);
+
+    const maxDrawIter = Math.min(res.rows.length, 4);
+
+    ctx.font = '11px "Courier New", monospace';
+    ctx.textAlign = 'center';
+
+    for (let k = 0; k < maxDrawIter; k++) {
+        // Находим, куда хорда пересечёт ось X
+        // Уравнение прямой через (fixedX, fixedY) и (currX, currY)
+        // y - fixedY = (currY - fixedY)/(currX - fixedX) * (x - fixedX)
+        // При y = 0: x = fixedX - fixedY * (currX - fixedX) / (currY - fixedY)
+        const nextX = fixedX - fixedY * (currX - fixedX) / (currY - fixedY);
+
+        // Рисуем хорду от неподвижной точки к текущей
+        ctx.strokeStyle = k === 0 ? 'rgba(0, 168, 150, 0.9)' : 'rgba(0, 168, 150, 0.4)';
+        ctx.setLineDash(k === 0 ? [] : [4, 4]);
+        ctx.lineWidth = k === 0 ? 2 : 1.5;
+        ctx.beginPath();
+        ctx.moveTo(X(fixedX), Y(fixedY));
+        ctx.lineTo(X(currX), Y(currY));
+        ctx.stroke();
+
+        // Рисуем вертикальную линию от новой точки на оси X до кривой
+        ctx.strokeStyle = 'rgba(244, 241, 222, 0.3)';
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(X(nextX), Y(0));
+        ctx.lineTo(X(nextX), Y(f(nextX, t)));
+        ctx.stroke();
+
+        // Точка пересечения с осью X
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#00A896';
+        ctx.beginPath(); ctx.arc(X(nextX), Y(0), 3, 0, Math.PI * 2); ctx.fill();
+
+        // Точка на кривой (следующий шаг)
+        const nextY = f(nextX, t);
+        ctx.fillStyle = '#F4F1DE';
+        ctx.strokeStyle = '#00A896';
+        ctx.beginPath(); ctx.arc(X(nextX), Y(nextY), 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+        // Подпись
+        ctx.fillStyle = 'rgba(244,241,222,0.8)';
+        ctx.fillText(`c${k+1}`, X(nextX), Y(0) - 10 - (k * 15));
+
+        // Обновляем текущую точку для следующей итерации
+        currX = nextX;
+        currY = nextY;
+    }
+
+    // 6. Истинный корень
+    ctx.fillStyle = '#00A896';
+    ctx.font = 'italic 14px "Inter", sans-serif';
+    ctx.fillText('x*', X(res.root) + 10, Y(0) - 10);
+
+    // 7. Заголовок
+    ctx.fillStyle = 'rgba(244,241,222,0.85)';
+    ctx.font = '12px "Inter", sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(`Метод хорд, t = ${t}`, pad.l, 16);
 }
 function calcNewton() {
     const f = makeF('nt-f', 'nt-out'); if (!f) return;
