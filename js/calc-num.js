@@ -97,6 +97,29 @@ const Num = (() => {
         } while (Math.abs(x - prev) > eps && iter < maxIter);
         return { root: x, iter, rows };
     }
+    function simpleIter(g, x0, t, eps, maxIter = 1000) {
+        const dg = d1((x, tt) => g(x, tt), x0, t);
+        const q = Math.abs(dg);
+        const tol = (q < 1) ? (1 - q) / q * eps : eps;
+        let x = x0, iter = 0, prev;
+        const rows = [];
+        do {
+            prev = x;
+            x = g(x, t);
+            rows.push({ i: iter, x, dx: Math.abs(x - prev) });
+            iter++;
+        } while (Math.abs(x - prev) > tol && iter < maxIter);
+        return { root: x, iter, rows, q, tol };
+    }
 
-    return { makeF, d1, d2, bisection, chord, newton, combined, secant, modNewton };
+    function isolate(f, xmin, xmax, t, step) {
+        const pts = [], roots = [];
+        for (let x = xmin; x <= xmax + 1e-12; x += step)
+            pts.push({ x, y: f(x, t) });
+        for (let i = 0; i < pts.length - 1; i++)
+            if (isFinite(pts[i].y) && isFinite(pts[i + 1].y) && pts[i].y * pts[i + 1].y < 0)
+                roots.push({ a: pts[i].x, b: pts[i + 1].x });
+        return { pts, roots };
+    }
+    return { makeF, d1, d2, bisection, chord, newton, combined, secant, modNewton, simpleIter, isolate };
 })();
