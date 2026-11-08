@@ -114,3 +114,39 @@ function calcLagrange() {
     // 5. Отрисовка графика
     drawLagrangeChart(nodes, results);
 }
+function drawLagrangeChart(nodes, results) {
+    const cv = document.getElementById('lag-canvas');
+
+    // Функция для передачи в график: считает P(x) для любого x
+    const f_lagrange = (x, t) => {
+        let sum = 0;
+        const n = nodes.length;
+        for (let i = 0; i < n; i++) {
+            let term = nodes[i].y;
+            for (let k = 0; k < n; k++) {
+                if (i !== k) {
+                    term *= (x - nodes[k].x) / (nodes[i].x - nodes[k].x);
+                }
+            }
+            sum += term;
+        }
+        return sum;
+    };
+
+    // Определяем границы графика по узлам и точкам
+    const allX = [...nodes.map(n => n.x), ...results.map(r => r.xj)];
+    const minX = Math.min(...allX);
+    const maxX = Math.max(...allX);
+    const padX = (maxX - minX) * 0.1 || 1; // Отступ 10%
+
+    // Готовим точки для отрисовки (узлы + вычисленные)
+    const rootMarkers = [
+        ...nodes.map(n => ({ x: n.x, y: n.y })),
+        ...results.map(r => ({ x: r.xj, y: r.yj }))
+    ];
+
+    Graph.draw(cv, f_lagrange, 0, minX - padX, maxX + padX, {
+        title: 'Многочлен Лагранжа',
+        roots: rootMarkers
+    });
+}
