@@ -4547,7 +4547,7 @@
 
             <p><strong>7. Вектор невязки.</strong> При численном решении СЛАУ получается приближённое решение. Поэтому при подстановке найденного решения в уравнения системы вместо заданного вектора правой части $b$ получится другой вектор $\tilde{b}$. В связи с этим необходимо определить меру удовлетворения системы найденным решениям, в качестве которой рекомендуется принимать вектор $(b - \tilde{b})$, называемый вектором невязки.</p>
             <div class="calc-card" id="calc-gauss">
-                <h3 class="lab-subtitle">Калькулятор СЛАУ. Метод Гаусса <span class="calc-badge">ЛР 2</span></h3>
+                <h3 class="lab-subtitle">Калькулятор СЛАУ. Метод Гаусса </h3>
                 <p class="calc-hint">
                     Введите размерность системы $m$, коэффициенты матрицы $A$ и вектор правых частей $b$.
                     Калькулятор решит систему методом Гаусса с выбором главного элемента по столбцу и вычислит вектор невязки $r = Ax - b$.
@@ -4923,6 +4923,41 @@
             <p>$$S_{k,3}(x) = [(x_{k+2} - x)^3 - 4(x_{k+1} - x)^3] / 4h^3,$$</p>
             <p>$$S_{k+1,3}(x) = [(x - x_{k-1})^3 - 4(x - x_k)^3] / 4h^3,$$</p>
             <p>$$S_{k+2,3}(x) = (x - x_k)^3 / 4h^3.$$</p>
+            <div class="calc-card" id="calc-lagrange">
+                <h3 class="lab-subtitle">Калькулятор интерполяции (Многочлен Лагранжа)</h3>
+                <p class="calc-hint">
+                    Введите количество узлов $n+1$, их координаты $(x_i, y_i)$ и точки $x_j$, в которых нужно вычислить значение.
+                    Калькулятор построит многочлен Лагранжа $P_n(x)$ и выведет таблицу результатов.
+                </p>
+
+                <div class="calc-grid" style="grid-template-columns: 1fr 1fr;">
+                    <label style="flex-direction: row; align-items: center; gap: 10px;">
+                        Кол-во узлов $(n+1)$:
+                        <input id="lag-nodes" type="number" value="5" min="2" max="10" onchange="buildLagrangeInputs()">
+                    </label>
+                    <label style="flex-direction: row; align-items: center; gap: 10px;">
+                        Кол-во точек $x_j$:
+                        <input id="lag-points" type="number" value="2" min="1" max="10" onchange="buildLagrangeInputs()">
+                    </label>
+                </div>
+
+                <!-- Контейнеры для динамического ввода -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                    <div>
+                        <h4 style="color: var(--accent); font-size: 1rem; margin-bottom: 10px;">Узлы интерполяции $(x_i, y_i)$</h4>
+                        <div id="lag-nodes-container"></div>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--accent); font-size: 1rem; margin-bottom: 10px;">Точки для вычисления $x_j$</h4>
+                        <div id="lag-points-container"></div>
+                    </div>
+                </div>
+
+                <button onclick="calcLagrange()" style="margin-top: 20px;">Вычислить P(x)</button>
+
+                <div class="calc-result" id="lag-out" style="margin-top: 20px;"></div>
+                <div class="calc-canvas-wrap"><canvas id="lag-canvas" height="160"></canvas></div>
+            </div>
         </div>
     </section>
     <!-- СТРАНИЦА ЛР 4 -->
