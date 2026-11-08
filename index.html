@@ -5255,6 +5255,96 @@
             <p>2. Для обеспечения требуемой точности при приближенном вычислении интеграла по квадратурной формуле нужно выбрать соответствующее значение шага $h$ (или число шагов $N$, на которое делится отрезок интегрирования). Для этого можно воспользоваться существующими формулами для остаточных членов квадратурных формул, однако оценка значения соответствующей производной подынтегральной функции, входящей в формулу остаточного члена, нередко вызывает большие трудности. Кроме того эту оценку приходится делать для каждой новой подынтегральной функции.</p>
             <p>На практике для достижения требуемой точности вычисления интеграла по квадратурной формуле часто используется метод последовательного удвоения шагов (двойной пересчёт), в соответствии с которым интеграл $I$ вычисляется дважды: сначала при числе шагов, равном $n$, а затем при числе шагов, равном $2n$. Обозначив результаты вычислений через $I_n$ и $I_{2n}$, соответственно, сравнивают их, проверяя выполнение неравенства $\Delta I = |I_n - I_{2n}| < \varepsilon$. Если неравенство выполняется, то приближенное значение интеграла найдено. В противном случае вычисления продолжают с увеличенным числом шагов. Таким образом, $I_n$ вычисляется для последовательных значений $n = N_0, 2N_0, 4N_0$ и т.д., где $N_0$ – начальное число шагов. Процесс вычислений заканчивается, когда для очередного значения $n$ будет получена погрешность $\Delta I < \varepsilon$.</p>
             <p>3. Для получения эффективного алгоритма вычисления определённого интеграла следует учесть, что при использовании некоторых квадратурных формул при удвоении числа шагов нет необходимости заново вычислять значения подынтегральной функции во всех узлах сетки, так как все узлы сетки, полученные при числе шагов, равном $n$, являются узлами сетки и при числе шагов, равном $2n$.</p>
+            <div class="calc-card" id="calc-integration">
+                <h3 class="lab-subtitle">Калькулятор интегралов <span class="calc-badge">ЛР 4</span></h3>
+                <p class="calc-hint">
+                    Часть 1: Вычисление $u = \int_{a_1}^{b_1} f_1(x) dx$ с точностью $\varepsilon_1$.<br>
+                    Часть 2: Таблица значений $F(t) = \int_{a_2}^{b_2} f_2(x, t) dx$ и график.
+                </p>
+
+                <!-- Блок 1 -->
+                <h4 style="color: var(--accent); margin-top: 20px;">1. Интеграл $u$</h4>
+                <div class="calc-grid" style="grid-template-columns: auto 1fr auto 1fr auto 1fr auto 1fr; gap: 10px 15px; align-items: center;">
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$f_1(x)$:</span>
+                    </label>
+                    <input id="int-f1" value="Math.sqrt(Math.exp(x) - 1)" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$a_1$:</span>
+                    </label>
+                    <input id="int-a1" type="number" value="0.1" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$b_1$:</span>
+                    </label>
+                    <input id="int-b1" type="number" value="2" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$\varepsilon_1$:</span>
+                    </label>
+                    <input id="int-eps1" type="number" value="0.00001" step="any" style="width: 100%;">
+                </div>
+
+                <button onclick="calcIntegralU()" style="margin-top: 15px;">Вычислить u</button>
+                <div class="calc-result" id="int-u-out" style="margin-bottom: 30px;"></div>
+
+                <!-- Блок 2 -->
+                <h4 style="color: var(--accent); margin-top: 20px;">2. Функция $F(t)$</h4>
+                <div class="calc-grid" style="grid-template-columns: auto 1fr auto 1fr auto 1fr; gap: 10px 15px; align-items: center;">
+                    <!-- Строка 1 -->
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$\varphi(z)$:</span>
+                    </label>
+                    <input id="int-phi" value="Math.sin(z)" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$\psi(x)$:</span>
+                    </label>
+                    <input id="int-psi" value="(1-x*x)/(1+x*x)" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$\mu$:</span>
+                    </label>
+                    <input id="int-mu" type="number" value="-0.01" step="any" style="width: 100%;">
+
+                    <!-- Строка 2 -->
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$a_2$:</span>
+                    </label>
+                    <input id="int-a2" type="number" value="0" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$b_2$:</span>
+                    </label>
+                    <input id="int-b2" type="number" value="1.5708" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$c$:</span>
+                    </label>
+                    <input id="int-c" type="number" value="0.5" step="any" style="width: 100%;">
+
+                    <!-- Строка 3 -->
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$d$:</span>
+                    </label>
+                    <input id="int-d" type="number" value="1.5" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$m$:</span>
+                    </label>
+                    <input id="int-m" type="number" value="10" step="1" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$\varepsilon_2$:</span>
+                    </label>
+                    <input id="int-eps2" type="number" value="0.0001" step="any" style="width: 100%;">
+                </div>
+
+                <button onclick="calcIntegralFt()" style="margin-top: 15px;">Построить F(t)</button>
+                <div class="calc-result" id="int-ft-out" style="margin-bottom: 10px;"></div>
+                <div class="calc-canvas-wrap"><canvas id="int-canvas" height="160"></canvas></div>
+            </div>
         </div>
     </section>
     <!-- СТРАНИЦА ЛР 5-->
