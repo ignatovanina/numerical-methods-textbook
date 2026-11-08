@@ -42,3 +42,75 @@ function buildLagrangeInputs() {
 document.addEventListener('DOMContentLoaded', () => {
     buildLagrangeInputs();
 });
+function calcLagrange() {
+    const n = parseInt(document.getElementById('lag-nodes').value);
+    const m = parseInt(document.getElementById('lag-points').value);
+
+    // 1. Считываем узлы
+    const nodes = [];
+    for (let i = 0; i < n; i++) {
+        const x = parseFloat(document.getElementById(`lag-x-${i}`).value) || 0;
+        const y = parseFloat(document.getElementById(`lag-y-${i}`).value) || 0;
+        nodes.push({ x, y });
+    }
+    window._lagNodesData = nodes;
+
+    // 2. Считываем точки x_j
+    const points = [];
+    for (let j = 0; j < m; j++) {
+        const x = parseFloat(document.getElementById(`lag-pt-${j}`).value) || 0;
+        points.push(x);
+    }
+    window._lagPointsData = points;
+
+    // 3. Вычисляем P(x) для каждой точки x_j
+    const results = [];
+    for (let j = 0; j < m; j++) {
+        const xj = points[j];
+        let sum = 0;
+
+        for (let i = 0; i < n; i++) {
+            let term = nodes[i].y;
+            for (let k = 0; k < n; k++) {
+                if (i !== k) {
+                    // Защита от деления на ноль (если узлы совпадают)
+                    if (nodes[i].x === nodes[k].x) {
+                        document.getElementById('lag-out').innerHTML = errBox('Ошибка: узлы x_i не должны совпадать.');
+                        return;
+                    }
+                    term *= (xj - nodes[k].x) / (nodes[i].x - nodes[k].x);
+                }
+            }
+            sum += term;
+        }
+        results.push({ xj, yj: sum });
+    }
+
+    // 4. Вывод таблицы
+    let tableHtml = `<table class="lab-table">
+        <thead>
+            <tr>
+                <th>j</th>
+                <th>x_j</th>
+                <th>P_n(x_j)</th>
+            </tr>
+        </thead>
+        <tbody>`;
+
+    for (let j = 0; j < results.length; j++) {
+        tableHtml += `<tr>
+            <td>${j}</td>
+            <td>${fmt(results[j].xj, 4)}</td>
+            <td><span class="calc-root" style="font-size: 0.9rem; padding: 2px 8px;">${fmt(results[j].yj, 6)}</span></td>
+        </tr>`;
+    }
+    tableHtml += `</tbody></table>`;
+
+    document.getElementById('lag-out').innerHTML = `
+        <h4 style="color: var(--text-main); margin-bottom: 10px;">Результаты интерполяции:</h4>
+        ${tableHtml}
+    `;
+
+    // 5. Отрисовка графика
+    drawLagrangeChart(nodes, results);
+}
