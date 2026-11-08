@@ -25,3 +25,26 @@ function integrateSimpson(f, a, b, eps) {
     }
     return { value: I_new, N: n, iter: iter };
 }
+function calcIntegralU() {
+    const expr = document.getElementById('int-f1').value;
+    const a = parseFloat(document.getElementById('int-a1').value);
+    const b = parseFloat(document.getElementById('int-b1').value);
+    const eps = parseFloat(document.getElementById('int-eps1').value);
+
+    try {
+        const f = new Function('x', 'return ' + expr);
+        // Проверка, что функция работает
+        if (!isFinite(f(a)) && !isFinite(f(b))) throw new Error("Функция не определена на границах");
+
+        const res = integrateSimpson(f, a, b, eps);
+
+        document.getElementById('int-u-out').innerHTML = `
+            <p><b>Значение интеграла u:</b> <span class="calc-root">${fmt(res.value, 8)}</span></p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+                Достигнуто при N = ${res.N} разбиениях (итераций: ${res.iter + 1}).
+            </p>
+        `;
+    } catch (e) {
+        document.getElementById('int-u-out').innerHTML = errBox('Ошибка в функции f_1: ' + e.message);
+    }
+}
