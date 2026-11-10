@@ -31,26 +31,34 @@ function solveODE(autoStep) {
             let x = x0, y = y0, h = h0;
             points.push({ x, y });
             let safetyCounter = 0;
+            
+            const errorDivider = 8;
 
             while (x < b - 1e-10 && safetyCounter < 10000) {
                 safetyCounter++;
 
+                // Вычисляем один шаг h и два шага по h/2
                 const y_full = eulerModStep(f, x, y, h);
                 const y_half1 = eulerModStep(f, x, y, h/2);
                 const y_half2 = eulerModStep(f, x + h/2, y_half1, h/2);
 
-                // Правило Рунге для 2-го порядка: delta = |y_half - y_full| / 3
-                const delta = Math.abs(y_half2 - y_full) / 3;
+                // Оценка погрешности по формуле из методички: delta = |y_half - y_full| / 2^(r+1)
+                const delta = Math.abs(y_half2 - y_full) / errorDivider;
 
                 if (delta <= eps || h < 1e-6) {
+                    // Шаг подходит (ошибка меньше эпсилон)
                     x += h;
-                    y = y_half2;
+                    y = y_half2; // Берем более точное значение
                     points.push({ x, y });
                     stepsCount++;
-                    if (delta < eps / 4) h *= 2;
+                    
+                    if (delta < eps / errorDivider) h *= 2;
                 } else {
+                    // Шаг не подходит, уменьшаем его в два раза и пробуем снова
                     h /= 2;
                 }
+
+                // Корректировка последнего шага, чтобы не проскочить b
                 if (x + h > b) h = b - x;
             }
         } else {
