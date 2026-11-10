@@ -5613,10 +5613,57 @@
             <p>$$y_{k+1}^{(0)} = y_k + \frac{h}{24}[55f(x_k, y_k) - 59f(x_{k-1}, y_{k-1}) + 37f(x_{k-2}, y_{k-2}) - 9f(x_{k-3}, y_{k-3})];$$</p>
             <p>$$y_{k+1}^{(S)} = y_k + \frac{h}{24}[19f(x_k, y_k) + 9f(x_{k+1}, y_{k+1}^{(S-1)}) - 5f(x_{k-1}, y_{k-1}) + f(x_{k-2}, y_{k-2})].$$</p>
 
-            <p>2. При интегрировании одношаговыми методами с автоматическим выбором шага рекомендуется использовать следующее правило выбора шага. В узле $x_0$ взять $h = h_0$, где $h_0$ – заданный начальный шаг, найти приближённые решения $\tilde{y}$ и $\tilde{\tilde{y}}$, вычисленные одношаговым методом в точке $x+h$ с шагами $h$ и $h/2$, соответственно. За абсолютную погрешность приближённого решения (в качестве которого выбирается $\tilde{\tilde{y}}$ как более точное), вычисленного одношаговым методом \(r\)-го порядка принимается $\delta = \left| \frac{\tilde{y} - \tilde{\tilde{y}}}{2^r + 1} \right|$.</p>
+            <p>2. При интегрировании одношаговыми методами с автоматическим выбором шага рекомендуется использовать следующее правило выбора шага. В узле $x_0$ взять $h = h_0$, где $h_0$ – заданный начальный шаг, найти приближённые решения $\tilde{y}$ и $\tilde{\tilde{y}}$, вычисленные одношаговым методом в точке $x+h$ с шагами $h$ и $h/2$, соответственно. За абсолютную погрешность приближённого решения (в качестве которого выбирается $\tilde{\tilde{y}}$ как более точное), вычисленного одношаговым методом $r$-го порядка принимается $\delta = \left| \frac{\tilde{y} - \tilde{\tilde{y}}}{2^r + 1} \right|$.</p>
             <p>Если $\delta \ge \varepsilon$, то шаг необходимо уменьшить в два раза и вычисления повторить, начиная с узла $x_0$. Если будет получено $\delta < \varepsilon$, то $\tilde{\tilde{y}}$ считается решением в узле $x_1 = x_0 + h$, полученным с заданной точностью на этом шаге.</p>
             <p>Для получения решения в следующем узле $x_2$ необходимо проделать аналогичные вычисления, исходя из узла $x_1$. При этом начальный шаг рекомендуется выбирать по шагу $h$, с которым было получено решение в узле $x_1$, в зависимости от погрешности $\delta$: если $\delta < \varepsilon/2^{r+1}$, то предыдущий шаг удваивается; в противном случае шаг не изменяется. Аналогично находится решение и в последующих узлах.</p>
 
+            <div class="calc-card" id="calc-ode">
+                <h3 class="lab-subtitle">Калькулятор задачи Коши (Метод Эйлера-Коши)</h3>
+                <p class="calc-hint">
+                    Решение ОДУ $y' = f(x, y)$ на отрезке $[x_0, b]$ с начальным условием $y(x_0) = y_0$.
+                    Используется 1-я модификация метода Эйлера (2-й порядок точности).
+                </p>
+
+                <div style="display: grid; grid-template-columns: auto 1fr; gap: 15px; align-items: center; margin-bottom: 20px;">
+                    <label style="color: var(--text-muted); font-weight: 500; font-size: 0.9rem;">$f(x, y)$:</label>
+                    <input id="ode-f" value="Math.exp(-(x+4)*x) - 2*(x-2)*y" style="width: 100%; max-width: 400px; padding: 10px; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 6px; font-family: 'Courier New', monospace;">
+                </div>
+
+                <div class="calc-grid" style="grid-template-columns: auto 1fr auto 1fr auto 1fr auto 1fr auto 1fr; gap: 10px 15px; align-items: center;">
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$x_0$:</span>
+                    </label>
+                    <input id="ode-x0" type="number" value="1" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$y_0$:</span>
+                    </label>
+                    <input id="ode-y0" type="number" value="10" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$b$:</span>
+                    </label>
+                    <input id="ode-b" type="number" value="6" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$h_0$:</span>
+                    </label>
+                    <input id="ode-h0" type="number" value="0.5" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$\varepsilon$:</span>
+                    </label>
+                    <input id="ode-eps" type="number" value="0.001" step="any" style="width: 100%;">
+                </div>
+
+                <div style="margin-top: 20px; display: flex; gap: 15px;">
+                    <button onclick="solveODE(true)">С автоматическим шагом</button>
+                    <button onclick="solveODE(false)" style="background: transparent; border: 1px solid var(--accent); color: var(--accent);">С постоянным шагом</button>
+                </div>
+
+                <div class="calc-result" id="ode-out" style="margin-top: 20px;"></div>
+                <div class="calc-canvas-wrap"><canvas id="ode-canvas" height="160"></canvas></div>
+            </div>
         </div>
     </section>
 </main>
