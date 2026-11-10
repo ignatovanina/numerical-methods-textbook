@@ -1,22 +1,3 @@
-function fmt(x, n = 6) {
-    if (!isFinite(x)) return '—';
-    if (Math.abs(x) >= 1e5 || (Math.abs(x) < 1e-4 && x !== 0)) return x.toExponential(3);
-    return (+x.toFixed(n)).toString();
-}
-const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
-const rootBox = r => `<div class="calc-root">x* ≈ ${fmt(r, 8)}</div>`;
-const errBox = m => `<div class="calc-error">${esc(m)}</div>`;
-const val = id => parseFloat(document.getElementById(id).value);
-
-function makeF(inputId, outId) {
-    const expr = document.getElementById(inputId).value;
-    try { return Num.makeF(expr); }
-    catch (e) {
-        document.getElementById(outId).innerHTML = errBox('Expression error: ' + e.message);
-        return null;
-    }
-}
-
 function calcIsolate() {
     const f = makeF('is-f', 'is-out'); if (!f) return;
     const t = val('is-t'), xmin = val('is-min'), xmax = val('is-max'), step = val('is-step');
@@ -1216,34 +1197,4 @@ function calcIter() {
     ctx.fillStyle = 'rgba(244,241,222,0.85)';
     ctx.font = '12px "Inter", sans-serif';
     ctx.fillText(`Метод простой итерации. t=${t}, x₀=${fmt(x0,3)}`, pad.l, 16);
-}
-// Вспомогательная функция: рисует пунктирную линию со стрелочкой на конце
-function drawArrow(ctx, fromX, fromY, toX, toY) {
-    ctx.beginPath();
-    ctx.moveTo(fromX, fromY);
-    ctx.lineTo(toX, toY);
-    ctx.stroke();
-
-    // Рисуем стрелочку на конце
-    const angle = Math.atan2(toY - fromY, toX - fromX);
-    const headLen = 7;
-    ctx.beginPath();
-    ctx.moveTo(toX, toY);
-    ctx.lineTo(toX - headLen * Math.cos(angle - Math.PI / 6), toY - headLen * Math.sin(angle - Math.PI / 6));
-    ctx.lineTo(toX - headLen * Math.cos(angle + Math.PI / 6), toY - headLen * Math.sin(angle + Math.PI / 6));
-    ctx.closePath();
-    ctx.fill();
-}
-// Универсальный генератор скрываемой таблицы
-let _tableIdCounter = 0;
-function hiddenTable(html) {
-    const id = 'iter-table-' + (++_tableIdCounter);
-    return `
-        <button class="iter-toggle-btn" onclick="document.getElementById('${id}').classList.toggle('visible'); this.textContent = document.getElementById('${id}').classList.contains('visible') ? 'Скрыть итерации' : 'Показать итерации'">
-            Показать итерации
-        </button>
-        <div id="${id}" class="iter-table-wrap">
-            ${html}
-        </div>
-    `;
 }
