@@ -105,7 +105,8 @@ function solveODE(autoStep) {
             return 0;
         }, 0, x0 - 0.5, b + 0.5, {
             title: `Решение ОДУ (${autoStep ? 'авто' : 'пост'} шаг)`,
-            roots: points.map(p => ({ x: p.x, y: p.y }))
+            roots: points.map(p => ({ x: p.x, y: p.y })),
+            hideLabels: true
         });
 
     } catch (e) {
