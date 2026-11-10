@@ -1,6 +1,3 @@
-/* ============================================================
-   calc-graph.js — shared canvas chart renderer
-   ============================================================ */
 const Graph = (() => {
     function ticks(a, b, n) {
         const span = b - a;
@@ -109,10 +106,14 @@ const Graph = (() => {
             ctx.fillStyle = '#F4F1DE';
             ctx.strokeStyle = '#00A896';
             ctx.lineWidth = 2;
-            ctx.beginPath(); ctx.arc(px, py, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-            ctx.fillStyle = '#00A896';
-            ctx.font = 'bold 11px "Courier New", monospace';
-            ctx.fillText('x* ≈ ' + r.x.toFixed(5), px + 8, py - 8);
+            ctx.beginPath(); ctx.arc(px, py, 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+            // Рисуем подпись только если не включен флаг скрытия
+            if (!opts.hideLabels) {
+                ctx.fillStyle = '#00A896';
+                ctx.font = 'bold 11px "Courier New", monospace';
+                ctx.fillText('x* ≈ ' + r.x.toFixed(5), px + 8, py - 8);
+            }
         });
 
         if (opts.title) {
