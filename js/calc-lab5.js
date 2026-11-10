@@ -90,6 +90,23 @@ function solveODE(autoStep) {
             <p><b>Количество шагов:</b> ${stepsCount}</p>
             ${hiddenTable(tableHtml)}
         `;
+        // (внутри блока try, после вывода таблицы)
+
+        // Отрисовка графика
+        Graph.draw(document.getElementById('ode-canvas'), (x, t) => {
+            if (x <= points[0].x) return points[0].y;
+            if (x >= points[points.length-1].x) return points[points.length-1].y;
+            for (let i = 0; i < points.length - 1; i++) {
+                if (x >= points[i].x && x <= points[i+1].x) {
+                    const t = (x - points[i].x) / (points[i+1].x - points[i].x);
+                    return points[i].y + t * (points[i+1].y - points[i].y);
+                }
+            }
+            return 0;
+        }, 0, x0 - 0.5, b + 0.5, {
+            title: `Решение ОДУ (${autoStep ? 'авто' : 'пост'} шаг)`,
+            roots: points.map(p => ({ x: p.x, y: p.y }))
+        });
 
     } catch (e) {
         document.getElementById('ode-out').innerHTML = errBox('Ошибка в функции: ' + e.message);
