@@ -22,7 +22,7 @@ function solveODE(autoStep) {
     const eps = parseFloat(document.getElementById('ode-eps').value);
 
     try {
-        const f = new Function('x', 'y', 'return ' + fExpr);
+        const f = new Function('x', 'y', 'return ' + parseMathExpr(fExpr));
         let points = [];
         let stepsCount = 0;
 

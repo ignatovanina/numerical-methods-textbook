@@ -32,7 +32,7 @@ function calcIntegralU() {
     const eps = parseFloat(document.getElementById('int-eps1').value);
 
     try {
-        const f = new Function('x', 'return ' + expr);
+        const f = new Function('x', 'return ' + parseMathExpr(expr));
         // Проверка, что функция работает
         if (!isFinite(f(a)) && !isFinite(f(b))) throw new Error("Функция не определена на границах");
 
@@ -61,8 +61,8 @@ function calcIntegralFt() {
     const eps2 = parseFloat(document.getElementById('int-eps2').value);
 
     try {
-        const phi = new Function('z', 'return ' + phiExpr);
-        const psi = new Function('x', 'return ' + psiExpr);
+        const phi = new Function('z', 'return ' + parseMathExpr(phiExpr));
+        const psi = new Function('x', 'return ' + parseMathExpr(psiExpr));
 
         const f2 = (x, t) => {
             const z = t / (1 + x * x) + mu * x;
