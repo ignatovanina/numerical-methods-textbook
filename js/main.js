@@ -251,3 +251,6 @@ function debounce(fn, delay = 200) {
     };
 }
 const debouncedFilter = debounce(filterLiterature, 200);
+function openExternal(url) {
+    window.open(url, '_blank', 'noopener,noreferrer');
+}
