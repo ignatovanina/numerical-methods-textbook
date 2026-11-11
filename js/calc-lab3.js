@@ -3,6 +3,9 @@ function buildLagrangeInputs() {
     const n = parseInt(document.getElementById('lag-nodes').value) || 5;
     const m = parseInt(document.getElementById('lag-points').value) || 2;
 
+    if (window._lagNodesData)  window._lagNodesData  = window._lagNodesData.slice(0, n);
+    if (window._lagPointsData) window._lagPointsData = window._lagPointsData.slice(0, m);
+
     const nodesContainer = document.getElementById('lag-nodes-container');
     const pointsContainer = document.getElementById('lag-points-container');
 
