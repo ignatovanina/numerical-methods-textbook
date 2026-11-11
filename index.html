@@ -5725,7 +5725,38 @@
         <div class="sidebar-search" style="padding: 0 0 20px 0;">
             <input type="text" placeholder="Поиск по автору или названию..." class="lit-search-input" oninput="filterLiterature('lit-grid', this.value)">
         </div>
-        <div class="lit-grid" id="lit-grid"></div>
+        <div class="lit-grid" id="lit-grid">
+            <div class="lit-card">
+                <div>
+                    <h3>Численные методы расчёта, моделирования и
+                        проектирования технологических процессов и оборудования</h3>
+                    <div class="lit-author">А.В. Майстренко, Н.В. Майстренко.</div>
+                    <div class="lit-meta">ГОУ ВПО ТГТУ, 2010</div>
+                    <div class="lit-badges" style="margin-bottom: 15px;">
+                        <span class="lit-badge">PDF</span>
+                        <span class="lit-badge">1,5 MB</span>
+                    </div>
+                </div>
+                <div class="lit-actions">
+                    <button class="btn-primary" onclick="downloadBook('bahvalov.pdf', 'Численные методы')">Скачать</button>
+                </div>
+            </div>
+            <div class="lit-card">
+                <div>
+                    <h3>Численные методы расчёта, моделирования и
+                        проектирования технологических процессов и оборудования (Лабораторные работы)</h3>
+                    <div class="lit-author">А.В. Майстренко, Н.В. Майстренко.</div>
+                    <div class="lit-meta">ГОУ ВПО ТГТУ, 2010</div>
+                    <div class="lit-badges" style="margin-bottom: 15px;">
+                        <span class="lit-badge">PDF</span>
+                        <span class="lit-badge">479 KB</span>
+                    </div>
+                </div>
+                <div class="lit-actions">
+                    <button class="btn-primary" onclick="downloadBook('samarskiy.pdf', 'Введение в численные методы')">Скачать</button>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- ПОЛЕЗНЫЕ РЕСУРСЫ -->
@@ -5741,7 +5772,8 @@
             <h2>Полезные ресурсы</h2>
             <p>Ссылки на ПО, онлайн-калькуляторы и справочники.</p>
         </div>
-        <div class="res-grid" id="res-grid"></div>
+        <div class="res-grid" id="res-grid">
+        </div>
     </section>
 </main>
 <script src="js/main.js"></script>
