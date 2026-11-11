@@ -61,3 +61,48 @@ function drawArrow(ctx, fromX, fromY, toX, toY) {
     ctx.closePath();
     ctx.fill();
 }
+/* ============================================================
+   UX: Навигация по полям ввода с помощью стрелок
+   ============================================================ */
+document.addEventListener('keydown', (e) => {
+    const input = e.target;
+    if (input.tagName !== 'INPUT') return;
+
+    // Ищем ближайший контейнер калькулятора, чтобы не улететь на другие поля сайта
+    const card = input.closest('.calc-card');
+    if (!card) return;
+
+    // Собираем все поля ввода внутри этого калькулятора в порядке их следования в HTML
+    const inputs = Array.from(card.querySelectorAll('input'));
+    const index = inputs.indexOf(input);
+    if (index === -1) return;
+
+    let nextInput = null;
+
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        // Для матриц (ЛР 2, ЛР 3) лучше скакать по строкам (следующее поле в таблице)
+        // Это работает и для обычных полей, просто переключает их по порядку.
+        e.preventDefault();
+        if (e.key === 'ArrowDown') {
+            nextInput = inputs[index + 1];
+        } else {
+            nextInput = inputs[index - 1];
+        }
+    } else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        // Влево/Вправо переключаем только если курсор в крайней позиции
+        // (чтобы не мешать редактировать само число)
+        if (e.key === 'ArrowRight' && input.selectionStart === input.value.length) {
+            e.preventDefault();
+            nextInput = inputs[index + 1];
+        } else if (e.key === 'ArrowLeft' && input.selectionStart === 0) {
+            e.preventDefault();
+            nextInput = inputs[index - 1];
+        }
+    }
+
+    if (nextInput) {
+        nextInput.focus();
+        // Выделяем текст в поле, чтобы его можно было сразу заменить при вводе
+        nextInput.select();
+    }
+});
