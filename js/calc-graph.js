@@ -183,6 +183,53 @@ const Graph = (() => {
                 // Перерисовываем
                 draw(canvas, s.f, s.t, s.xmin, s.xmax, s.opts);
             });
+            // --- Панорамирование (Drag) ---
+            let isDragging = false;
+            let lastMouseX = 0, lastMouseY = 0;
+
+            canvas.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                lastMouseX = e.clientX;
+                lastMouseY = e.clientY;
+                canvas.style.cursor = 'grabbing';
+            });
+
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+
+                const s = states.get(canvas);
+                if (!s) return;
+
+                const dx = e.clientX - lastMouseX;
+                const dy = e.clientY - lastMouseY;
+
+                lastMouseX = e.clientX;
+                lastMouseY = e.clientY;
+
+                // Переводим пиксели в координаты
+                const xRange = s.xmax - s.xmin;
+                const yRange = s.ymax - s.ymin;
+
+                const shiftX = -dx / pw * xRange;
+                const shiftY = dy / ph * yRange;
+
+                s.xmin += shiftX;
+                s.xmax += shiftX;
+                s.ymin += shiftY;
+                s.ymax += shiftY;
+
+                draw(canvas, s.f, s.t, s.xmin, s.xmax, s.opts);
+            });
+
+            const stopDrag = () => {
+                isDragging = false;
+                canvas.style.cursor = 'grab';
+            };
+            canvas.addEventListener('mouseup', stopDrag);
+            canvas.addEventListener('mouseleave', stopDrag);
+
+            // Устанавливаем курсор по умолчанию
+            canvas.style.cursor = 'grab';
         }
     }
 
