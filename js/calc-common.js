@@ -21,6 +21,42 @@ const errBox = m => `<div class="calc-error">${esc(m)}</div>`;
 // 5. Получение значения из input
 const val = id => parseFloat(document.getElementById(id).value);
 
+function parseMathExpr(expr) {
+    if (!expr) return expr;
+    let s = expr;
+    
+    let match;
+    // Базовый regex для простых случаев (x^2, t^3, 2^10)
+    const simplePow = /([a-zA-Z0-9_\.]+)\s*\^\s*([a-zA-Z0-9_\.\-]+)/;
+    while ((match = simplePow.exec(s)) !== null) {
+        s = s.replace(match[0], `Math.pow(${match[1]}, ${match[2]})`);
+    }
+
+    // Для скобок (пока упрощенно, только один уровень)
+    // Например: (x+1)^2 -> Math.pow((x+1), 2)
+    const bracketPow = /(\([^\(\)]+\))\s*\^\s*([a-zA-Z0-9_\.\-]+)/;
+    while ((match = bracketPow.exec(s)) !== null) {
+        s = s.replace(match[0], `Math.pow(${match[1]}, ${match[2]})`);
+    }
+
+    // 2. Функции: sin(x) -> Math.sin(x)
+    const mathFuncs = ['sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'sqrt', 'exp', 'log', 'abs'];
+    mathFuncs.forEach(fn => {
+        // \b - граница слова, чтобы не заменить Math.sin, если уже есть
+        const regex = new RegExp(`(?<!Math\\.)\\b${fn}\\s*\\(`, 'g');
+        s = s.replace(regex, `Math.${fn}(`);
+    });
+
+    // 3. Специальные функции
+    s = s.replace(/(?<!Math\.)\bln\s*\(/g, 'Math.log(');       // ln(x) -> Math.log(x)
+    s = s.replace(/(?<!Math\.)\blg\s*\(/g, 'Math.log10(');     // lg(x) -> Math.log10(x)
+    s = s.replace(/(?<!Math\.)\btg\s*\(/g, 'Math.tan(');       // tg(x) -> Math.tan(x)
+    s = s.replace(/(?<!Math\.)\bctg\s*\(/g, '1/Math.tan(');    // ctg(x) -> 1/Math.tan(x)
+
+    // 4. Константы
+    s = s.replace(/\bpi\b/gi, 'Math.PI');
+    return s;
+}
 // 6. Безопасное создание функции из строки
 function makeF(inputId, outId) {
     const expr = document.getElementById(inputId).value;
