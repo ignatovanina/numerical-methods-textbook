@@ -106,3 +106,80 @@ document.addEventListener('keydown', (e) => {
         nextInput.select();
     }
 });
+/* ============================================================
+   Интерактивные подсказки для полей ввода формул
+   ============================================================ */
+
+const FORMULA_HINTS = [
+    { symbol: 'x^2',  desc: 'Степень' },
+    { symbol: 'sin(x)', desc: 'Синус' },
+    { symbol: 'cos(x)', desc: 'Косинус' },
+    { symbol: 'tg(x)',  desc: 'Тангенс' },
+    { symbol: 'ln(x)',  desc: 'Натуральный логарифм' },
+    { symbol: 'lg(x)',  desc: 'Десятичный логарифм' },
+    { symbol: 'exp(x)', desc: 'Экспонента (e^x)' },
+    { symbol: 'sqrt(x)', desc: 'Корень' },
+    { symbol: 'pi',     desc: 'Число π' },
+    { symbol: 'e',      desc: 'Число e' },
+    { symbol: 'abs(x)', desc: 'Модуль' }
+];
+
+function initFormulaHints() {
+    // Находим все поля, в которых ожидается формула
+    // (по id или по паттерну: is-f, bi-f, ch-f, nt-f, sc-f, mn-f, cb-f, it-g, ode-f, lag-f, int-f1, int-phi, int-psi)
+    const formulaInputs = document.querySelectorAll(
+        'input[id$="-f"], input[id$="-g"], input[id^="int-f"], input[id^="int-phi"], input[id^="int-psi"]'
+    );
+
+    formulaInputs.forEach(input => {
+        // Создаём панель подсказок
+        const hint = document.createElement('div');
+        hint.className = 'formula-hint';
+        hint.innerHTML = `
+            <h4>Как писать формулы</h4>
+            <ul>
+                ${FORMULA_HINTS.map(h =>
+            `<li><code data-insert="${h.symbol}">${h.symbol}</code> — ${h.desc}</li>`
+        ).join('')}
+            </ul>
+        `;
+
+        // Вставляем панель рядом с input
+        input.parentElement.style.position = 'relative';
+        input.parentElement.appendChild(hint);
+
+        // Показываем при фокусе
+        input.addEventListener('focus', () => {
+            hint.classList.add('visible');
+            // Позиционируем под полем
+            const rect = input.getBoundingClientRect();
+            const parentRect = input.parentElement.getBoundingClientRect();
+            hint.style.top = (rect.bottom - parentRect.top + 5) + 'px';
+            hint.style.left = '0';
+        });
+
+        // Скрываем при клике вне
+        document.addEventListener('click', (e) => {
+            if (!input.parentElement.contains(e.target)) {
+                hint.classList.remove('visible');
+            }
+        });
+
+        // Вставляем пример при клике на code
+        hint.querySelectorAll('code[data-insert]').forEach(code => {
+            code.addEventListener('click', (e) => {
+                e.preventDefault();
+                const text = code.dataset.insert;
+                const start = input.selectionStart;
+                const end = input.selectionEnd;
+                const val = input.value;
+                input.value = val.slice(0, start) + text + val.slice(end);
+                input.focus();
+                input.setSelectionRange(start + text.length, start + text.length);
+            });
+        });
+    });
+}
+
+// Автоматически инициализируем при загрузке
+document.addEventListener('DOMContentLoaded', initFormulaHints);
