@@ -4,7 +4,7 @@
     --accent: #00A896;
     --text-main: #F4F1DE;
     --text-muted: rgba(244, 241, 222, 0.6);
-    --border-color: rgba(244, 241, 222, 0.1);
+    --border-color: rgb(42, 45, 52);
 }
 * {
     box-sizing: border-box;
@@ -449,4 +449,385 @@ header h1 {
 .btn-tf.incorrect {
     background-color: rgba(255, 77, 77, 0.2);
     border-color: #ff4d4d;
+}
+/* Вводная часть лабораторных */
+.lab-intro {
+    background-color: rgba(0, 168, 150, 0.08); /* Легкий бирюзовый оттенок */
+    border: 1px solid rgba(0, 168, 150, 0.3); /* Тонкая рамка в тон */
+    border-radius: 12px; /* Скругленные углы */
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.lab-intro h3 {
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.lab-intro p {
+    margin-bottom: 15px;
+    color: var(--text-main);
+}
+
+.lab-intro ol {
+    margin-left: 20px;
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+.lab-intro ol li {
+    margin-bottom: 5px;
+}
+/* =========================================
+   СТИЛИ ДЛЯ ЛАБОРАТОРНЫХ РАБОТ
+   ========================================= */
+
+/* Подзаголовки в лабораторных (Постановка задачи, Порядок выполнения и т.д.) */
+.lab-subtitle {
+    color: var(--accent);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+/* Меньшие подзаголовки (Описание методов) */
+.lab-subtitle-small {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+/* Списки (нумерованные и маркированные) */
+.lab-list {
+    line-height: 1.8;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.lab-list li {
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+
+/* Контейнер для таблиц (чтобы можно было скроллить на телефоне) */
+.table-container {
+    overflow-x: auto;
+    margin: 25px 0;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+/* Подпись к таблице (Таблица 1) */
+.table-caption {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Сами таблицы в лабораторных */
+.lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    text-align: center;
+    background-color: var(--bg-card);
+}
+
+.lab-table th {
+    background-color: rgba(0, 168, 150, 0.15); /* Легкий бирюзовый фон для шапки */
+    color: var(--accent);
+    border: 1px solid var(--border-color);
+    padding: 12px 8px;
+    font-weight: 600;
+}
+
+.lab-table td {
+    border: 1px solid var(--border-color);
+    padding: 10px 8px;
+    color: var(--text-main);
+}
+
+/* Эффект при наведении на строку таблицы */
+.lab-table tr:hover td {
+    background-color: rgba(244, 241, 222, 0.05);
+}
+
+/* Улучшенное отображение формул в лабораторных */
+.lab-card .katex-display {
+    margin: 1.5em 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+/* Выделение названий методов в лабораторных работах */
+.lab-card strong {
+    color: var(--accent); /* Бирюзовый цвет из вашей палитры */
+    font-weight: 600;
+}
+/* Отступ между методами в лабораторных работах */
+.lab-card strong {
+    color: var(--accent); /* Зеленый цвет для названий методов */
+    font-weight: 600;
+}
+
+/* Добавляем отступ у абзацев, которые идут перед методами */
+.lab-card p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+.table-caption {
+    font-size: 0.9rem;
+    color: var(--text-muted); /* Приглушенный цвет, как у подписей к картинкам */
+    font-style: italic; /* Курсив, чтобы отличать от основного текста */
+    margin-bottom: 10px;
+    margin-left: 5px; /* Небольшой отступ слева, чтобы не прилипало к краю */
+    letter-spacing: normal; /* Убираем агрессивный разряд */
+    text-transform: none; /* Убираем КАПС */
+}
+/* =========================================
+   ТАБЛИЦА 2 (ЛР 3) - ЖЕСТКАЯ СЕТКА
+   ========================================= */
+
+.lab-table-dense {
+    width: 100%;
+    border-collapse: collapse; /* Схлопываем границы для ровных линий */
+    font-size: 0.85rem;
+    text-align: center;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+}
+
+/* Шапка */
+.lab-table-dense thead th {
+    background-color: rgba(0, 168, 150, 0.15);
+    color: var(--accent);
+    font-weight: 600;
+    padding: 8px 4px;
+    border: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--accent);
+}
+
+/* Все ячейки (чтобы не было дыр) */
+.lab-table-dense tbody td {
+    padding: 6px 4px;
+    border: 1px solid var(--border-color); /* Тонкая сетка везде */
+    color: var(--text-main);
+}
+
+/* Жирная горизонтальная линия между вариантами */
+.lab-table-dense tbody tr.variant-end td {
+    border-bottom: 2px solid var(--accent);
+}
+
+/* Выделение номеров вариантов */
+.lab-table-dense td[rowspan] {
+    font-weight: 600;
+    color: var(--text-main);
+    background-color: rgba(0, 0, 0, 0.1); /* Легкий фон для колонки с номерами */
+}
+
+/* =========================================
+   CALCULATORS (LAB 1)
+   ========================================= */
+.calc-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin: 28px 0;
+}
+.calc-card h3.lab-subtitle {
+    margin-top: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.calc-badge {
+    background: rgba(0, 168, 150, 0.15);
+    color: var(--accent);
+    border: 1px solid rgba(0, 168, 150, 0.4);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px 18px;
+    margin: 18px 0;
+}
+.calc-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+.calc-grid input {
+    padding: 9px 12px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-main);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+.calc-grid input:focus { border-color: var(--accent); }
+.calc-card button {
+    background-color: var(--accent);
+    color: var(--bg-main);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.calc-card button:hover { background-color: #00c2ae; }
+.calc-card button:active { transform: scale(0.98); }
+
+.calc-hint {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 6px 0 0 0;
+    line-height: 1.5;
+}
+.calc-hint code {
+    background: var(--bg-main);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--accent);
+    font-size: 0.85em;
+}
+.calc-result { margin-top: 20px; font-size: 0.92rem; line-height: 1.6; }
+.calc-result table.lab-table { margin-top: 12px; font-family: 'Courier New', monospace; font-size: 0.82rem; }
+.calc-result table.lab-table td,
+.calc-result table.lab-table th { padding: 6px 8px; }
+
+.calc-root {
+    display: inline-block;
+    background: rgba(0, 168, 150, 0.15);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 6px 0;
+}
+.calc-warn { color: #ffb703; font-size: 0.88rem; }
+.calc-error {
+    color: #ff4d4d;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: rgba(255, 77, 77, 0.08);
+    border: 1px solid rgba(255, 77, 77, 0.35);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 6px 0;
+}
+.calc-canvas-wrap {
+    margin-top: 18px;
+    background: #1E1E24;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    overflow-x: auto;
+}
+.calc-canvas-wrap canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+/* Скрытие таблиц итераций */
+.iter-toggle-btn {
+    background: rgba(0, 168, 150, 0.1);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin: 10px 0;
+    transition: all 0.2s ease;
+}
+.iter-toggle-btn:hover {
+    background: rgba(0, 168, 150, 0.2);
+}
+.iter-table-wrap {
+    display: none; /* По умолчанию скрыто */
+    margin-top: 10px;
+}
+.iter-table-wrap.visible {
+    display: block;
+}
+/* Панель подсказок для формул */
+.formula-hint {
+    position: absolute;
+    z-index: 100;
+    background-color: var(--bg-card);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    max-width: 360px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    display: none;
+}
+.formula-hint.visible {
+    display: block;
+}
+.formula-hint h4 {
+    margin: 0 0 8px 0;
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.formula-hint ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.formula-hint li {
+    padding: 4px 0;
+    border-bottom: 1px dashed rgba(244, 241, 222, 0.1);
+}
+.formula-hint li:last-child {
+    border-bottom: none;
+}
+.formula-hint code {
+    background-color: var(--bg-main);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.formula-hint code:hover {
+    background-color: rgba(0, 168, 150, 0.2);
 }

@@ -162,12 +162,12 @@
             <span>›</span>
         </div>
         <div class="module-content">
-            <a href="#" class="lesson">ЛР 1. Оценка погрешностей</a>
-            <a href="#" class="lesson">ЛР 2. Решение уравнений</a>
-            <a href="#" class="lesson">ЛР 3. СЛАУ</a>
-            <a href="#" class="lesson">ЛР 4. Интерполяция</a>
-            <a href="#" class="lesson">ЛР 5. Интегрирование</a>
-            <a href="#" class="lesson">ЛР 6. ОДУ</a>
+            <a href="#labs" class="lesson" onclick="showPage('labs'); return false;">Лабораторный практикум</a>
+            <a href="#lab-1" class="lesson" onclick="showPage('lab-1'); return false;">ЛР 1. Решение трансцендентных уравнений</a>
+            <a href="#lab-2" class="lesson" onclick="showPage('lab-2'); return false;">ЛР 2. Решение СЛАУ</a>
+            <a href="#lab-3" class="lesson" onclick="showPage('lab-3'); return false;">ЛР 3. Интерполяция и экстраполяция функций</a>
+            <a href="#lab-4" class="lesson" onclick="showPage('lab-4'); return false;">ЛР 4. Интегрирование</a>
+            <a href="#lab-5" class="lesson" onclick="showPage('lab-5'); return false;">ЛР 5. Решение обыкновенных дифференциальных уравнений</a>
         </div>
     </div>
 
@@ -178,11 +178,11 @@
             <span>›</span>
         </div>
         <div class="module-content">
-            <a href="#test-1" class="lesson" onclick="showPage('tests'); showTest('test-1'); return false;">Погрешности</a>
-            <a href="#test-2" class="lesson" onclick="showPage('tests'); showTest('test-2'); return false;">Уравнения</a>
-            <a href="#test-3" class="lesson" onclick="showPage('tests'); showTest('test-3'); return false;">СЛАУ</a>
-            <a href="#test-4" class="lesson" onclick="showPage('tests'); showTest('test-4'); return false;">Интерполирование и аппроксимация</a>
-            <a href="#test-5" class="lesson" onclick="showPage('tests'); showTest('test-5'); return false;">ОДУ</a>
+            <a href="#test-1" class="lesson" onclick="showPage('tests-1'); return false;">Погрешности</a>
+            <a href="#test-2" class="lesson" onclick="showPage('tests-2'); return false;">Уравнения</a>
+            <a href="#test-3" class="lesson" onclick="showPage('tests-3'); return false;">СЛАУ</a>
+            <a href="#test-4" class="lesson" onclick="showPage('tests-4'); return false;">Интерполирование и аппроксимация</a>
+            <a href="#test-5" class="lesson" onclick="showPage('tests-5'); return false;">ОДУ</a>
         </div>
     </div>
 </aside>
@@ -3702,294 +3702,2011 @@
             <p>с начальными условиями: $y(x_0) = y_0, \ y_1(x_0) = y_{1,0}, \dots, y_{n-1}(x_0) = y_{n-1,0}$, имеет первый порядок и может быть решена любым из рассмотренных выше методов.</p>
         </article>
     </section>
-    <section class="content-page" id="page-tests">
+    <!-- тесты -->
+    <!-- ТЕСТ 1: Погрешности -->
+    <section class="content-page" id="page-test-1">
         <nav class="breadcrumbs">
             <a href="#home" onclick="showPage('home'); return false;">Главная</a>
             <span>/</span>
-            <span class="current">Тесты</span>
+            <a href="#test-1" onclick="showPage('test-1'); return false;">Тесты</a>
+            <span>/</span>
+            <span class="current">Погрешности</span>
         </nav>
         <div class="content-header">
-            <h2>Интерактивные тесты</h2>
-            <p>Выберите тему в боковом меню, чтобы проверить свои знания.</p>
+            <h2>Тест: Погрешности</h2>
+        </div>
+        <div class="quiz-container">
+            <!-- Вопрос 1 (Выбор) -->
+            <div class="quiz-question">1. Чему равна абсолютная погрешность суммы приближенных чисел?</div>
+            <label class="quiz-option"><input type="radio" name="q1-1" value="a"> Сумме их абсолютных погрешностей</label>
+            <label class="quiz-option"><input type="radio" name="q1-1" value="b"> Разности их абсолютных погрешностей</label>
+            <label class="quiz-option"><input type="radio" name="q1-1" value="c"> Произведению их абсолютных погрешностей</label>
+            <button class="btn-primary" onclick="checkQuiz('q1-1', 'a', 'result-1-1')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-1-1"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <!-- Вопрос 2 (Ввод числа) -->
+            <div class="quiz-question">2. Точное число 3.14159, приближенное 3.14. Чему равна абсолютная погрешность? (Введите число)</div>
+            <input type="text" id="q1-2-input" class="quiz-input" placeholder="Например: 0.00159">
+            <button class="btn-primary" onclick="checkFillBlank('q1-2-input', '0.00159', 'result-1-2')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-1-2"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <!-- Вопрос 3 (Правда/Ложь) -->
+            <div class="quiz-question">3. Предельная абсолютная погрешность — это оценка сверху для истинной абсолютной погрешности.</div>
+            <div class="tf-container">
+                <button class="btn-tf" onclick="checkTF(this, true, 'result-1-3')">Верно</button>
+                <button class="btn-tf" onclick="checkTF(this, false, 'result-1-3')">Неверно</button>
+            </div>
+            <div class="quiz-result" id="result-1-3"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <!-- Вопрос 4 (Drag-and-Drop) -->
+            <div class="quiz-question">4. Сопоставьте операцию с правилом погрешности (перетащите блоки):</div>
+            <div class="match-container">
+                <div class="match-column">
+                    <div class="match-item" draggable="true" data-match="sum">Сложение</div>
+                    <div class="match-item" draggable="true" data-match="mul">Умножение</div>
+                </div>
+                <div class="match-column">
+                    <div class="match-item dropzone" data-match="sum">Складываются абсолютные погрешности</div>
+                    <div class="match-item dropzone" data-match="mul">Складываются относительные погрешности</div>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <!-- Вопрос 5 (Выбор) -->
+            <div class="quiz-question">5. Чему равна относительная погрешность?</div>
+            <label class="quiz-option"><input type="radio" name="q1-5" value="a"> Отношению абсолютной погрешности к точному значению</label>
+            <label class="quiz-option"><input type="radio" name="q1-5" value="b"> Сумме абсолютных погрешностей</label>
+            <label class="quiz-option"><input type="radio" name="q1-5" value="c"> Произведению абсолютных погрешностей</label>
+            <button class="btn-primary" onclick="checkQuiz('q1-5', 'a', 'result-1-5')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-1-5"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <!-- Вопрос 6 (Правда/Ложь) -->
+            <div class="quiz-question">6. Чем меньше абсолютная погрешность, тем точнее результат.</div>
+            <div class="tf-container">
+                <button class="btn-tf" onclick="checkTF(this, true, 'result-1-6')">Верно</button>
+                <button class="btn-tf" onclick="checkTF(this, false, 'result-1-6')">Неверно</button>
+            </div>
+            <div class="quiz-result" id="result-1-6"></div>
+        </div>
+    </section>
+
+    <!-- ТЕСТ 2: Уравнения -->
+    <section class="content-page" id="page-test-2">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#test-2" onclick="showPage('test-2'); return false;">Тесты</a>
+            <span>/</span>
+            <span class="current">Уравнения</span>
+        </nav>
+        <div class="content-header">
+            <h2>Тест: Уравнения</h2>
+        </div>
+        <div class="quiz-container">
+            <div class="quiz-question">1. Какой метод гарантирует сходимость при любом начальном приближении?</div>
+            <label class="quiz-option"><input type="radio" name="q2-1" value="a"> Метод Ньютона</label>
+            <label class="quiz-option"><input type="radio" name="q2-1" value="b"> Метод половинного деления</label>
+            <label class="quiz-option"><input type="radio" name="q2-1" value="c"> Метод секущих</label>
+            <button class="btn-primary" onclick="checkQuiz('q2-1', 'b', 'result-2-1')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-2-1"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">2. Каким должно быть произведение f(a) * f(b) на концах отрезка для метода половинного деления? (Введите слово)</div>
+            <input type="text" id="q2-2-input" class="quiz-input" placeholder="Введите слово">
+            <button class="btn-primary" onclick="checkFillBlank('q2-2-input', 'отрицательное', 'result-2-2')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-2-2"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">3. Метод Ньютона имеет квадратичную сходимость вблизи корня.</div>
+            <div class="tf-container">
+                <button class="btn-tf" onclick="checkTF(this, true, 'result-2-3')">Верно</button>
+                <button class="btn-tf" onclick="checkTF(this, false, 'result-2-3')">Неверно</button>
+            </div>
+            <div class="quiz-result" id="result-2-3"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">4. Сопоставьте метод и его особенность:</div>
+            <div class="match-container">
+                <div class="match-column">
+                    <div class="match-item" draggable="true" data-match="newton">Ньютон</div>
+                    <div class="match-item" draggable="true" data-match="bisection">Половинное деление</div>
+                </div>
+                <div class="match-column">
+                    <div class="match-item dropzone" data-match="newton">Использует производную</div>
+                    <div class="match-item dropzone" data-match="bisection">Всегда сходится</div>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">5. Какой метод использует хорду для приближения корня?</div>
+            <label class="quiz-option"><input type="radio" name="q2-5" value="a"> Метод Ньютона</label>
+            <label class="quiz-option"><input type="radio" name="q2-5" value="b"> Метод хорд</label>
+            <label class="quiz-option"><input type="radio" name="q2-5" value="c"> Метод простой итерации</label>
+            <button class="btn-primary" onclick="checkQuiz('q2-5', 'b', 'result-2-5')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-2-5"></div>
+        </div>
+    </section>
+
+    <!-- ТЕСТ 3: СЛАУ -->
+    <section class="content-page" id="page-test-3">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#test-3" onclick="showPage('test-3'); return false;">Тесты</a>
+            <span>/</span>
+            <span class="current">СЛАУ</span>
+        </nav>
+        <div class="content-header">
+            <h2>Тест: СЛАУ</h2>
+        </div>
+        <div class="quiz-container">
+            <div class="quiz-question">1. Какой метод решения СЛАУ является прямым?</div>
+            <label class="quiz-option"><input type="radio" name="q3-1" value="a"> Метод простой итерации</label>
+            <label class="quiz-option"><input type="radio" name="q3-1" value="b"> Метод Зейделя</label>
+            <label class="quiz-option"><input type="radio" name="q3-1" value="c"> Метод Гаусса</label>
+            <button class="btn-primary" onclick="checkQuiz('q3-1', 'c', 'result-3-1')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-3-1"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">2. Какое условие достаточно для сходимости метода простой итерации?</div>
+            <label class="quiz-option"><input type="radio" name="q3-2" value="a"> Норма матрицы меньше 1</label>
+            <label class="quiz-option"><input type="radio" name="q3-2" value="b"> Матрица диагональная</label>
+            <label class="quiz-option"><input type="radio" name="q3-2" value="c"> Матрица симметричная</label>
+            <button class="btn-primary" onclick="checkQuiz('q3-2', 'a', 'result-3-2')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-3-2"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">3. Метод Гаусса имеет вычислительную сложность порядка O(n^3).</div>
+            <div class="tf-container">
+                <button class="btn-tf" onclick="checkTF(this, true, 'result-3-3')">Верно</button>
+                <button class="btn-tf" onclick="checkTF(this, false, 'result-3-3')">Неверно</button>
+            </div>
+            <div class="quiz-result" id="result-3-3"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">4. Сопоставьте метод и его тип:</div>
+            <div class="match-container">
+                <div class="match-column">
+                    <div class="match-item" draggable="true" data-match="gauss">Гаусс</div>
+                    <div class="match-item" draggable="true" data-match="seidel">Зейдель</div>
+                </div>
+                <div class="match-column">
+                    <div class="match-item dropzone" data-match="gauss">Прямой метод</div>
+                    <div class="match-item dropzone" data-match="seidel">Итерационный метод</div>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">5. Введите название схемы, которая является второй модификацией метода Гаусса (одно слово):</div>
+            <input type="text" id="q3-5-input" class="quiz-input" placeholder="Название схемы">
+            <button class="btn-primary" onclick="checkFillBlank('q3-5-input', 'Халецкого', 'result-3-5')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-3-5"></div>
+        </div>
+    </section>
+
+    <!-- ТЕСТ 4: Интерполирование и аппроксимация -->
+    <section class="content-page" id="page-test-4">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#test-4" onclick="showPage('test-4'); return false;">Тесты</a>
+            <span>/</span>
+            <span class="current">Интерполирование и аппроксимация</span>
+        </nav>
+        <div class="content-header">
+            <h2>Тест: Интерполирование</h2>
+        </div>
+        <div class="quiz-container">
+            <div class="quiz-question">1. В чем отличие интерполяции от аппроксимации?</div>
+            <label class="quiz-option"><input type="radio" name="q4-1" value="a"> Интерполяция проходит точно через все точки, аппроксимация — приближенно</label>
+            <label class="quiz-option"><input type="radio" name="q4-1" value="b"> Аппроксимация проходит точно через все точки</label>
+            <label class="quiz-option"><input type="radio" name="q4-1" value="c"> Они идентичны</label>
+            <button class="btn-primary" onclick="checkQuiz('q4-1', 'a', 'result-4-1')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-4-1"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">2. Какой полином используется в методе Лагранжа?</div>
+            <label class="quiz-option"><input type="radio" name="q4-2" value="a"> Полином Ньютона</label>
+            <label class="quiz-option"><input type="radio" name="q4-2" value="b"> Полином Лагранжа</label>
+            <label class="quiz-option"><input type="radio" name="q4-2" value="c"> Полином Чебышева</label>
+            <button class="btn-primary" onclick="checkQuiz('q4-2', 'b', 'result-4-2')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-4-2"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">3. Для интерполяции с равноотстоящими узлами используют формулы Ньютона.</div>
+            <div class="tf-container">
+                <button class="btn-tf" onclick="checkTF(this, true, 'result-4-3')">Верно</button>
+                <button class="btn-tf" onclick="checkTF(this, false, 'result-4-3')">Неверно</button>
+            </div>
+            <div class="quiz-result" id="result-4-3"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">4. Сопоставьте метод и его автора:</div>
+            <div class="match-container">
+                <div class="match-column">
+                    <div class="match-item" draggable="true" data-match="newton">Формулы Ньютона</div>
+                    <div class="match-item" draggable="true" data-match="lagrange">Формула Лагранжа</div>
+                </div>
+                <div class="match-column">
+                    <div class="match-item dropzone" data-match="newton">Для равноотстоящих узлов</div>
+                    <div class="match-item dropzone" data-match="lagrange">Для произвольных узлов</div>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">5. Введите название метода, который использует сплайны (одно слово):</div>
+            <input type="text" id="q4-5-input" class="quiz-input" placeholder="Название">
+            <button class="btn-primary" onclick="checkFillBlank('q4-5-input', 'сплайн', 'result-4-5')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-4-5"></div>
+        </div>
+    </section>
+
+    <!-- ТЕСТ 5: ОДУ -->
+    <section class="content-page" id="page-test-5">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#test-5" onclick="showPage('test-5'); return false;">Тесты</a>
+            <span>/</span>
+            <span class="current">ОДУ</span>
+        </nav>
+        <div class="content-header">
+            <h2>Тест: ОДУ</h2>
+        </div>
+        <div class="quiz-container">
+            <div class="quiz-question">1. Какой метод относится к одношаговым методам решения ОДУ?</div>
+            <label class="quiz-option"><input type="radio" name="q5-1" value="a"> Метод Адамса</label>
+            <label class="quiz-option"><input type="radio" name="q5-1" value="b"> Метод Рунге-Кутта</label>
+            <label class="quiz-option"><input type="radio" name="q5-1" value="c"> Метод Милна</label>
+            <button class="btn-primary" onclick="checkQuiz('q5-1', 'b', 'result-5-1')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-5-1"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">2. Метод Эйлера является методом первого порядка точности.</div>
+            <div class="tf-container">
+                <button class="btn-tf" onclick="checkTF(this, true, 'result-5-2')">Верно</button>
+                <button class="btn-tf" onclick="checkTF(this, false, 'result-5-2')">Неверно</button>
+            </div>
+            <div class="quiz-result" id="result-5-2"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">3. Сколько этапов (прогноз/коррекция) в методе Адамса?</div>
+            <label class="quiz-option"><input type="radio" name="q5-3" value="a"> Один</label>
+            <label class="quiz-option"><input type="radio" name="q5-3" value="b"> Два</label>
+            <label class="quiz-option"><input type="radio" name="q5-3" value="c"> Три</label>
+            <button class="btn-primary" onclick="checkQuiz('q5-3', 'b', 'result-5-3')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-5-3"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">4. Сопоставьте метод и его особенность:</div>
+            <div class="match-container">
+                <div class="match-column">
+                    <div class="match-item" draggable="true" data-match="euler">Эйлер</div>
+                    <div class="match-item" draggable="true" data-match="runge">Рунге-Кутта</div>
+                </div>
+                <div class="match-column">
+                    <div class="match-item dropzone" data-match="euler">Первый порядок точности</div>
+                    <div class="match-item dropzone" data-match="runge">Четвертый порядок точности</div>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">5. Введите название метода, который использует формулу Рунге для выбора шага (одно слово):</div>
+            <input type="text" id="q5-5-input" class="quiz-input" placeholder="Название">
+            <button class="btn-primary" onclick="checkFillBlank('q5-5-input', 'Рунге-Кутта', 'result-5-5')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-5-5"></div>
+        </div>
+    </section>
+
+    <!-- СТРАНИЦА ЛАБОРАТОРНОГО ПРАКТИКУМА (Вводная) -->
+    <section class="content-page" id="page-labs">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <span class="current">Лабораторный практикум</span>
+        </nav>
+        <div class="content-header">
+            <h2>Лабораторный практикум</h2>
         </div>
 
-        <!-- ТЕСТ 1: Погрешности -->
-        <div class="test-container" id="test-1">
-            <div class="quiz-container">
-                <h3 style="margin-bottom: 20px; color: var(--accent);">Тест: Погрешности</h3>
+        <div class="lab-card lab-intro">
+            <h3>Оформление задания и отчетность</h3>
+            <p>Выполнение каждой лабораторной работы завершается составлением отчета, оформленным в соответствии с СТП ТГТУ. При этом каждая лабораторная работа должна в обязательном порядке содержать следующие разделы:</p>
+            <ol>
+                <li>Постановка задачи конкретного варианта.</li>
+                <li>Теоретическая проработка варианта задания лабораторной работы.</li>
+                <li>Описание алгоритма решения задачи.</li>
+                <li>Блок-схема алгоритма решения задачи и ее описание.</li>
+                <li>Текст программы на алгоритмическом языке (листинг) и ее описание.</li>
+                <li>Тестовый пример, решаемый с помощью программы и аналитически.</li>
+                <li>Результаты программного решения задания.</li>
+                <li>Графическая иллюстрация решения (если необходимо).</li>
+                <li>Список использованной литературы.</li>
+            </ol>
+        </div>
+    </section>
 
-                <!-- Вопрос 1 (Выбор) -->
-                <div class="quiz-question">1. Чему равна абсолютная погрешность суммы приближенных чисел?</div>
-                <label class="quiz-option"><input type="radio" name="q1-1" value="a"> Сумме их абсолютных погрешностей</label>
-                <label class="quiz-option"><input type="radio" name="q1-1" value="b"> Разности их абсолютных погрешностей</label>
-                <label class="quiz-option"><input type="radio" name="q1-1" value="c"> Произведению их абсолютных погрешностей</label>
-                <button class="btn-primary" onclick="checkQuiz('q1-1', 'a', 'result-1-1')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-1-1"></div>
+    <!-- СТРАНИЦА ЛР 1 -->
+    <section class="content-page" id="page-lab-1">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#labs" onclick="showPage('labs'); return false;">Лабораторный практикум</a>
+            <span>/</span>
+            <span class="current">ЛР 1</span>
+        </nav>
+        <div class="content-header">
+            <h2>Лабораторная работа 1. Решение трансцендентных уравнений</h2>
+        </div>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+        <div class="lab-card">
+            <!-- Постановка задачи -->
+            <h3 class="lab-subtitle">Постановка задачи</h3>
+            <p>По заданным вещественным значениям $c$ и $d$ и целому $m$ для каждого значения $t_i = c + ih, \ (i = 0, 1, \dots, m)$, где $h = (d - c)/m$, найти корень $x_i$ уравнения $F(x) = f(x, t_i) = 0$.</p>
 
-                <!-- Вопрос 2 (Ввод числа) -->
-                <div class="quiz-question">2. Точное число 3.14159, приближенное 3.14. Чему равна абсолютная погрешность? (Введите число)</div>
-                <input type="text" id="q1-2-input" class="quiz-input" placeholder="Например: 0.00159">
-                <button class="btn-primary" onclick="checkFillBlank('q1-2-input', '0.00159', 'result-1-2')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-1-2"></div>
+            <!-- Порядок выполнения -->
+            <h3 class="lab-subtitle">Порядок выполнения</h3>
+            <ol class="lab-list">
+                <li>Исследовать заданную функцию $f(x, t)$ и найти отрезок (графически или аналитически), на котором находится требуемый корень уравнения при любом значении $t_i$ (можно использовать метод табулирования функций и табличный процессор MS Excel). Проверить применимость указанного численного метода.</li>
+                <li>Разработать алгоритм решения поставленной задачи, представив его структуру в виде блок-схемы, и дать его описание.</li>
+                <li>Составить и отладить программу решения поставленной задачи, оформив вычисление значений функции (и, если требуется, значений её производной) в виде подпрограммы.</li>
+                <li>Решить задачу с точностью $\varepsilon = 0,001$. Если уравнение имеет не единственный корень, то предпочтение отдать положительному корню, а среди корней одного знака предпочтение отдать наименьшему по модулю (но отличному от нуля) корню.</li>
+                <li>В качестве результатов на печать вывести таблицу значений $x_i$ и соответствующих им значений $t_i$.</li>
+            </ol>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+            <!-- Варианты задания -->
+            <h3 class="lab-subtitle">Варианты задания</h3>
+            <p>Вариант задания состоит из двух цифр: первая обозначает метод приближённого решения уравнений (табл. 1); вторая — функцию $f(x, t)$ значения $c$, $d$ и $m$ (табл. 2). Задание должно быть выполнено с использованием подпрограмм.</p>
 
-                <!-- Вопрос 3 (Правда/Ложь) -->
-                <div class="quiz-question">3. Предельная абсолютная погрешность — это оценка сверху для истинной абсолютной погрешности.</div>
-                <div class="tf-container">
-                    <button class="btn-tf" onclick="checkTF(this, true, 'result-1-3')">Верно</button>
-                    <button class="btn-tf" onclick="checkTF(this, false, 'result-1-3')">Неверно</button>
+            <!-- Таблица 1 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 1</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Первая цифра варианта</th>
+                        <th>Метод приближённого решения уравнения</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>Метод деления отрезка пополам</td></tr>
+                    <tr><td>2</td><td>Метод хорд</td></tr>
+                    <tr><td>3</td><td>Метод касательных (Ньютона)</td></tr>
+                    <tr><td>4</td><td>Комбинированный метод (хорд и касательных)</td></tr>
+                    <tr><td>5</td><td>Метод секущих</td></tr>
+                    <tr><td>6</td><td>Модифицированный метод Ньютона</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 2 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 2</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Вторая цифра варианта</th>
+                        <th>$f(x, t)$</th>
+                        <th>$c$</th>
+                        <th>$d$</th>
+                        <th>$m$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>$1/(1+x^2) - tx$</td><td>1</td><td>2</td><td>10</td></tr>
+                    <tr><td>2</td><td>$\text{tg}^2 x - tx$</td><td>1</td><td>2</td><td>20</td></tr>
+                    <tr><td>3</td><td>$e^{-x} - tx$</td><td>1</td><td>2</td><td>15</td></tr>
+                    <tr><td>4</td><td>$1/(1+x^4) - tx^2$</td><td>1</td><td>2</td><td>30</td></tr>
+                    <tr><td>5</td><td>$\ln(2+x) - tx$</td><td>5</td><td>6</td><td>10</td></tr>
+                    <tr><td>6</td><td>$x^3 - 10 - t\sqrt{x-2}$</td><td>1</td><td>2</td><td>15</td></tr>
+                    <tr><td>7</td><td>$\sqrt{1-x^2} - t^2 x^5$</td><td>2</td><td>3</td><td>20</td></tr>
+                    <tr><td>8</td><td>$1-x^2 - t e^x$</td><td>1/3</td><td>1/2</td><td>12</td></tr>
+                    <tr><td>9</td><td>$\sin 2x - tx^2$</td><td>1</td><td>10</td><td>30</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Методические указания -->
+            <h3 class="lab-subtitle">Методические указания</h3>
+            <p>Процедура решения алгебраических и трансцендентных уравнений складывается из последовательного выполнения двух этапов:</p>
+            <ul class="lab-list">
+                <li>отделение корня, т.е. нахождение такого отрезка $[a, b]$, на котором существует единственный корень уравнения $f(x) = 0$.</li>
+                <li>уточнение корня, т.е. нахождение приближённого решения с заданной точностью при помощи одного из существующих методов.</li>
+            </ul>
+            <p>Для отделения корня используют, как правило, аналитический либо графический способ. Суть графического способа сводится к построению приближённого графика функции и определении по этому графику отрезка, на котором функция $y = f(x)$ пересекает ось $0x$. При аналитическом отделении корня область определения функции «сканируют» с некоторым шагом до тех пор, пока опять же не определят отрезок, на котором функция $y = f(x)$ поменяет свой знак на противоположный.</p>
+            <p>Для решения алгебраических и трансцендентных уравнений вида $f(x) = 0$ разработано много различных итерационных методов. Сущность этих методов заключается в следующем: пусть известна достаточно малая область, в которой содержится единственный корень $x = x^*$ этого уравнения. В этой области выбирается точка $x_0$ – начальное приближение корня, достаточно близкое к искомому корню $x = x^*$. Далее с помощью некоторого реккурентного соотношения строится последовательность точек $x_1, x_2, \dots, x_k, \dots$, сходящаяся к $x = x^*$. Сходимость последовательности обеспечивается соответствующим выбором реккурентного соотношения и начального приближения $x_0$.</p>
+
+            <h4 class="lab-subtitle-small">Описание методов</h4>
+            <p><strong>1. Метод половинного деления.</strong> Пусть дано уравнение $f(x) = 0$, где функция $f(x)$ непрерывна на отрезке $[a, b]$ и $f(a)f(b) < 0$. Для нахождения корня этого уравнения по формуле $c = (a + b)/2$ вычисляется среднее значение $x$ в интервале $[a, b]$ и находится соответствующее ему значение функции $f(c)$. Если $f(c) = 0$, то $x^* = c = (a + b)/2$ является корнем уравнения. Если $f(c) \ne 0$, то выбирают ту из половин $[a, c]$ или $[c, b]$, на концах которой функция $f(x)$ имеет противоположные знаки. В результате интервал, в котором заключено значение корня, сужается до размеров $[a_1, b_1]$. Новый суженный отрезок $[a_1, b_1]$ снова делим пополам и проводим то же рассмотрение, и т.д. В итоге получаем на очередном $k$-ом этапе или точный корень уравнения $f(x) = 0$, если $f(c_k)$ достаточно близко к нулю, либо достаточно малый отрезок $|b_k - a_k|$, любая точка которого (чаще всего средняя) может быть принята за искомое решение.</p>
+            <p>Хотя метод половинного деления не обладает высокой вычислительной эффективностью, с увеличением числа итераций он обеспечивает получение все более точного приближённого значения корня и может использоваться для грубого нахождения корня данного уравнения.</p>
+
+            <p><strong>2. Метод хорд.</strong> При решении уравнения $f(x) = 0$, где функция $f(x)$ непрерывна на $[a, b]$ и $f(a)f(b) < 0$, более естественно делить отрезок $[a, b]$ в отношении $f(a) : f(b)$, а не пополам, как в предыдущем методе. Такое деление можно произвести, если провести через точки $A(a, f(a))$ и $B(b, f(b))$ хорду $AB$, стягивающую концы дуги графика функции $y = f(x)$, и в качестве приближенного значения выбрать число $c$, являющееся абсциссой точки пересечения хорды $AB$ с осью $0x$ (рис. 1). Тогда для определения значения $c$ можно записать уравнение хорды как уравнение прямой, проходящей через точки $A$ и $B$:</p>
+
+            <p>$$\frac{c - a}{b - c} = \frac{f(c) - f(a)}{f(b) - f(a)}.$$</p>
+
+            <p>Отсюда, полагая $x = c$ и $y = 0$, получим $c = a - \frac{f(a)(b - a)}{f(b) - f(a)}$.</p>
+            <p>Значение $c$, принимаемое за первое приближение к искомому корню, обозначим через $x_1$, т.е. $x_1 = c$. Эта точка разделит отрезок $[a, b]$ на два интервала $[a, x_1]$ и $[x_1, b]$, в одном из которых находится искомый корень. Новый отрезок, отделяющий корень, можно определить, пользуясь следующими правилами:</p>
+            <ol class="lab-list">
+                <li>точка $x_1$ находится со стороны вогнутости кривой $y = f(x)$;</li>
+                <li>приближенное значение $x_1$ лежит по ту сторону от истинного корня $x^*$, на которой функция $f(x)$ имеет знак, противоположный знаку её второй производной $f''(x)$, а знак $f'(x)$ совпадает со знаком $f''(x)$;</li>
+                <li>неподвижным остается тот конец интервала, а следовательно и хорды, для которого знак функции совпадает со знаком её второй производной $f''(x)$, а знак $f'(x)$ – нет.</li>
+            </ol>
+
+            <!-- МЕСТО ДЛЯ РИС. 1 -->
+            <figure class="content-image" style="max-width: 600px; margin: 20px auto; text-align: center;">
+                <img src="img/chapter2_21.jpg" alt="Рис. 1. Метод хорд" style="width: 100%; border-radius: 8px;">
+                <figcaption>Рис. 1. Метод хорд</figcaption>
+            </figure>
+
+            <p>Повторяя многократно описанную процедуру построения хорды, получим последовательность значений $x_2, x_3, \dots, x_k, \dots$, которая будет стремиться к истинному корню $x^*$. При этом для вычисления значений $x_k$ можно пользоваться следующими итерационными формулами:</p>
+
+            <p>$$x_{k+1} = x_k - f(x_k)\frac{b - x_k}{f(b) - f(x_k)}, \text{ если } f'(x)f''(x) > 0 \text{ или } f(b)f''(x) > 0;$$</p>
+            <p>$$x_{k+1} = x_k - f(x_k)\frac{x_k - a}{f(x_k) - f(a)}, \text{ если } f'(x)f''(x) < 0 \text{ или } f(a)f''(x) > 0.$$</p>
+
+            <p>Процедура вычисления корня уравнения $f(x) = 0$ прекращается, когда оценка полученного приближения $x_k$ удовлетворяет заданной точности. Для упрощения вычислений обычно задают некоторое, достаточно малое число $\varepsilon > 0$ и прекращают вычисления, когда разность между двумя последующими приближениями уменьшается меньше $\delta$, т.е. $|x_{k+1} - x_k| \le \delta$. Число $x_{k+1}$ принимают за приближённое значение корня $x^*$.</p>
+
+            <p><strong>3. Метод касательных (Ньютона).</strong> При использовании студентом этого метода за приближённое решение принимается точка пересечения касательной, проведённой к графику функции $y = f(x)$ с осью $0x$, а итерационная последовательность имеет вид</p>
+
+            <p>$$x_k = x_{k-1} - f(x_{k-1}) / f'(x_{k-1}), \ k = 1, 2, \dots.$$</p>
+
+            <p>Необходимо знать, что эта последовательность сходится к единственному на отрезке $[a, b]$ решению $x^*$ уравнения $f(x) = 0$, если $f(x)$ дважды дифференцируема на отрезке $[a, b]$, $f(a)f(b) < 0$, а производные $f'(x), f''(x)$ сохраняют знак на $[a, b]$.</p>
+            <p>Для оценки погрешности $k$-го приближения корня можно воспользоваться неравенством</p>
+
+            <p>$$|x^* - x_k| \le \frac{M_2}{2m_1}|x_k - x_{k-1}|^2,$$</p>
+
+            <p>где $M_2$ – наибольшее значение модуля второй производной $|f''(x)|$ на отрезке $[a, b]$; $m_1$ – наименьшее значение модуля первой производной $|f'(x)|$ на отрезке $[a, b]$.</p>
+            <p>Следовательно, если необходимо найти корень с точностью $\varepsilon$, итерационный процесс можно прекращать, когда $|x_k - x_{k-1}| \le \varepsilon = \sqrt{2m_1\varepsilon / M_2}$. Следует помнить, что метод касательных (Ньютона) эффективен, если известно хорошее начальное приближение для корня и в окрестности корня график функции имеет большую крутизну. Для выбора начального приближения в данном методе можно пользоваться следующим неравенством:</p>
+
+            <p>$$f(x_0)f''(x_0) > 0.$$</p>
+
+            <p><strong>4. Комбинированный метод.</strong> При отыскании корней необходимо вычислить $f''(x)$ на заданном отрезке. Если $f''(x) < 0$, то для расчётов используются формулы</p>
+
+            <p>$$x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}; \quad \overline{x}_{k+1} = x_k - \frac{f(x_k)}{f(x_k) - f(\overline{x}_k)}(\overline{x}_k - x_k),$$</p>
+
+            <p>где $x_k$ и $\overline{x}_k$ – значения корня, соответственно, по недостатку и избытку.</p>
+            <p>Если $f''(x) \ge 0$ на заданном отрезке, тогда расчётные формулы имеют вид</p>
+
+            <p>$$x_{k+1} = x_k - \frac{f(x_k)}{f(x_k) - f(\overline{x}_k)}(\overline{x}_k - x_k), \quad \overline{x}_{k+1} = \overline{x}_k - \frac{f(\overline{x}_k)}{f'(\overline{x}_k)}.$$</p>
+
+            <p>Расчёты продолжаются до тех пор, пока не выполнится одно из условий:</p>
+
+            <p>$$|x_{k+1} - \overline{x}_{k+1}| \le \varepsilon \text{ или } |f(x_{k+1}) - f(\overline{x}_{k+1})| \le \varepsilon,$$</p>
+
+            <p>где $\varepsilon$ – заданная точность.</p>
+
+            <p><strong>5. Метод секущих.</strong> Один из недостатков метода Ньютона состоит в том, что, пользуясь им, приходится дифференцировать функцию $f(x)$.</p>
+            <p>Если нахождение производной затруднено, то можно воспользоваться некоторым приближением $f'(x)$, что и составляет основу метода секущих. Для этого производную, используемую в методе Ньютона заменяют разностью последовательных значений функции, отнесённой к разности значений аргумента:</p>
+
+            <p>$$f'(x_k) = \frac{df(x_k)}{dx_k} \approx \frac{\Delta f(x_k)}{\Delta x_k} = \frac{f(x_k) - f(x_{k-1})}{x_k - x_{k-1}}.$$</p>
+
+            <p>В результате получается следующая итерационная формула:</p>
+
+            <p>$$x_{k+1} = x_k - \frac{f(x_k)(x_k - x_{k-1})}{f(x_k) - f(x_{k-1})}, \ k = 1, 2, \dots.$$</p>
+
+            <p>Для выбора начального приближения $x_0$ можно пользоваться тем же правилом, что и в методе Ньютона, а значение $x_1$ определить как $x_1 = x_0 + h$, где $h$ – некоторая малая величина. В целом же схема метода секущих такая же, что и метода Ньютона. Геометрически метод секущих означает, что через рассматриваемую точку будет проводиться не касательная, а секущая.</p>
+
+            <p><strong>6. Метод простой итерации.</strong> Рассмотрим уравнение $x = g(x)$. Это уравнение может быть получено из уравнения $f(x) = 0$ путём прибавления к обоим частям $x$ и заменой $g(x) = x + f(x)$, либо каким-то другим способом. Пусть $[a, b]$ – отрезок, отделяющий корень $x^*$ уравнения $f(x) = 0$, а, следовательно, и равносильного ему уравнения $x = g(x)$.</p>
+            <p>Выберем произвольную точку $x_0$, которую примем за грубое приближение корня, и подставим её в правую часть уравнения $x = g(x)$. Тогда получим некоторое число $x_1 = g(x_0)$.</p>
+            <p>По найденному значению $x_1$ определим вторую точку $x_2$ и т.д. Повторяя этот процесс, будем иметь последовательность чисел</p>
+
+            <p>$$x_{k+1} = g(x_k), k = 0, 1, 2, \dots.$$</p>
+
+            <p>Если полученная таким образом последовательность $x_k$ сходящаяся, т.е. существует предел $x^* = \lim_{k \to \infty} x_k$, то она сходится к корню $x^*$, и за конечное число итераций можно получить приближённое значение корня $x^*$ с любой степенью точности.</p>
+            <p>Построим на плоскости $x_0y$ графики функций $y = x$ и $y = g(x)$. Каждый действительный корень $x^*$ уравнения $x = g(x)$ является абсциссой точки пересечения кривой $y = g(x)$ с прямой $y = x$.</p>
+
+            <!-- МЕСТО ДЛЯ РИС. 2 -->
+            <!-- Рис. 2.8 (сходящийся процесс) -->
+            <div style="display: flex; gap: 20px; margin: 30px 0; flex-wrap: wrap; justify-content: center;">
+                <figure class="content-image" style="flex: 1; min-width: 300px; margin: 0;">
+                    <img src="img/chapter2_73.png" alt="Иллюстрация сходящегося итерационного процесса (а)" style="width: 100%; border-radius: 8px;">
+                    <figcaption>а) Рис. 1.2. Иллюстрация итерационного процесса нахождения корня уравнения методом простой итерации.</figcaption>
+                </figure>
+                <figure class="content-image" style="flex: 1; min-width: 300px; margin: 0;">
+                    <img src="img/chapter2_74.png" alt="Иллюстрация сходящегося итерационного процесса (б)" style="width: 100%; border-radius: 8px;">
+                    <figcaption>б) Рис. 1.2. Иллюстрация итерационного процесса нахождения корня уравнения методом простой итерации.</figcaption>
+                </figure>
+            </div>
+            <div style="display: flex; gap: 20px; margin: 30px 0; flex-wrap: wrap; justify-content: center;">
+                <figure class="content-image" style="flex: 1; min-width: 300px; margin: 0;">
+                    <img src="img/chapter2_71.png" alt="Иллюстрация расходящегося итерационного процесса (а)" style="width: 100%; border-radius: 8px;">
+                    <figcaption>а) Рис. 1.3. Иллюстрация итерационного процесса нахождения корня уравнения методом простой итерации (расходящийся процесс).</figcaption>
+                </figure>
+                <figure class="content-image" style="flex: 1; min-width: 300px; margin: 0;">
+                    <img src="img/chapter2_72.png" alt="Иллюстрация расходящегося итерационного процесса (б)" style="width: 100%; border-radius: 8px;">
+                    <figcaption>б) Рис. 1.3. Иллюстрация итерационного процесса нахождения корня уравнения методом простой итерации (расходящийся процесс).</figcaption>
+                </figure>
+            </div>
+
+            <p>Однако процесс итерации сходится не всегда. Условием сходимости метода простой итерации является неравенство $|g'(x)| \le q < 1$.</p>
+            <p>Поэтому в общем случае процесс итерации следует продолжить до тех пор, пока для двух последовательных приближений $x_k$ и $x_{k+1}$ не будет обеспечено выполнение неравенства</p>
+
+            <p>$$|x_{k+1} - x_k| \le \frac{1 - q}{q}\varepsilon,$$</p>
+
+            <p>где $\varepsilon$ – заданная предельная абсолютная погрешность корня $x^*$ и $|g'(x)| \le q$.</p>
+
+            <p><strong>7. Модифицированный метод Ньютона.</strong> В данном методе делается допущение, что $f'(x_k) \approx f'(x_0)$. Тогда для поиска приближённого значения корня пользуются следующей формулой:</p>
+
+            <p>$$x_k = x_{k-1} - f(x_{k-1}) / f'(x_0), \ k = 1, 2, \dots.$$</p>
+
+            <p>Выбор начального приближения, алгоритм и критерий окончания поиска в данном методе такие же что и в обычном методе Ньютона.</p>
+            <div class="calc-card" id="calc-isolate">
+                <h3 class="lab-subtitle">Калькулятор 0. Отделение корня</h3>
+                <p class="calc-hint">Табулирование + график. Помогает найти отрезок <code>[a, b]</code>, где функция меняет знак.</p>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="is-f" value="1/(1+x*x) - t*x"></label>
+                    <label>t: <input id="is-t" type="number" value="1" step="any"></label>
+                    <label>x от: <input id="is-min" type="number" value="-3" step="any"></label>
+                    <label>x до: <input id="is-max" type="number" value="3" step="any"></label>
+                    <label>шаг: <input id="is-step" type="number" value="0.25" step="any"></label>
                 </div>
-                <div class="quiz-result" id="result-1-3"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <!-- Вопрос 4 (Drag-and-Drop) -->
-                <div class="quiz-question">4. Сопоставьте операцию с правилом погрешности (перетащите блоки):</div>
-                <div class="match-container">
-                    <div class="match-column">
-                        <div class="match-item" draggable="true" data-match="sum">Сложение</div>
-                        <div class="match-item" draggable="true" data-match="mul">Умножение</div>
-                    </div>
-                    <div class="match-column">
-                        <div class="match-item dropzone" data-match="sum">Складываются абсолютные погрешности</div>
-                        <div class="match-item dropzone" data-match="mul">Складываются относительные погрешности</div>
-                    </div>
+                <button onclick="calcIsolate()">Построить</button>
+                <div class="calc-result" id="is-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="is-canvas" height="160"></canvas></div>
+            </div>
+            <!-- 1. Половинное деление -->
+            <div class="calc-card" id="calc-bisection">
+                <h3 class="lab-subtitle">Калькулятор 1. Метод половинного деления <span class="calc-badge">метод 1</span></h3>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="bi-f" value="1/(1+x*x) - t*x"></label>
+                    <label>a: <input id="bi-a" type="number" value="0.1" step="any"></label>
+                    <label>b: <input id="bi-b" type="number" value="2" step="any"></label>
+                    <label>t: <input id="bi-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="bi-eps" type="number" value="0.001" step="any"></label>
                 </div>
+                <button onclick="calcBisection()">Вычислить</button>
+                <div class="calc-result" id="bi-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="bi-canvas" height="160"></canvas></div>
+            </div>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <!-- Вопрос 5 (Выбор) -->
-                <div class="quiz-question">5. Чему равна относительная погрешность?</div>
-                <label class="quiz-option"><input type="radio" name="q1-5" value="a"> Отношению абсолютной погрешности к точному значению</label>
-                <label class="quiz-option"><input type="radio" name="q1-5" value="b"> Сумме абсолютных погрешностей</label>
-                <label class="quiz-option"><input type="radio" name="q1-5" value="c"> Произведению абсолютных погрешностей</label>
-                <button class="btn-primary" onclick="checkQuiz('q1-5', 'a', 'result-1-5')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-1-5"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <!-- Вопрос 6 (Правда/Ложь) -->
-                <div class="quiz-question">6. Чем меньше абсолютная погрешность, тем точнее результат.</div>
-                <div class="tf-container">
-                    <button class="btn-tf" onclick="checkTF(this, true, 'result-1-6')">Верно</button>
-                    <button class="btn-tf" onclick="checkTF(this, false, 'result-1-6')">Неверно</button>
+            <!-- 2. Хорды -->
+            <div class="calc-card" id="calc-chord">
+                <h3 class="lab-subtitle">Калькулятор 2. Метод хорд <span class="calc-badge">метод 2</span></h3>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="ch-f" value="1/(1+x*x) - t*x"></label>
+                    <label>a: <input id="ch-a" type="number" value="0.1" step="any"></label>
+                    <label>b: <input id="ch-b" type="number" value="2" step="any"></label>
+                    <label>t: <input id="ch-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="ch-eps" type="number" value="0.001" step="any"></label>
                 </div>
-                <div class="quiz-result" id="result-1-6"></div>
+                <button onclick="calcChord()">Вычислить</button>
+                <div class="calc-result" id="ch-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="ch-canvas" height="160"></canvas></div>
+            </div>
+
+            <!-- 3. Ньютон -->
+            <div class="calc-card" id="calc-newton">
+                <h3 class="lab-subtitle">Калькулятор 3. Метод касательных (Ньютона) <span class="calc-badge">метод 3</span></h3>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="nt-f" value="1/(1+x*x) - t*x"></label>
+                    <label>x₀: <input id="nt-x0" type="number" value="1" step="any"></label>
+                    <label>t: <input id="nt-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="nt-eps" type="number" value="0.001" step="any"></label>
+                </div>
+                <button onclick="calcNewton()">Вычислить</button>
+                <div class="calc-result" id="nt-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="nt-canvas" height="160"></canvas></div>
+            </div>
+
+            <!-- 4. Комбинированный -->
+            <div class="calc-card" id="calc-combo">
+                <h3 class="lab-subtitle">Калькулятор 4. Комбинированный метод <span class="calc-badge">метод 4</span></h3>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="cb-f" value="1/(1+x*x) - t*x"></label>
+                    <label>a: <input id="cb-a" type="number" value="0.1" step="any"></label>
+                    <label>b: <input id="cb-b" type="number" value="2" step="any"></label>
+                    <label>t: <input id="cb-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="cb-eps" type="number" value="0.001" step="any"></label>
+                </div>
+                <button onclick="calcCombo()">Вычислить</button>
+                <div class="calc-result" id="cb-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="cb-canvas" height="160"></canvas></div>
+            </div>
+
+            <!-- 5. Секущие -->
+            <div class="calc-card" id="calc-secant">
+                <h3 class="lab-subtitle">Калькулятор 5. Метод секущих <span class="calc-badge">метод 5</span></h3>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="sc-f" value="1/(1+x*x) - t*x"></label>
+                    <label>x₀: <input id="sc-x0" type="number" value="1.2" step="any"></label>
+                    <label>x₁: <input id="sc-x1" type="number" value="0.8" step="any"></label>
+                    <label>t: <input id="sc-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="sc-eps" type="number" value="0.001" step="any"></label>
+                </div>
+                <button onclick="calcSecant()">Вычислить</button>
+                <div class="calc-result" id="sc-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="sc-canvas" height="160"></canvas></div>
+            </div>
+
+            <!-- 6. Модифицированный Ньютон -->
+            <div class="calc-card" id="calc-mnewton">
+                <h3 class="lab-subtitle">Калькулятор 6. Модифицированный метод Ньютона <span class="calc-badge">метод 6</span></h3>
+                <div class="calc-grid">
+                    <label>f(x, t): <input id="mn-f" value="1/(1+x*x) - t*x"></label>
+                    <label>x₀: <input id="mn-x0" type="number" value="1" step="any"></label>
+                    <label>t: <input id="mn-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="mn-eps" type="number" value="0.001" step="any"></label>
+                </div>
+                <button onclick="calcMNewton()">Вычислить</button>
+                <div class="calc-result" id="mn-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="mn-canvas" height="160"></canvas></div>
+            </div>
+
+            <!-- 7. Простая итерация -->
+            <div class="calc-card" id="calc-iter">
+                <h3 class="lab-subtitle">Калькулятор 7. Метод простой итерации <span class="calc-badge">метод 7</span></h3>
+                <p class="calc-hint">Уравнение приводится к виду <code>x = g(x, t)</code>. Для <code>1/(1+x²) − tx = 0</code> можно взять <code>g = 1/(t(1+x²))</code>.</p>
+                <div class="calc-grid">
+                    <label>g(x, t): <input id="it-g" value="1/(t*(1+x*x))"></label>
+                    <label>x₀: <input id="it-x0" type="number" value="1" step="any"></label>
+                    <label>t: <input id="it-t" type="number" value="1" step="any"></label>
+                    <label>ε: <input id="it-eps" type="number" value="0.001" step="any"></label>
+                </div>
+                <button onclick="calcIter()">Вычислить</button>
+                <div class="calc-result" id="it-out"></div>
+                <div class="calc-canvas-wrap"><canvas id="it-canvas" height="160"></canvas></div>
             </div>
         </div>
-        <!-- ТЕСТ 2: Уравнения -->
-        <div class="test-container" id="test-2" style="display: none;">
-            <div class="quiz-container">
-                <h3 style="margin-bottom: 20px; color: var(--accent);">Тест: Уравнения</h3>
+    </section>
 
-                <div class="quiz-question">1. Какой метод гарантирует сходимость при любом начальном приближении?</div>
-                <label class="quiz-option"><input type="radio" name="q2-1" value="a"> Метод Ньютона</label>
-                <label class="quiz-option"><input type="radio" name="q2-1" value="b"> Метод половинного деления</label>
-                <label class="quiz-option"><input type="radio" name="q2-1" value="c"> Метод секущих</label>
-                <button class="btn-primary" onclick="checkQuiz('q2-1', 'b', 'result-2-1')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-2-1"></div>
+    <!-- СТРАНИЦА ЛР 2 -->
+    <section class="content-page" id="page-lab-2">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#labs" onclick="showPage('labs'); return false;">Лабораторный практикум</a>
+            <span>/</span>
+            <span class="current">ЛР 2</span>
+        </nav>
+        <div class="content-header">
+            <h2>Лабораторная работа 2. Решение системы линейных алгебраических уравнений</h2>
+        </div>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+        <div class="lab-card">
+            <!-- Постановка задачи -->
+            <h3 class="lab-subtitle">Постановка задачи</h3>
+            <p>Решить систему линейных алгебраических уравнений вида $Ax = b$, где $A = \{a_{ij}\}$ – квадратная матрица порядка $m$, $b = \{b_1, b_2, \dots, b_m\}^T$ – вектор-столбец правых частей системы. По найденному решению получить вектор невязки правой части системы.</p>
 
-                <div class="quiz-question">2. Каким должно быть произведение f(a) * f(b) на концах отрезка для метода половинного деления? (Введите слово)</div>
-                <input type="text" id="q2-2-input" class="quiz-input" placeholder="Введите слово">
-                <button class="btn-primary" onclick="checkFillBlank('q2-2-input', 'отрицательное', 'result-2-2')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-2-2"></div>
+            <!-- Порядок выполнения -->
+            <h3 class="lab-subtitle">Порядок выполнения</h3>
+            <ol class="lab-list">
+                <li>Разработать алгоритм решения системы линейных алгебраических уравнений, составить блок-схему и дать её описание.</li>
+                <li>Составить и отладить программу решения системы линейных алгебраических уравнений, оформить её в виде описания процедуры.</li>
+                <li>В качестве результатов выдать на печать решение системы, вектор невязки и количество итераций (для итерационных методов).</li>
+            </ol>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+            <!-- Варианты заданий -->
+            <h3 class="lab-subtitle">Варианты заданий</h3>
+            <p>Численный метод, матрица $A$ и вектор $b$ определяются вариантом задания, состоящим из трёх цифр: первая определяет численный метод (табл. 1); вторая – матрицу $A$ (табл. 2); третья – вектор $b$ (табл. 2).</p>
 
-                <div class="quiz-question">3. Метод Ньютона имеет квадратичную сходимость вблизи корня.</div>
-                <div class="tf-container">
-                    <button class="btn-tf" onclick="checkTF(this, true, 'result-2-3')">Верно</button>
-                    <button class="btn-tf" onclick="checkTF(this, false, 'result-2-3')">Неверно</button>
+            <!-- Таблица 1 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 1</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Первая цифра варианта</th>
+                        <th>Численный метод решения системы уравнений</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>Метод исключения Гаусса</td></tr>
+                    <tr><td>2</td><td>Метод Гаусса с выбором главного элемента</td></tr>
+                    <tr><td>3</td><td>Метод ортогонализации</td></tr>
+                    <tr><td>4</td><td>Метод простой итерации</td></tr>
+                    <tr><td>5</td><td>Метод Гаусса–Зейделя</td></tr>
+                    <tr><td>6</td><td>Метод Халецкого</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 2 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 2</p>
+                <table class="lab-table" style="font-size: 0.8rem;">
+                    <thead>
+                    <tr>
+                        <th rowspan="2">Вторая цифра варианта</th>
+                        <th rowspan="2">Элементы матрицы A</th>
+                        <th colspan="3">Элементы вектора b</th>
+                    </tr>
+                    <tr>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td rowspan="5">1</td>
+                        <td>0,45 0,03 -0,01 0,02 -0,111</td>
+                        <td>-0,275</td><td>-1,784</td><td>2,491</td>
+                    </tr>
+                    <tr><td>0,02 0,375 -0,01 -0,01 0</td><td>-0,78</td><td>0,68</td><td>1,275</td></tr>
+                    <tr><td>0 0,07 0,44 0 0,113</td><td>1,745</td><td>1,032</td><td>-0,783</td></tr>
+                    <tr><td>-0,03 0,015 -0,02 0,41 -0,084</td><td>-2,18</td><td>-1,056</td><td>0,429</td></tr>
+                    <tr><td>0,02 0,01 0 0 0,29</td><td>1,45</td><td>1,12</td><td>-0,16</td></tr>
+
+                    <tr>
+                        <td rowspan="5">2</td>
+                        <td>0,38 -0,05 0,01 0,02 0,07</td>
+                        <td>-2,14</td><td>0,75</td><td>2,32</td>
+                    </tr>
+                    <tr><td>0,052 0,595 0 -0,04 0,04</td><td>1,833</td><td>-0,858</td><td>2,544</td></tr>
+                    <tr><td>0,03 0 0,478 -0,14 0,08</td><td>1,736</td><td>3,16</td><td>-3,238</td></tr>
+                    <tr><td>-0,06 1,26 0 0,47 -0,02</td><td>-1,242</td><td>-1,802</td><td>1,534</td></tr>
+                    <tr><td>0,25 0 0,09 0,01 0,56</td><td>1,44</td><td>2,91</td><td>0,12</td></tr>
+
+                    <tr>
+                        <td rowspan="5">3</td>
+                        <td>0,405 0,05 0,04 0 0,09</td>
+                        <td>-1,475</td><td>1,065</td><td>1,77</td>
+                    </tr>
+                    <tr><td>0,061 0,53 0,073 0,11 -0,06</td><td>2,281</td><td>0,975</td><td>-0,53</td></tr>
+                    <tr><td>0,07 -0,036 0,38 0,03 0,02</td><td>0,296</td><td>-1,312</td><td>-0,625</td></tr>
+                    <tr><td>-0,05 0 0,066 0,58 0,23</td><td>0,492</td><td>1,096</td><td>-2,772</td></tr>
+                    <tr><td>0 0,081 -0,05 0 0,41</td><td>1,454</td><td>-0,048</td><td>1,001</td></tr>
+
+                    <tr>
+                        <td rowspan="5">4</td>
+                        <td>0,43 0,045 -0,02 0,03 -0,02</td>
+                        <td>0,475</td><td>2,56</td><td>0,78</td>
+                    </tr>
+                    <tr><td>0,12 0,377 0,02 0 -0,01</td><td>-0,86</td><td>2,77</td><td>-0,38</td></tr>
+                    <tr><td>0,01 0,032 0,356 -0,02 0,05</td><td>1,718</td><td>-0,916</td><td>1,91</td></tr>
+                    <tr><td>0,12 -0,11 0 0,49 0,112</td><td>0,864</td><td>0,808</td><td>-1,464</td></tr>
+                    <tr><td>-0,05 0 0,025 -0,01 0,294</td><td>2,068</td><td>-0,639</td><td>2,362</td></tr>
+
+                    <tr>
+                        <td rowspan="5">5</td>
+                        <td>0,49 0 -0,128 0,09 0,15</td>
+                        <td>0,964</td><td>1,564</td><td>2,332</td>
+                    </tr>
+                    <tr><td>-0,03 0,32 0 -0,061 0,02</td><td>1,279</td><td>-1,733</td><td>-2,261</td></tr>
+                    <tr><td>0,01 -0,09 0,58 0,011 0,035</td><td>-1,799</td><td>1,393</td><td>-1,484</td></tr>
+                    <tr><td>0,03 0 -0,073 0,58 0</td><td>-4,971</td><td>1,744</td><td>0,932</td></tr>
+                    <tr><td>0,02 -0,03 0,145 -0,012 0,42</td><td>2,153</td><td>-2,046</td><td>1,758</td></tr>
+
+                    <tr>
+                        <td rowspan="5">6</td>
+                        <td>0,51 -0,074 0,01 0,13 0,09</td>
+                        <td>0,708</td><td>-0,214</td><td>2,866</td>
+                    </tr>
+                    <tr><td>0,08 0,3 -0,036 0 0,05</td><td>2,578</td><td>1,866</td><td>0,842</td></tr>
+                    <tr><td>0,15 0 0,42 0,06 -0,07</td><td>-0,19</td><td>0,18</td><td>-0,75</td></tr>
+                    <tr><td>0,19 0,023 0,06 0,438 0</td><td>1,64</td><td>-3,258</td><td>-1,527</td></tr>
+                    <tr><td>0,05 -0,07 0,023 0 0,36</td><td>-2,229</td><td>2,762</td><td>1,164</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Методические указания -->
+            <h3 class="lab-subtitle">Методические указания</h3>
+            <p><strong>1. Метод Гаусса.</strong> Для построения алгоритма решения системы линейных алгебраических уравнений используется один из известных методов. При использовании метода Гаусса рекомендуется исходную систему $Ax = b$ записать в виде</p>
+
+            <p>$$\sum_{j=1}^m a_{ij}x_j = a_{i, m+1}, \quad i = 1, 2, \dots, m, \quad (1)$$</p>
+
+            <p>где $b = (a_{1, m+1}; a_{2, m+1}; \dots; a_{n, m+1})^T$. При этом систему (1) последовательным исключением неизвестных необходимо привести к треугольному виду:</p>
+
+            <p>$$x_i + \sum_{j=i+1}^m a_{ij}^{(i)} x_j = a_{i, m+1}^{(i)}, \quad i = 1, 2, \dots, m, \quad (2)$$</p>
+
+            <p>из которой затем последовательно находятся $x_k, k = m, \dots, 1$.</p>
+
+            <p><strong>2. Метод Гаусса с выбором главного элемента.</strong> При приведении системы к треугольному виду рекомендуется на очередном шаге исключать не следующую по порядку неизвестную, а ту, коэффициент перед которой будет наибольшим по модулю (главный элемент). Главный элемент может выделяться как по строкам, так и по столбцам.</p>
+
+            <p><strong>3. Метод Халецкого.</strong> При использовании метода Халецкого система (1) приводится к треугольному виду (2). Для этого необходимо воспользоваться представлением матрицы $A$ в виде произведения $A = LU$, где $L$ – нижняя, $U$ – верхняя треугольные матрицы, причём диагональные элементы матрицы $U$ равны единице.</p>
+            <p>Элементы этих матриц вычисляются по рекуррентным соотношениям:</p>
+
+            <p>$$l_{i,1} = a_{i,1}; \quad l_{i,k} = a_{i,k} - \sum_{j=1}^{k-1} l_{i,j}u_{j,k}, \quad k \le i; \quad (3)$$</p>
+            <p>$$u_{1,k} = a_{1,k}/l_{1,1}; \quad u_{i,k} = \left( a_{i,k} - \sum_{j=1}^{k-1} l_{i,j}u_{j,k} \right) / l_{i,i}, \quad k > i. \quad (4)$$</p>
+
+            <p>Здесь и далее в этом методе считается, что если верхний предел суммирования меньше нижнего, то вся сумма равна нулю.</p>
+            <p>Эти вычисления необходимо проводить последовательно для совокупностей $(i, k) = (1, 1), \dots, (1, m), (2, 1), \dots, (2, m), \dots, (m, 1), \dots, (m, m)$.</p>
+            <p>После разложения матрицы $A$ решение исходной системы сводится к последовательному решению двух систем с треугольными матрицами:</p>
+
+            <p>$$Ly = b; \quad Ux = y, \quad (5)$$</p>
+
+            <p>где компоненты вектора $y$ могут быть вычислены по формулам:</p>
+
+            <p>$$y_1 = b_1 / l_{1,1}; \quad y_i = \left( b_i - \sum_{j=1}^{i-1} l_{i,j}y_j \right) / l_{i,i}, \quad i > 1.$$</p>
+
+            <p>Значения $x_i$ – решение системы $Ux = y$ можно найти из соотношений</p>
+
+            <p>$$x_m = y_m; \quad x_i = y_i - \sum_{j=i+1}^m u_{i,j}x_j, \quad i < n.$$</p>
+
+            <p>Для осуществления вычислений по формулам (3), (4) необходимо и достаточно выполнение условия $\det A_k \ne 0, \ k = 1, 2, \dots, m$, где $A_k$ – матрица главного минора \(k\)-го порядка матрицы $A$.</p>
+
+            <p><strong>4. Метод ортогонализации.</strong> При использовании метода ортогонализации исходную систему уравнений необходимо записать в виде</p>
+
+            <p>$$a_{1,1}x_1 + \dots + a_{1,m}x_m + a_{1, m+1} = 0$$</p>
+            <p>$$\dots\dots\dots\dots\dots\dots\dots\dots\dots\dots\dots$$</p>
+            <p>$$a_{m,1}x_1 + \dots + a_{m,m}x_m + a_{m, m+1} = 0,$$</p>
+
+            <p>где $b = (-a_{1, m+1}, \dots, -a_{m, m+1})^T$.</p>
+            <p>Или иначе: $(a_1, y) = 0, \dots, (a_m, y) = 0$; $a_i = (a_{i,1}, \dots, a_{i, m+1}); \ y = (x_1, \dots, x_m, 1)$. Отсюда следует, что решение исходной системы равносильно нахождению вектора $y$ с последней компонентой, равной единице, ортогонального к векторам $a_1, \dots, a_m$, причём если положить $a_{m+1} = (0, \dots, 0, 1)$, то векторы $a_1, \dots, a_{m+1}$ линейно независимы.</p>
+            <p>Таким образом, для получения решения необходимо с помощью алгоритма последовательной ортогонализации с нормировкой $\|u\| = \sqrt{(u, u)}$ систему векторов $a_1, \dots, a_{m+1}$ привести к ортонормированной системе векторов $v_1, v_2, \dots, v_{m+1}$, где</p>
+
+            <p>$$u_k = a_k - \sum_{i=1}^{k-1} (a_k, v_i)v_i; \quad v_k = \frac{u_k}{\|u_k\|}, \quad k = 1, 2, \dots, m+1;$$</p>
+            <p>$$u_1 = a_1; \quad v_1 = \frac{u_1}{\|u_1\|}; \quad \|u\| = \sqrt{\sum_{i=1}^m u_i^2}.$$</p>
+
+            <p>Полученный вектор $u_{m+1} = (z_1, \dots, z_m)$ ортогонален ко всем векторам $a_1, a_2, \dots, a_m$, причём $z_{m+1} \ne 0$. Следовательно, $y = (z_1/z_{m+1}, \dots, z_m/z_{m+1}, 1)$ – решение исходной системы. Нужно отметить, что метод ортогонализации применим для любой невырожденной матрицы $A$.</p>
+
+            <p><strong>5. Метод простой итерации.</strong> В случае решения системы линейных алгебраических уравнений методом простой итерации, её следует привести к виду</p>
+
+            <p>$$x = cx + g. \quad (6)$$</p>
+
+            <p>Это можно сделать, например, так: $x = x - D(Ax - b)$. Если $\det D \ne 0$, то эта система эквивалентна системе (1); если в качестве $D$ взять единичную матрицу, то $c = E - A$ и $g = b$.</p>
+            <p>Решение системы (6) находится как предел последовательности $x^n$, получающейся из реккурентных соотношений</p>
+
+            <p>$$x^{(n+1)} = cx^{(n)} + g,$$</p>
+
+            <p>при некотором начальном приближении $x^{(0)}$. Заданная точность считается достигнутой, если $\|z\| \le \varepsilon$, где $z = x^{(n+1)} - x^{(n)}$. В качестве норм векторов рекомендуется брать следующие:</p>
+
+            <p>$$\|z\| = \max_{1 \le j \le m} |z_j|; \quad \|z\| = \sqrt{\sum_{j=1}^m |z_j|^2}; \quad \|z\| = \sum_{j=1}^m |z_j|.$$</p>
+
+            <p>Следует помнить, что метод простой итерации сходится при любом начальном приближении $x^{(0)}$, в качестве которого можно, например, взять $g$; если $\|c\| \le 1$, где $\|c\| = \max_{1 \le j \le m} \sum_{i} |c_{i,j}|$.</p>
+
+            <p><strong>6. Метод Гаусса–Зейделя.</strong> При использовании для решения СЛАУ метода Гаусса–Зейделя компоненты решения исходной системы (6) последовательно уточняются, причём при вычислении $k+1$-го приближения неизвестной $x_i$ учитываются уже вычисленные ранее $k+1$-е приближения неизвестных $x_1, x_2, \dots, x_{i-1}$.</p>
+            <p>Для вычисления могут использоваться формулы:</p>
+
+            <p>$$x_i^{k+1} = g_i + \sum_{j=1}^{i-1} c_{ij}x_j^{k+1} + \sum_{j=i}^m c_{ij}x_j^k, \quad i = 1, 2, \dots, m.$$</p>
+
+            <p>Условия сходимости данного метода схожи с аналогичными условиями метода простой итерации.</p>
+
+            <p><strong>7. Вектор невязки.</strong> При численном решении СЛАУ получается приближённое решение. Поэтому при подстановке найденного решения в уравнения системы вместо заданного вектора правой части $b$ получится другой вектор $\tilde{b}$. В связи с этим необходимо определить меру удовлетворения системы найденным решениям, в качестве которой рекомендуется принимать вектор $(b - \tilde{b})$, называемый вектором невязки.</p>
+            <div class="calc-card" id="calc-gauss">
+                <h3 class="lab-subtitle">Калькулятор СЛАУ. Метод Гаусса </h3>
+                <p class="calc-hint">
+                    Введите размерность системы $m$, коэффициенты матрицы $A$ и вектор правых частей $b$.
+                    Калькулятор решит систему методом Гаусса с выбором главного элемента по столбцу и вычислит вектор невязки $r = Ax - b$.
+                </p>
+
+                <div class="calc-grid" style="grid-template-columns: 1fr;">
+                    <label>Размерность системы (m): <input id="gauss-m" type="number" value="3" min="1" max="10" onchange="buildMatrixInputs()"></label>
                 </div>
-                <div class="quiz-result" id="result-2-3"></div>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+                <!-- Сюда JS будет вставлять таблицу для ввода -->
+                <div id="gauss-inputs-container" style="overflow-x: auto; margin: 20px 0;"></div>
 
-                <div class="quiz-question">4. Сопоставьте метод и его особенность:</div>
-                <div class="match-container">
-                    <div class="match-column">
-                        <div class="match-item" draggable="true" data-match="newton">Ньютон</div>
-                        <div class="match-item" draggable="true" data-match="bisection">Половинное деление</div>
-                    </div>
-                    <div class="match-column">
-                        <div class="match-item dropzone" data-match="newton">Использует производную</div>
-                        <div class="match-item dropzone" data-match="bisection">Всегда сходится</div>
-                    </div>
-                </div>
+                <button onclick="calcGauss()">Решить систему</button>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">5. Какой метод использует хорду для приближения корня?</div>
-                <label class="quiz-option"><input type="radio" name="q2-5" value="a"> Метод Ньютона</label>
-                <label class="quiz-option"><input type="radio" name="q2-5" value="b"> Метод хорд</label>
-                <label class="quiz-option"><input type="radio" name="q2-5" value="c"> Метод простой итерации</label>
-                <button class="btn-primary" onclick="checkQuiz('q2-5', 'b', 'result-2-5')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-2-5"></div>
+                <div class="calc-result" id="gauss-out"></div>
             </div>
         </div>
-        <!-- ТЕСТ 3: СЛАУ -->
-        <div class="test-container" id="test-3" style="display: none;">
-            <div class="quiz-container">
-                <h3 style="margin-bottom: 20px; color: var(--accent);">Тест: СЛАУ</h3>
+    </section>
 
-                <div class="quiz-question">1. Какой метод решения СЛАУ является прямым?</div>
-                <label class="quiz-option"><input type="radio" name="q3-1" value="a"> Метод простой итерации</label>
-                <label class="quiz-option"><input type="radio" name="q3-1" value="b"> Метод Зейделя</label>
-                <label class="quiz-option"><input type="radio" name="q3-1" value="c"> Метод Гаусса</label>
-                <button class="btn-primary" onclick="checkQuiz('q3-1', 'c', 'result-3-1')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-3-1"></div>
+    <!-- СТРАНИЦА ЛР 3 -->
+    <section class="content-page" id="page-lab-3">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#labs" onclick="showPage('labs'); return false;">Лабораторный практикум</a>
+            <span>/</span>
+            <span class="current">ЛР 3</span>
+        </nav>
+        <div class="content-header">
+            <h2>Лабораторная работа 3. Интерполяция и экстраполяция функций</h2>
+        </div>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+        <div class="lab-card">
+            <!-- Постановка задачи -->
+            <h3 class="lab-subtitle">Постановка задачи</h3>
+            <p>Для $n+1$ точки $x_0, x_1, \dots, x_n$, называемых узлами интерполяции, и значений некоторой функции $y_i = f(x_i), i = 0, 1, 2, \dots, n$, требуется построить интерполяционный полином $P_n(x)$ степени не выше $n$, проходящий через узлы интерполяции, т.е.</p>
 
-                <div class="quiz-question">2. Какое условие достаточно для сходимости метода простой итерации?</div>
-                <label class="quiz-option"><input type="radio" name="q3-2" value="a"> Норма матрицы меньше 1</label>
-                <label class="quiz-option"><input type="radio" name="q3-2" value="b"> Матрица диагональная</label>
-                <label class="quiz-option"><input type="radio" name="q3-2" value="c"> Матрица симметричная</label>
-                <button class="btn-primary" onclick="checkQuiz('q3-2', 'a', 'result-3-2')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-3-2"></div>
+            <p>$$P_n(x_0) = y_0; \quad P_n(x_1) = y_1; \dots, P_n(x_n) = y_n,$$</p>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+            <p>и вычислить с помощью $P_n(x)$ значения функций в заданных точках $x_j, j = 1, 2, \dots, m$.</p>
 
-                <div class="quiz-question">3. Метод Гаусса имеет вычислительную сложность порядка O(n^3).</div>
-                <div class="tf-container">
-                    <button class="btn-tf" onclick="checkTF(this, true, 'result-3-3')">Верно</button>
-                    <button class="btn-tf" onclick="checkTF(this, false, 'result-3-3')">Неверно</button>
+            <!-- Порядок выполнения -->
+            <h3 class="lab-subtitle">Порядок выполнения</h3>
+            <ol class="lab-list">
+                <li>Разработать алгоритм интерполяции функций, составить его блок-схему и дать её описание.</li>
+                <li>Составить и отладить программу интерполяции функций. Оформить её в виде описания процедуры.</li>
+                <li>В качестве результатов выдать на печать значения $x_j, f(x_j); P_n(x_j), j = 1, 2, \dots, m$ в табличной форме.</li>
+            </ol>
+
+            <!-- Варианты заданий -->
+            <h3 class="lab-subtitle">Варианты заданий</h3>
+            <p>Вариант задания состоит из двух чисел (например: 4,12): первое означает метод интерполяции (табл. 1); второе – значения узлов интерполяции $x_i$, функции $y_i = f(x_i)$ (табл. 2) и точек $x_j$, в которых следует вычислить значения функции.</p>
+
+            <!-- Таблица 1 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 1</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Первое число варианта</th>
+                        <th>Интерполяция функции с помощью многочлена (формулы)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>Лагранжа</td></tr>
+                    <tr><td>2</td><td>Первая формула Ньютона (интерполирование вперёд)</td></tr>
+                    <tr><td>3</td><td>Вторая формула Ньютона (интерполирование назад)</td></tr>
+                    <tr><td>4</td><td>Первая формула Гаусса</td></tr>
+                    <tr><td>5</td><td>Вторая формула Гаусса</td></tr>
+                    <tr><td>6</td><td>Бесселя</td></tr>
+                    <tr><td>7</td><td>Стирлинга</td></tr>
+                    <tr><td>8</td><td>В-сплайнов первого и третьего порядка</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 2 (12 ВАРИАНТОВ) -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 2</p>
+                <table class="lab-table-dense">
+                    <thead>
+                    <tr>
+                        <th>Второе<br>число<br>варианта</th>
+                        <th>$x_i$</th>
+                        <th>$y_i = f(x_i)$</th>
+                        <th>$x_j$</th>
+                        <th class="variant-sep">Второе<br>число<br>варианта</th>
+                        <th>$x_i$</th>
+                        <th>$y_i = f(x_i)$</th>
+                        <th>$x_j$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- ВАРИАНТ 1 и 2 -->
+                    <tr>
+                        <td rowspan="6">1</td>
+                        <td>0,43</td><td>1,63597</td><td>0,702</td>
+                        <td class="variant-sep" rowspan="6">2</td>
+                        <td>0,02</td><td>1,02316</td><td>0,102</td>
+                    </tr>
+                    <tr><td>0,48</td><td>1,73234</td><td>0,512</td><td>0,08</td><td>1,09590</td><td>0,114</td></tr>
+                    <tr><td>0,55</td><td>1,87686</td><td>0,645</td><td>0,12</td><td>1,14725</td><td>0,125</td></tr>
+                    <tr><td>0,62</td><td>2,03345</td><td>0,736</td><td>0,17</td><td>1,21483</td><td>0,203</td></tr>
+                    <tr><td>0,70</td><td>2,22846</td><td>0,608</td><td>0,23</td><td>1,30120</td><td>0,154</td></tr>
+                    <tr class="variant-end"><td>0,75</td><td>2,35973</td><td></td><td>0,30</td><td>1,40976</td><td></td></tr>
+
+                    <!-- ВАРИАНТ 3 и 4 -->
+                    <tr>
+                        <td rowspan="6">3</td>
+                        <td>0,41</td><td>2,57418</td><td>0,616</td>
+                        <td class="variant-sep" rowspan="6">4</td>
+                        <td>0,11</td><td>9,05421</td><td>0,314</td>
+                    </tr>
+                    <tr><td>0,46</td><td>2,32513</td><td>0,478</td><td>0,15</td><td>6,61659</td><td>0,235</td></tr>
+                    <tr><td>0,52</td><td>2,09336</td><td>0,665</td><td>0,21</td><td>4,69170</td><td>0,332</td></tr>
+                    <tr><td>0,60</td><td>1,86203</td><td>0,537</td><td>0,29</td><td>3,35106</td><td>0,275</td></tr>
+                    <tr><td>0,65</td><td>1,74926</td><td>0,673</td><td>0,35</td><td>2,73951</td><td>0,186</td></tr>
+                    <tr class="variant-end"><td>0,72</td><td>1,62098</td><td></td><td>0,40</td><td>2,36522</td><td></td></tr>
+
+                    <!-- ВАРИАНТ 5 и 6 -->
+                    <tr>
+                        <td rowspan="11">5</td>
+                        <td>1,415</td><td>0,888551</td><td>1,4161</td>
+                        <td class="variant-sep" rowspan="11">6</td>
+                        <td>0,101</td><td>1,26183</td><td>0,1035</td>
+                    </tr>
+                    <tr><td>1,420</td><td>0,889599</td><td>1,4625</td><td>0,106</td><td>1,27644</td><td>0,1492</td></tr>
+                    <tr><td>1,425</td><td>0,890637</td><td>1,4135</td><td>0,111</td><td>1,29122</td><td>0,0960</td></tr>
+                    <tr><td>1,430</td><td>0,891667</td><td>1,470</td><td>0,121</td><td>1,32130</td><td>0,1530</td></tr>
+                    <tr><td>1,435</td><td>0,892687</td><td>1,41</td><td>0,126</td><td>1,33660</td><td>0,1074</td></tr>
+                    <tr><td>1,440</td><td>0,893698</td><td></td><td>0,131</td><td>1,35207</td><td></td></tr>
+                    <tr><td>1,445</td><td>0,894700</td><td></td><td>0,136</td><td>1,36773</td><td></td></tr>
+                    <tr><td>1,450</td><td>0,895693</td><td></td><td>0,141</td><td>1,38357</td><td></td></tr>
+                    <tr><td>1,455</td><td>0,896677</td><td></td><td>0,146</td><td>1,39959</td><td></td></tr>
+                    <tr><td>1,460</td><td>0,897653</td><td></td><td>0,151</td><td>1,41597</td><td></td></tr>
+                    <tr class="variant-end"><td>1,465</td><td>0,898619</td><td></td><td></td><td></td><td></td></tr>
+
+                    <!-- ВАРИАНТ 7 и 8 -->
+                    <tr>
+                        <td rowspan="13">7</td>
+                        <td>0,15</td><td>0,860708</td><td>0,1535</td>
+                        <td class="variant-sep" rowspan="13">8</td>
+                        <td>3,50</td><td>33,1154</td><td>3,522</td>
+                    </tr>
+                    <tr><td>0,20</td><td>0,818731</td><td>0,7333</td><td>3,55</td><td>34,8138</td><td>4,176</td></tr>
+                    <tr><td>0,25</td><td>0,778801</td><td>0,1000</td><td>3,60</td><td>36,5982</td><td>3,475</td></tr>
+                    <tr><td>0,30</td><td>0,740818</td><td>0,7540</td><td>3,65</td><td>38,4747</td><td>4,250</td></tr>
+                    <tr><td>0,35</td><td>0,704688</td><td>0,6730</td><td>3,70</td><td>40,4473</td><td>3,575</td></tr>
+                    <tr><td>0,40</td><td>0,670320</td><td></td><td>3,75</td><td>42,5211</td><td></td></tr>
+                    <tr><td>0,45</td><td>0,637628</td><td></td><td>3,80</td><td>44,7012</td><td></td></tr>
+                    <tr><td>0,50</td><td>0,606531</td><td></td><td>3,85</td><td>46,9931</td><td></td></tr>
+                    <tr><td>0,55</td><td>0,576950</td><td></td><td>3,90</td><td>49,4024</td><td></td></tr>
+                    <tr><td>0,60</td><td>0,548812</td><td></td><td>3,95</td><td>51,9354</td><td></td></tr>
+                    <tr><td>0,65</td><td>0,522046</td><td></td><td>4,00</td><td>54,5982</td><td></td></tr>
+                    <tr><td>0,70</td><td>0,496585</td><td></td><td>4,05</td><td>57,3975</td><td></td></tr>
+                    <tr class="variant-end"><td>0,75</td><td>0,472367</td><td></td><td>4,10</td><td>60,3403</td><td></td></tr>
+
+                    <!-- ВАРИАНТ 9 и 10 -->
+                    <tr>
+                        <td rowspan="7">9</td>
+                        <td>0,150</td><td>6,61659</td><td></td>
+                        <td class="variant-sep" rowspan="7">10</td>
+                        <td>1,375</td><td>5,04192</td><td></td>
+                    </tr>
+                    <tr><td>0,155</td><td>6,39986</td><td></td><td>1,380</td><td>5,17744</td><td></td></tr>
+                    <tr><td>0,160</td><td>6,19658</td><td></td><td>1,385</td><td>5,32016</td><td></td></tr>
+                    <tr><td>0,165</td><td>6,00551</td><td></td><td>1,390</td><td>5,47069</td><td></td></tr>
+                    <tr><td>0,170</td><td>5,82558</td><td></td><td>1,395</td><td>5,62968</td><td></td></tr>
+                    <tr><td>0,175</td><td>5,65583</td><td></td><td></td><td></td><td></td></tr>
+                    <tr class="variant-end"><td>0,180</td><td>5,49543</td><td></td><td></td><td></td><td></td></tr>
+
+                    <!-- ВАРИАНТ 11 и 12 -->
+                    <tr>
+                        <td rowspan="12">11</td>
+                        <td>0,01</td><td>0,991824</td><td>0,070</td>
+                        <td class="variant-sep" rowspan="12">12</td>
+                        <td>0,45</td><td>20,1946</td><td>0,463</td>
+                    </tr>
+                    <tr><td>0,06</td><td>0,951935</td><td>0,170</td><td>0,46</td><td>19,6133</td><td>0,487</td></tr>
+                    <tr><td>0,11</td><td>0,913650</td><td>0,330</td><td>0,47</td><td>18,9425</td><td>0,505</td></tr>
+                    <tr><td>0,16</td><td>0,876905</td><td>0,450</td><td>0,48</td><td>18,1746</td><td>0,536</td></tr>
+                    <tr><td>0,21</td><td>0,841638</td><td>0,468</td><td>0,49</td><td>17,3010</td><td>0,542</td></tr>
+                    <tr><td>0,26</td><td>0,807789</td><td></td><td>0,50</td><td>16,3123</td><td></td></tr>
+                    <tr><td>0,31</td><td>0,775301</td><td></td><td>0,51</td><td>15,1984</td><td></td></tr>
+                    <tr><td>0,36</td><td>0,744120</td><td></td><td>0,52</td><td>13,9484</td><td></td></tr>
+                    <tr><td>0,41</td><td>0,714193</td><td></td><td>0,53</td><td>12,5508</td><td></td></tr>
+                    <tr><td>0,46</td><td>0,685470</td><td></td><td>0,54</td><td>10,9937</td><td></td></tr>
+                    <tr><td>0,51</td><td>0,657902</td><td></td><td>0,55</td><td>9,2647</td><td></td></tr>
+                    <tr class="variant-end"><td>0,56</td><td>0,631442</td><td></td><td>0,56</td><td>7,3510</td><td></td></tr>
+                    <!-- ВАРИАНТ 13 и 14 -->
+                    <tr>
+                        <td rowspan="6">13</td>
+                        <td>1,375</td><td>5,04192</td><td>1,3832</td>
+                        <td class="variant-sep" rowspan="6">14</td>
+                        <td>0,180</td><td>5,61543</td><td>0,1838</td>
+                    </tr>
+                    <tr><td>1,380</td><td>5,17744</td><td>1,3926</td><td>0,185</td><td>5,46693</td><td>0,1875</td></tr>
+                    <tr><td>1,385</td><td>5,32016</td><td>1,3862</td><td>0,190</td><td>5,32634</td><td>0,1944</td></tr>
+                    <tr><td>1,390</td><td>5,47069</td><td>1,3866</td><td>0,195</td><td>5,19304</td><td>0,1976</td></tr>
+                    <tr><td>1,395</td><td>5,62968</td><td>1,3934</td><td>0,200</td><td>5,06649</td><td>0,2038</td></tr>
+                    <tr class="variant-end"><td>1,400</td><td>5,79788</td><td></td><td>0,205</td><td>4,94619</td><td></td></tr>
+
+                    <!-- ВАРИАНТ 15 и 16 -->
+                    <tr>
+                        <td rowspan="7">15</td>
+                        <td>0,593</td><td>0,532050</td><td>0,608</td>
+                        <td class="variant-sep" rowspan="7">16</td>
+                        <td>0,298</td><td>3,25578</td><td>0,308</td>
+                    </tr>
+                    <tr><td>0,598</td><td>0,535625</td><td>0,615</td><td>0,303</td><td>3,17639</td><td>0,314</td></tr>
+                    <tr><td>0,605</td><td>0,540598</td><td>0,622</td><td>0,310</td><td>3,12180</td><td>0,325</td></tr>
+                    <tr><td>0,613</td><td>0,546235</td><td>0,594</td><td>0,317</td><td>3,04819</td><td>0,321</td></tr>
+                    <tr><td>0,619</td><td>0,550431</td><td>0,628</td><td>0,323</td><td>2,98755</td><td>0,336</td></tr>
+                    <tr><td>0,627</td><td>0,555983</td><td></td><td>0,330</td><td>2,91950</td><td></td></tr>
+                    <tr class="variant-end"><td>0,632</td><td>0,559428</td><td></td><td>0,339</td><td>2,83598</td><td></td></tr>
+
+                    <!-- ВАРИАНТ 17 и 18 -->
+                    <tr>
+                        <td rowspan="13">17</td>
+                        <td>1,50</td><td>15,132</td><td>1,60+</td>
+                        <td class="variant-sep" rowspan="13">18</td>
+                        <td>0,698</td><td>2,22336</td><td>0,720</td>
+                    </tr>
+                    <tr><td>1,55</td><td>17,422</td><td>+0,006n</td><td>0,706</td><td>2,24382</td><td>0,740</td></tr>
+                    <tr><td>1,60</td><td>20,393</td><td>1,83+</td><td>0,714</td><td>2,26446</td><td>0,705</td></tr>
+                    <tr><td>1,65</td><td>23,994</td><td>+0,003n</td><td>0,727</td><td>2,29841</td><td>0,750</td></tr>
+                    <tr><td>1,70</td><td>28,160</td><td>1,725+</td><td>0,736</td><td>2,32221</td><td>0,765</td></tr>
+                    <tr><td>1,75</td><td>32,812</td><td>+0,002n</td><td>0,747</td><td>2,35164</td><td>0,755</td></tr>
+                    <tr><td>1,80</td><td>37,857</td><td>2,00-</td><td>0,760</td><td>2,38690</td><td></td></tr>
+                    <tr><td>1,85</td><td>43,189</td><td>-0,013n</td><td>0,769</td><td>2,41162</td><td></td></tr>
+                    <tr><td>1,90</td><td>48,689</td><td></td><td>0,782</td><td>2,44777</td><td></td></tr>
+                    <tr><td>1,95</td><td>54,225</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>2,00</td><td>59,653</td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>2,05</td><td>64,817</td><td></td><td></td><td></td><td></td></tr>
+                    <tr class="variant-end"><td>2,10</td><td>69,550</td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Методические указания -->
+            <h3 class="lab-subtitle">Методические указания</h3>
+            <p><strong>1. Многочлен Лагранжа.</strong> При интерполировании с помощью многочлена Лагранжа пользуются следующей формулой:</p>
+
+            <p>$$P_n(x) = \sum_{i=0}^n y_i \frac{(x - x_0)(x - x_1)\dots(x - x_{i-1})(x - x_{i+1})\dots(x - x_n)}{(x_i - x_0)(x_i - x_1)\dots(x_i - x_{i-1})(x_i - x_{i+1})\dots(x_i - x_n)} =$$</p>
+            <p>$$= \sum_{i=0}^n \left[ y_i \prod_{j=0, j \ne i}^n \frac{x - x_j}{x_i - x_j} \right].$$</p>
+
+            <p>Дать оценку погрешности интерполяции можно с использованием соотношения для вычисления остаточного члена:</p>
+
+            <p>$$|R_n(x)| \le \frac{\max_{[a,b]} |f^{(n+1)}(x)|}{(n+1)!} (x - x_0)(x - x_1)\dots(x - x_n).$$</p>
+
+            <p><strong>2. Формула Ньютона.</strong> В случае применения интерполяционной формулы Ньютона необходимо выбрать требуемую разновидность формулы.</p>
+            <p><em>Первая интерполяционная формула Ньютона для равноотстоящих узлов (интерполирование вперед):</em></p>
+
+            <p>$$P_n(x) = y_0 + q\Delta y_0 + q(q-1)\Delta^2 y_0 / 2! + \dots + q(q-1)\dots(q-n+1)\Delta^n y_0 / n! =$$</p>
+            <p>$$= y_0 + \sum_{i=1}^n \frac{\prod_{j=0}^{i-1} (q - j)}{i!} \Delta^i y_0,$$</p>
+
+            <p>где $q = (x - x_0)/h, \ h = x_{i+1} - x_i, \ i = 0, 1, 2, \dots, n$; $\Delta^i y_0$ – конечная разность $i$-го порядка, причём $\Delta^i y_0 = \Delta^{i-1} y_1 - \Delta^{i-1} y_0$.</p>
+            <p>Остаточный член $R_n(x)$ этой формулы имеет вид</p>
+
+            <p>$$R_n(x) = h^{n+1} q(q-1)\dots(q-n) f^{(n+1)}(\xi) / (n+1)!,$$</p>
+
+            <p>где $\xi$ – некоторая внутренняя точка промежутка, содержащего все узлы $x_i, i = 0, 1, \dots, n$ и точку $x$.</p>
+
+            <p><em>Вторая интерполяционная формула Ньютона для равноотстоящих узлов (интерполирование назад):</em></p>
+
+            <p>$$P_n(x) = y_n + q\Delta y_{n-1} + q(q+1)\Delta^2 y_{n-2} / 2! + \dots + q(q+1)\dots(q+n-1)\Delta^n y_0 / n! =$$</p>
+            <p>$$= y_n + \sum_{i=1}^n \frac{\prod_{j=0}^{i-1} (q + j)}{i!} \Delta^i y_{n-i},$$</p>
+
+            <p>где $q = (x - x_n)/h, \ h = x_{i+1} - x_i, \ i = 0, 1, 2, \dots, n$; $\Delta^i y$ – конечные разности $i$-го порядка, остаточный член</p>
+
+            <p>$$R_n(x) = h^{n+1} q(q+1)\dots(q+n) f^{(n+1)}(\xi) / (n+1)!.$$</p>
+
+            <p>При вычислении конечных разностей, входящих в интерполяционную формулу Ньютона, рекомендуется составить таблицу конечных разностей (табл. 3).</p>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 30px 0; align-items: flex-start;">
+                
+                <div style="flex: 1; min-width: 300px; overflow-x: auto;">
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; color: var(--text-muted);">Таблица 3</p>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: center; border: 1px solid var(--text-muted);">
+                        <tbody>
+                        <tr>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$x_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^4 y_i$</td>
+                            <td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^5 y_i$</td>
+                        </tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^4 y_0$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^5 y_0$</td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^4 y_1$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^3 y_2$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta^2 y_3$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_4$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_4$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$\Delta y_4$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        <tr><td style="border: 1px solid var(--text-muted); padding: 6px;">$x_5$</td><td style="border: 1px solid var(--text-muted); padding: 6px;">$y_5$</td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td><td style="border: 1px solid var(--text-muted); padding: 6px;"></td></tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="quiz-result" id="result-3-3"></div>
+            </div>
+            <p>Нужно отметить, что в формуле интерполирования вперед используется верхняя горизонтальная строка таблицы разностей, а в формуле интерполирования назад – самая нижняя наклонная строка (элементы этой строки подчеркнуты).</p>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+            <p><strong>3. Неравноотстоящие узлы.</strong> В случае, если заданы неравноотстоящие узлы интерполяции, то необходимо использовать интерполяционную формулу Ньютона следующего вида:</p>
 
-                <div class="quiz-question">4. Сопоставьте метод и его тип:</div>
-                <div class="match-container">
-                    <div class="match-column">
-                        <div class="match-item" draggable="true" data-match="gauss">Гаусс</div>
-                        <div class="match-item" draggable="true" data-match="seidel">Зейдель</div>
+            <p>$$P_n(x) = y_0 + (x - x_0)\delta(x_0, x_1) + (x - x_0)(x - x_1)\delta(x_0, x_1, x_2) + \dots + (x - x_0)(x - x_1)\dots(x - x_{n-1})\delta(x_0, x_1, \dots, x_n),$$</p>
+
+            <p>где $\delta(x_0, x_1, \dots, x_i) = \frac{\delta(x_1, x_2, \dots, x_i) - \delta(x_0, x_1, \dots, x_{i-1})}{x_i - x_0}$ – разделённая разность $i$-го порядка.</p>
+
+            <p><strong>4. Формула Гаусса.</strong> Интерполяционная формула Гаусса записывается для случая равноотстоящих узлов и также имеет две формы.</p>
+            <p><em>Первая формула Гаусса:</em></p>
+
+            <p>$$P(x) = y_0 + q\Delta y_0 + \frac{q(q-1)}{2!}\Delta^2 y_{-1} + \frac{(q+1)q(q-1)}{3!}\Delta^3 y_{-1} +$$</p>
+            <p>$$+ \frac{(q+1)q(q-1)(q-2)}{4!}\Delta^4 y_{-2} + \frac{(q+2)(q+1)q(q-1)(q-2)}{5!}\Delta^5 y_{-2} + \dots$$</p>
+            <p>$$\dots + \frac{(q+n-1)\dots(q-n+1)}{(2n-1)!}\Delta^{2n-1} y_{-(n-1)} + \frac{(q+n-1)\dots(q-n)}{(2n)!}\Delta^{2n} y_{-n} =$$</p>
+            <p>$$= y_0 + \sum_{i=1}^n \left[ \frac{\prod_{j=-(i-1)}^{i-1} (q+j)}{(2i-1)!} \Delta^{2i-1} y_{-(i-1)} + \frac{\prod_{j=-i}^{i-1} (q+j)}{(2i)!} \Delta^{2i} y_{-i} \right],$$</p>
+
+            <p>где $q = (x - x_0)/h$.</p>
+            <p>Разности $\Delta y_0, \Delta^2 y_{-1}, \Delta^3 y_{-1}, \Delta^4 y_{-2}, \Delta^5 y_{-2}, \Delta^6 y_{-3}$, содержащиеся в первой интерполяционной формуле Гаусса, образуют нижнюю ломаную линию в табл. 4.</p>
+
+            <p><em>Вторая интерполяционная формула Гаусса записывается в виде:</em></p>
+
+            <p>$$P(x) = y_0 + q\Delta y_{-1} + \frac{(q+1)q}{2!}\Delta^2 y_{-1} + \frac{(q+1)q(q-1)}{3!}\Delta^3 y_{-2} +$$</p>
+            <p>$$+ \frac{(q+2)(q+1)q(q-1)}{4!}\Delta^4 y_{-2} + \dots + \frac{(q+n-1)\dots(q-n+1)}{(2n-1)!}\Delta^{2n-1} y_{-n} +$$</p>
+            <p>$$+ \frac{(q+n)(q+n-1)\dots(q-n+1)}{(2n)!}\Delta^{2n} y_{-n} =$$</p>
+            <p>$$= y_0 + \sum_{i=1}^n \left[ \frac{\prod_{j=-(i-1)}^{i-1} (q+j)}{(2i-1)!} \Delta^{2i-1} y_{-i} + \frac{\prod_{j=-i}^{i-1} (q+j)}{(2i)!} \Delta^{2i} y_{-i} \right].$$</p>
+
+            <p>Разности $\Delta y_{-1}, \Delta^2 y_{-1}, \Delta^3 y_{-2}, \Delta^4 y_{-2}, \Delta^5 y_{-3}, \Delta^6 y_{-3}$ образуют верхнюю ломаную линию в табл. 4.</p>
+            <figure class="content-image" style="max-width: 1000px; margin: 30px auto; text-align: center;">
+                <img src="img/chapter5_2.png" alt="Таблица 4" style="width: 100%; border-radius: 8px;">
+                <figcaption>Таблица 4</figcaption>
+            </figure>
+            <p>Остаточный член для обеих формул Гаусса будет равен</p>
+
+            <p>$$R(x) = \frac{h^{2n+1} f^{(2n+1)}(\xi)}{(2n+1)!} q(q^2 - 1^2)(q^2 - 2^2)\dots(q^2 - n^2),$$</p>
+
+            <p>где $\xi$ – некоторое промежуточное значение, находящееся между точками $x_{-n}, x_{-(n-1)}, \dots, x_0, x_1, \dots, x_n$ и точкой $x$.</p>
+
+            <p><strong>5. Формула Стирлинга.</strong> Интерполяционная формула Стирлинга получается из первой и второй интерполяционных формул Гаусса как их среднее арифметическое. Она имеет вид</p>
+
+            <p>$$P(x) = y_0 + q\frac{\Delta y_{-1} + \Delta y_0}{2} + \frac{q^2}{2}\Delta^2 y_{-1} + \frac{q(q^2 - 1^2)}{3!}\frac{\Delta^3 y_{-2} + \Delta^3 y_{-1}}{2} +$$</p>
+            <p>$$+ \frac{q^2(q^2 - 1^2)}{4!}\Delta^4 y_{-2} + \frac{q(q^2 - 1^2)(q^2 - 2^2)}{5!}\frac{\Delta^5 y_{-3} + \Delta^5 y_{-2}}{2} + \dots$$</p>
+            <p>$$\dots + \frac{q(q^2 - 1^2)(q^2 - 2^2)\dots(q^2 - (n-1)^2)}{(2n-1)!}\frac{\Delta^{2n-1} y_{-n} + \Delta^{2n-1} y_{-(n-1)}}{2} +$$</p>
+            <p>$$+ \frac{q^2(q^2 - 1^2)(q^2 - 2^2)\dots(q^2 - (n-1)^2)}{(2n)!}\Delta^{2n} y_{-n},$$</p>
+
+            <p>где $q = (x - x_0)/h$.</p>
+            <p>Погрешность интерполяционной формулы Стирлинга может быть определена в соответствии с выражением для остаточного члена формулы Гаусса. Следует помнить, что эта формула применяется для интерполирования в середине таблицы центральных разностей при значениях $q$, близких к нулю. Практически её используют при $|q| \le 0,25$.</p>
+
+            <p><strong>6. Формула Бесселя.</strong> Интерполяционная формула Бесселя также, как и формула Стирлинга, получается путём некоторых преобразований из формул Гаусса. Она имеет следующий вид:</p>
+
+            <p>$$P(x) = \frac{y_0 + y_1}{2} + (q - 0,5)\Delta y_0 + \frac{q(q-1)}{2!}\frac{\Delta^2 y_{-1} + \Delta^2 y_0}{2} + \frac{(q - 0,5)q(q-1)}{3!}\Delta^3 y_{-1} +$$</p>
+            <p>$$+ \frac{q(q-1)(q+1)(q-2)}{4!}\frac{\Delta^4 y_{-2} + \Delta^4 y_{-1}}{2} + \frac{(q - 0,5)q(q-1)(q+1)(q-2)}{5!}\Delta^5 y_{-2} +$$</p>
+            <p>$$+ \frac{q(q-1)(q+1)(q-2)(q+2)(q-3)}{6!}\frac{\Delta^6 y_{-3} + \Delta^6 y_{-2}}{2} + \dots$$</p>
+            <p>$$\dots + \frac{q(q-1)(q+1)(q-2)(q+2)\dots(q-n)(q+n-1)}{(2n)!}\frac{\Delta^{2n} y_{-n} + \Delta^{2n} y_{-n+1}}{2} +$$</p>
+            <p>$$+ \frac{(q-0,5)q(q-1)(q+1)(q-2)(q+2)\dots(q-n)(q+n-1)}{(2n+1)!}\Delta^{2n+1} y_{-n},$$</p>
+
+            <p>где $q = (x - x_0)/h$.</p>
+            <p>Остаточный член интерполяционной формулы Бесселя, определяющий погрешность интерполяции, вычисляется по формуле</p>
+
+            <p>$$R(x) = \frac{h^{2n+2}}{(2n+2)!} f^{(2n+2)}(\xi) q(q^2 - 1^2)(q^2 - 2^2)\dots(q^2 - n^2)(q - (n+1)),$$</p>
+
+            <p>где $\xi \in [x_0 - nh, x_0 + (n+1)h]$.</p>
+
+            <p><strong>7. Сплайн-интерполяция.</strong> Интерполирование одним из приведённых выше многочленов на всём отрезке $[a, b]$ с использованием большого числа узлов интерполяции часто приводит к плохому приближению, что объясняется сильным накоплением погрешностей в процессе вычислений. Для избежания этого поступают следующим образом: весь отрезок $[a, b]$ разбивают на отрезки $[x_{i-1}, x_i], \ i = 1, n$ и на каждом из частичных отрезков приближенно заменяют функцию $y = f(x)$ многочленом невысокой степени. Одним из способов такого интерполирования функции $y = f(x)$ на всем отрезке $[a, b]$ является интерполирование с помощью сплайн-функций (сплайнов).</p>
+            <p><em>Сплайном</em> называется функция, которая вместе с несколькими производными непрерывна на всем заданном отрезке $[a, b]$, а на каждом частичном отрезке $[x_{i-1}, x_i]$ в отдельности является некоторым алгебраическим многочленом.</p>
+            <p><em>Сплайн первого порядка (линейный сплайн):</em></p>
+
+            <p>$$S_1(x) = \sum_{i=k}^{k+1} f_i S_{i,1}(x), \ x \in [x_k, x_{k+1}],$$</p>
+
+            <p>где $S_{k,1}(x) = (x_{k+1} - x)/h, \ S_{k+1,1}(x) = (x - x_k)/h$.</p>
+
+            <p>Для построения сплайнов третьего порядка (кубического сплайна) существует множество способов, позволяющих получить кубические сплайны с различным дефектом. Одним из наиболее простых способов являются построение кубических сплайнов с использованием наклонов сплайна либо следующее выражение:</p>
+
+            <p>$$S_3(x) = \frac{2}{3} \sum_{i=k-1}^{k+2} f_i S_{i,3}(x), \ x \in [x_k, x_{k+1}],$$</p>
+
+            <p>где $S_{k-1,3}(x) = (x_{k+1} - x)^3 / 4h^3$,</p>
+            <p>$$S_{k,3}(x) = [(x_{k+2} - x)^3 - 4(x_{k+1} - x)^3] / 4h^3,$$</p>
+            <p>$$S_{k+1,3}(x) = [(x - x_{k-1})^3 - 4(x - x_k)^3] / 4h^3,$$</p>
+            <p>$$S_{k+2,3}(x) = (x - x_k)^3 / 4h^3.$$</p>
+            <div class="calc-card" id="calc-lagrange">
+                <h3 class="lab-subtitle">Калькулятор интерполяции (Многочлен Лагранжа)</h3>
+                <p class="calc-hint">
+                    Введите количество узлов $n+1$, их координаты $(x_i, y_i)$ и точки $x_j$, в которых нужно вычислить значение.
+                    Калькулятор построит многочлен Лагранжа $P_n(x)$ и выведет таблицу результатов.
+                </p>
+
+                <div class="calc-grid" style="grid-template-columns: 1fr 1fr;">
+                    <label style="flex-direction: row; align-items: center; gap: 10px;">
+                        Кол-во узлов $(n+1)$:
+                        <input id="lag-nodes" type="number" value="5" min="2" max="10" onchange="buildLagrangeInputs()">
+                    </label>
+                    <label style="flex-direction: row; align-items: center; gap: 10px;">
+                        Кол-во точек $x_j$:
+                        <input id="lag-points" type="number" value="2" min="1" max="10" onchange="buildLagrangeInputs()">
+                    </label>
+                </div>
+
+                <!-- Контейнеры для динамического ввода -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                    <div>
+                        <h4 style="color: var(--accent); font-size: 1rem; margin-bottom: 10px;">Узлы интерполяции $(x_i, y_i)$</h4>
+                        <div id="lag-nodes-container"></div>
                     </div>
-                    <div class="match-column">
-                        <div class="match-item dropzone" data-match="gauss">Прямой метод</div>
-                        <div class="match-item dropzone" data-match="seidel">Итерационный метод</div>
+                    <div>
+                        <h4 style="color: var(--accent); font-size: 1rem; margin-bottom: 10px;">Точки для вычисления $x_j$</h4>
+                        <div id="lag-points-container"></div>
                     </div>
                 </div>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+                <button onclick="calcLagrange()" style="margin-top: 20px;">Вычислить P(x)</button>
 
-                <div class="quiz-question">5. Введите название схемы, которая является второй модификацией метода Гаусса (одно слово):</div>
-                <input type="text" id="q3-5-input" class="quiz-input" placeholder="Название схемы">
-                <button class="btn-primary" onclick="checkFillBlank('q3-5-input', 'Халецкого', 'result-3-5')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-3-5"></div>
+                <div class="calc-result" id="lag-out" style="margin-top: 20px;"></div>
+                <div class="calc-canvas-wrap"><canvas id="lag-canvas" height="160"></canvas></div>
             </div>
         </div>
-        <!-- ТЕСТ 4: Интерполирование и аппроксимация -->
-        <div class="test-container" id="test-4" style="display: none;">
-            <div class="quiz-container">
-                <h3 style="margin-bottom: 20px; color: var(--accent);">Тест: Интерполирование</h3>
+    </section>
+    <!-- СТРАНИЦА ЛР 4 -->
+    <section class="content-page" id="page-lab-4">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#labs" onclick="showPage('labs'); return false;">Лабораторный практикум</a>
+            <span>/</span>
+            <span class="current">ЛР 4</span>
+        </nav>
+        <div class="content-header">
+            <h2>Лабораторная работа 4. Вычисление определённых интегралов</h2>
+        </div>
 
-                <div class="quiz-question">1. В чем отличие интерполяции от аппроксимации?</div>
-                <label class="quiz-option"><input type="radio" name="q4-1" value="a"> Интерполяция проходит точно через все точки, аппроксимация — приближенно</label>
-                <label class="quiz-option"><input type="radio" name="q4-1" value="b"> Аппроксимация проходит точно через все точки</label>
-                <label class="quiz-option"><input type="radio" name="q4-1" value="c"> Они идентичны</label>
-                <button class="btn-primary" onclick="checkQuiz('q4-1', 'a', 'result-4-1')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-4-1"></div>
+        <div class="lab-card">
+            <!-- Постановка задачи -->
+            <h3 class="lab-subtitle">Постановка задачи</h3>
+            <p>Вычислить с точностью $\varepsilon_1 = 10^{-5}$ значение $u = \int_{a_1}^{b_1} f_1(x) \,dx$, а также получить таблицу значений функции $F(t) = \int_{a_2}^{b_2} f_2(x, t) \,dx$, вычисленных с точностью $\varepsilon_2 = 10^{-4}$ в точках $t_i = c + ih, \ i = 0, 1, \dots, m$, где $h = (d - c)/m$. Функция $f_2(x, t)$ представляется выражением вида</p>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+            <p>$$f_2(x, t) = \varphi(z)\psi(x) = \varphi\left(\frac{t}{1 + x^2} + \mu x\right)\psi(x).$$</p>
 
-                <div class="quiz-question">2. Какой полином используется в методе Лагранжа?</div>
-                <label class="quiz-option"><input type="radio" name="q4-2" value="a"> Полином Ньютона</label>
-                <label class="quiz-option"><input type="radio" name="q4-2" value="b"> Полином Лагранжа</label>
-                <label class="quiz-option"><input type="radio" name="q4-2" value="c"> Полином Чебышева</label>
-                <button class="btn-primary" onclick="checkQuiz('q4-2', 'b', 'result-4-2')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-4-2"></div>
+            <!-- Порядок выполнения -->
+            <h3 class="lab-subtitle">Порядок выполнения</h3>
+            <ol class="lab-list">
+                <li>Изучить методы приближённого вычисления значения интеграла, составить блок-схему алгоритма и дать её описание.</li>
+                <li>Разработать и отладить программу вычисления определённого интеграла, оформив вычисление значений функций $f_1(x)$ и $f_2(x, t)$ в виде подпрограммы.</li>
+                <li>В качестве результата вывести на печать значение $u$, последовательность значений $t_i$ и $F(t_i), \ i = 1, 2, \dots, n$. Построить график функции $F(t)$.</li>
+            </ol>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+            <!-- Варианты заданий -->
+            <h3 class="lab-subtitle">Варианты заданий</h3>
+            <p>Вариант задания состоит из шести чисел (например: 4, 19, 13, 3, 4): первое означает квадратурную формулу (табл. 1); второе – функцию $f_1(x), \ a_1, \ b_1$ (табл. 2); третье – функцию $\varphi(z)$ (табл. 3); четвёртое – функцию $\psi(x)$ (табл. 4); пятое – коэффициент $\mu$; шестое – значения $a_2, b_2, c, d, m$ (табл. 6).</p>
+            <p>Алгоритм вычисления значения определённого интеграла с задаваемой точностью должен быть оформлен в виде подпрограммы.</p>
 
-                <div class="quiz-question">3. Для интерполяции с равноотстоящими узлами используют формулы Ньютона.</div>
-                <div class="tf-container">
-                    <button class="btn-tf" onclick="checkTF(this, true, 'result-4-3')">Верно</button>
-                    <button class="btn-tf" onclick="checkTF(this, false, 'result-4-3')">Неверно</button>
+            <!-- Таблица 1 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 1</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr><th>Первое число варианта</th><th>Квадратурная формула</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>Прямоугольников</td></tr>
+                    <tr><td>2</td><td>Трапеций</td></tr>
+                    <tr><td>3</td><td>Симпсона</td></tr>
+                    <tr><td>4</td><td>Ньютона</td></tr>
+                    <tr><td>5</td><td>Гаусса</td></tr>
+                    <tr><td>6</td><td>Монте-Карло</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 2 (ТОЧНО КАК НА СКРИНШОТЕ) -->
+            <div class="table-container" style="max-height: 600px; overflow-y: auto;">
+                <p class="table-caption">Таблица 2</p>
+                <table class="lab-table" style="font-size: 0.8rem;">
+                    <thead>
+                    <tr>
+                        <th>Второе<br>число<br>варианта</th>
+                        <th>$f_1(x)$</th>
+                        <th>$a_1$</th>
+                        <th>$b_1$</th>
+                        <th>Второе<br>число<br>варианта</th>
+                        <th>$f_1(x)$</th>
+                        <th>$a_1$</th>
+                        <th>$b_1$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>$\sqrt{e^x - 1}$</td><td>0,1</td><td>2</td>
+                        <td>14</td>
+                        <td>$(x+1)\sqrt{x^2+1}$</td><td>0</td><td>3/4</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>$e^x \sin x$</td><td>0</td><td>$\pi$</td>
+                        <td>15</td>
+                        <td>$\sqrt{x}\sin x$</td><td>0</td><td>1</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>$(x^2-1)\cdot 10^{-2x}$</td><td>0</td><td>1</td>
+                        <td>16</td>
+                        <td>$1/(x+\sqrt{\cos x})$</td><td>0</td><td>$\pi/2$</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>$x\sqrt[3]{1+x}$</td><td>1</td><td>9</td>
+                        <td>17</td>
+                        <td>$1/(x+\sqrt{\ln x})$</td><td>2</td><td>3</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>$1/(3+2\cos x)$</td><td>0</td><td>$\pi$</td>
+                        <td>18</td>
+                        <td>$e^{-5x^2+x+0,5}$</td><td>0</td><td>1</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>$1/(x\ln^2 x)$</td><td>2</td><td>3</td>
+                        <td>19</td>
+                        <td>$\sqrt{1-0,5\sin^2 x}$</td><td>0</td><td>$\pi/2$</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>$\frac{\arcsin\sqrt{x}}{\sqrt{x(1-x)}}$</td><td>0,2</td><td>0,3</td>
+                        <td>20</td>
+                        <td>$\frac{\ln(1+\sqrt{x})}{\sqrt[3]{x}}$</td><td>0</td><td>1</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>$x^3 e^{2x}$</td><td>0</td><td>1</td>
+                        <td>21</td>
+                        <td>$\frac{\sqrt{0,7+x^2}}{1+\cos 0,7x}$</td><td>0</td><td>1</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>$\text{tg}^3\left(\frac{x}{2}+\frac{\pi}{4}\right)$</td><td>0</td><td>$\pi/4$</td>
+                        <td>22</td>
+                        <td>$\sqrt{\frac{1-0,75x^2}{1-x^2}}$</td><td>0</td><td>1/2</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>$x \text{arctg } x$</td><td>0</td><td>$\sqrt{3}$</td>
+                        <td>23</td>
+                        <td>$\frac{(\text{arctg } x)^2}{x}$</td><td>0</td><td>1/2</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>$1/(1+\sqrt{x})$</td><td>0</td><td>4</td>
+                        <td>24</td>
+                        <td>$\frac{e^{-x^2}\sin 0,8x}{0,8+x^2}$</td><td>0</td><td>1</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>$\frac{1}{5-3\cos x}$</td><td>0</td><td>$2\pi$</td>
+                        <td>25</td>
+                        <td>$\frac{1}{1+\sin^3 x}$</td><td>0</td><td>$\pi$</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>$\frac{2^x}{1-4^x}$</td><td>0</td><td>3/4</td>
+                        <td></td>
+                        <td></td><td></td><td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Таблица 3 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 3</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Третье число</th><th>$\varphi(z)$</th>
+                        <th>Третье число</th><th>$\varphi(z)$</th>
+                        <th>Третье число</th><th>$\varphi(z)$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>$\sin z$</td><td>6</td><td>$\text{sh } z$</td><td>11</td><td>$\text{th}^2 z$</td></tr>
+                    <tr><td>2</td><td>$\sqrt{2-\cos z}$</td><td>7</td><td>$\sqrt{1+\sin^2 z}$</td><td>12</td><td>$\ln(1+z^2)$</td></tr>
+                    <tr><td>3</td><td>$\cos z$</td><td>8</td><td>$\text{ch } z$</td><td>13</td><td>$\sqrt{\text{ch } z}$</td></tr>
+                    <tr><td>4</td><td>$e^{-z}$</td><td>9</td><td>$\text{th } z$</td><td>14</td><td>$\sqrt{1+e^{2z}}$</td></tr>
+                    <tr><td>5</td><td>$\sqrt{\pi - \text{arctg } z}$</td><td>10</td><td>$\text{arctg } z$</td><td>15</td><td>$\sqrt{2\text{ch } z - 1}$</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 4 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 4</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Четвёртое число</th><th>$\psi(x)$</th>
+                        <th>Четвёртое число</th><th>$\psi(x)$</th>
+                        <th>Четвёртое число</th><th>$\psi(x)$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>$\frac{1-x^2}{1+x^2}$</td><td>3</td><td>$\frac{x-1}{x^2+x+1}$</td><td>5</td><td>$\frac{2-3x}{4+x^2}$</td></tr>
+                    <tr><td>2</td><td>$\frac{2+x}{x^2-x+1}$</td><td>4</td><td>$\frac{\sqrt{x^2+1}}{x^2+3}$</td><td>6</td><td>$\frac{x+1}{x^2+x+1}$</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 5 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 5</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr><th>Пятое число варианта</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>$\mu$</td><td>-0,01</td><td>-0,05</td><td>0,05</td><td>0,01</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 6 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 6</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Шестое число</th><th>$a_2$</th><th>$b_2$</th><th>$c$</th><th>$d$</th><th>$m$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>0</td><td>$\pi/2$</td><td>1/2</td><td>3/2</td><td>10</td></tr>
+                    <tr><td>2</td><td>0</td><td>1</td><td>1</td><td>2</td><td>20</td></tr>
+                    <tr><td>3</td><td>$\pi/4$</td><td>$3\pi/4$</td><td>1</td><td>2,5</td><td>15</td></tr>
+                    <tr><td>4</td><td>1/2</td><td>3/2</td><td>2</td><td>3</td><td>10</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Методические указания -->
+            <h3 class="lab-subtitle">Методические указания</h3>
+
+            <p>1. Для вычисления значения определённого интеграла $I = \int_a^b f(x)dx$ с заданной точностью $\varepsilon > 0$ рекомендуется использовать квадратурную формулу вида</p>
+
+            <p>$$I = \sum_{i=0}^N A_i f_i + R,$$</p>
+
+            <p>где $f_i = f(x_i)$, а $x_i$ и $A_i$ определяются типом квадратурной формулы; $R$ – остаточный член формулы, определяющий погрешность вычисления интегралов.</p>
+
+            <p><strong>1) Формулы прямоугольников.</strong> Различают формулы левых, правых и центральных прямоугольников:</p>
+
+            <p>$$I = \int_a^b f(x)dx \approx h(f_0 + f_1 + \dots + f_{N-1}),$$</p>
+
+            <p>где $f_i = f(x_i)$, $h = (b - a)/N$.</p>
+            <p>В формуле левых прямоугольников $x_i = a + ih$, правых – $x_i = a + (i+1)h$, центральных – $x_i = a + (i+1/2)h$.</p>
+
+            <p><strong>2) Формула трапеций:</strong></p>
+
+            <p>$$I = \int_a^b f(x)dx \approx h\left(\frac{1}{2}f_0 + f_1 + \dots + f_{N-1} + \frac{1}{2}f_N\right),$$</p>
+
+            <p>где $f_i = f(x_i)$, $x_i = a + ih$, $h = (b - a)/N$.</p>
+
+            <p><strong>3) Формула парабол (Симпсона):</strong></p>
+
+            <p>$$I = \int_a^b f(x)dx \approx \frac{h}{3}(f_0 + 4f_1 + 2f_2 + 4f_3 + 2f_4 \dots + 2f_{N-2} + 4f_{N-1} + f_N),$$</p>
+
+            <p>где $f_i = f(x_i)$, $x_i = a + ih$, $h = (b - a)/N$, $N$ – кратно двум.</p>
+
+            <p><strong>4) Формула Ньютона («правило 3/8»):</strong></p>
+
+            <p>$$I = \int_a^b f(x)dx \approx \frac{3h}{8}(f_0 + 3f_1 + 3f_2 + 2f_3 + \dots + 2f_{N-3} + 3f_{N-2} + 3f_{N-1} + f_N),$$</p>
+
+            <p>где $f_i = f(x_i)$, $x_i = a + ih$, $h = (b - a)/N$, $N$ – кратно трём.</p>
+
+            <p><strong>5) Формула Гаусса:</strong></p>
+
+            <p>$$\int_{-1}^1 f(t)dt = \sum_{i=1}^n A_i f(t_i) + R_n(f),$$</p>
+
+            <p>где $A_i$ и $t_i, \ i = 1, 2, \dots, n$ подбираются так, чтобы формула была точной для всех многочленов наивысшей возможной степени $N$. Коэффициенты квадратурной формулы Гаусса выбрать из табл. 6 (в методичке она Таблица 7).</p>
+
+            <!-- Таблица 7 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 7</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>$n$</th>
+                        <th>$t_i$</th>
+                        <th>$A_i$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>$t_1 = 0$</td><td>$A_1 = 2$</td></tr>
+                    <tr><td>2</td><td>$-t_1 = t_2 = 0,57735027$</td><td>$A_1 = A_2 = 1$</td></tr>
+                    <tr><td>3</td><td>$-t_1 = t_3 = 0,77459667$<br>$t_2 = 0$</td><td>$A_1 = A_3 = 5/9$<br>$A_2 = 8/9$</td></tr>
+                    <tr><td>4</td><td>$-t_1 = t_4 = 0,86113631$<br>$-t_2 = t_3 = 0,33998104$</td><td>$A_1 = A_4 = 0,34785484$<br>$A_2 = A_3 = 0,65214516$</td></tr>
+                    <tr><td>5</td><td>$-t_1 = t_5 = 0,90617985$<br>$-t_2 = t_4 = 0,53846931$<br>$t_3 = 0$</td><td>$A_1 = A_5 = 0,23692688$<br>$A_2 = A_4 = 0,47862868$<br>$A_3 = 0,56888889$</td></tr>
+                    <tr><td>6</td><td>$-t_1 = t_6 = 0,93246951$<br>$-t_2 = t_5 = 0,66120939$<br>$-t_3 = t_4 = 0,23861919$</td><td>$A_1 = A_6 = 0,17132450$<br>$A_2 = A_5 = 0,36076158$<br>$A_3 = A_4 = 0,46791394$</td></tr>
+                    <tr><td>7</td><td>$-t_1 = t_7 = 0,94910791$<br>$-t_2 = t_6 = 0,74153119$<br>$-t_3 = t_5 = 0,40584515$<br>$t_4 = 0$</td><td>$A_1 = A_7 = 0,12948496$<br>$A_2 = A_6 = 0,27970540$<br>$A_3 = A_5 = 0,38183006$<br>$A_4 = 0,41795918$</td></tr>
+                    <tr><td>8</td><td>$-t_1 = t_8 = 0,96028986$<br>$-t_2 = t_7 = 0,79666648$<br>$-t_3 = t_6 = 0,52553242$<br>$-t_4 = t_5 = 0,18343464$</td><td>$A_1 = A_8 = 0,10122854$<br>$A_2 = A_7 = 0,22238104$<br>$A_3 = A_6 = 0,31370664$<br>$A_4 = A_5 = 0,36268378$</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>При вычислении интеграла вида $\int_a^b f(x)dx$ следует сделать замену переменной $x = (b-a)/2 + (b-a)t/2$. Тогда формула Гаусса примет вид</p>
+
+            <p>$$\int_a^b f(x)dx \approx \frac{b-a}{2} \sum_{i=1}^n A_i f\left(\frac{b+a}{2} + \frac{b-a}{2}t_i\right).$$</p>
+
+            <p><strong>6) Метод Монте-Карло:</strong></p>
+
+            <p>$$\int_a^b f(x)dx \approx \frac{b-a}{M} \sum_{i=1}^M f(a + (b-a)R_i),$$</p>
+
+            <p>где $R_i$ – равномерно распределенное случайное число из диапазона 0 ... 1; $M$ – количество вычислений подынтегральной функции (должно быть достаточно большим).</p>
+
+            <p>2. Для обеспечения требуемой точности при приближенном вычислении интеграла по квадратурной формуле нужно выбрать соответствующее значение шага $h$ (или число шагов $N$, на которое делится отрезок интегрирования). Для этого можно воспользоваться существующими формулами для остаточных членов квадратурных формул, однако оценка значения соответствующей производной подынтегральной функции, входящей в формулу остаточного члена, нередко вызывает большие трудности. Кроме того эту оценку приходится делать для каждой новой подынтегральной функции.</p>
+            <p>На практике для достижения требуемой точности вычисления интеграла по квадратурной формуле часто используется метод последовательного удвоения шагов (двойной пересчёт), в соответствии с которым интеграл $I$ вычисляется дважды: сначала при числе шагов, равном $n$, а затем при числе шагов, равном $2n$. Обозначив результаты вычислений через $I_n$ и $I_{2n}$, соответственно, сравнивают их, проверяя выполнение неравенства $\Delta I = |I_n - I_{2n}| < \varepsilon$. Если неравенство выполняется, то приближенное значение интеграла найдено. В противном случае вычисления продолжают с увеличенным числом шагов. Таким образом, $I_n$ вычисляется для последовательных значений $n = N_0, 2N_0, 4N_0$ и т.д., где $N_0$ – начальное число шагов. Процесс вычислений заканчивается, когда для очередного значения $n$ будет получена погрешность $\Delta I < \varepsilon$.</p>
+            <p>3. Для получения эффективного алгоритма вычисления определённого интеграла следует учесть, что при использовании некоторых квадратурных формул при удвоении числа шагов нет необходимости заново вычислять значения подынтегральной функции во всех узлах сетки, так как все узлы сетки, полученные при числе шагов, равном $n$, являются узлами сетки и при числе шагов, равном $2n$.</p>
+            <div class="calc-card" id="calc-integration">
+                <h3 class="lab-subtitle">Калькулятор интегралов <span class="calc-badge">ЛР 4</span></h3>
+                <p class="calc-hint">
+                    Часть 1: Вычисление $u = \int_{a_1}^{b_1} f_1(x) dx$ с точностью $\varepsilon_1$.<br>
+                    Часть 2: Таблица значений $F(t) = \int_{a_2}^{b_2} f_2(x, t) dx$ и график.
+                </p>
+
+                <!-- Блок 1 -->
+                <h4 style="color: var(--accent); margin-top: 20px;">1. Интеграл $u$</h4>
+                <div class="calc-grid" style="grid-template-columns: auto 1fr auto 1fr auto 1fr auto 1fr; gap: 10px 15px; align-items: center;">
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$f_1(x)$:</span>
+                    </label>
+                    <input id="int-f1" value="Math.sqrt(Math.exp(x) - 1)" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$a_1$:</span>
+                    </label>
+                    <input id="int-a1" type="number" value="0.1" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$b_1$:</span>
+                    </label>
+                    <input id="int-b1" type="number" value="2" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$\varepsilon_1$:</span>
+                    </label>
+                    <input id="int-eps1" type="number" value="0.00001" step="any" style="width: 100%;">
                 </div>
-                <div class="quiz-result" id="result-4-3"></div>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+                <button onclick="calcIntegralU()" style="margin-top: 15px;">Вычислить u</button>
+                <div class="calc-result" id="int-u-out" style="margin-bottom: 30px;"></div>
 
-                <div class="quiz-question">4. Сопоставьте метод и его автора:</div>
-                <div class="match-container">
-                    <div class="match-column">
-                        <div class="match-item" draggable="true" data-match="newton">Формулы Ньютона</div>
-                        <div class="match-item" draggable="true" data-match="lagrange">Формула Лагранжа</div>
-                    </div>
-                    <div class="match-column">
-                        <div class="match-item dropzone" data-match="newton">Для равноотстоящих узлов</div>
-                        <div class="match-item dropzone" data-match="lagrange">Для произвольных узлов</div>
-                    </div>
+                <!-- Блок 2 -->
+                <h4 style="color: var(--accent); margin-top: 20px;">2. Функция $F(t)$</h4>
+                <div class="calc-grid" style="grid-template-columns: auto 1fr auto 1fr auto 1fr; gap: 10px 15px; align-items: center;">
+                    <!-- Строка 1 -->
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$\varphi(z)$:</span>
+                    </label>
+                    <input id="int-phi" value="Math.sin(z)" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$\psi(x)$:</span>
+                    </label>
+                    <input id="int-psi" value="(1-x*x)/(1+x*x)" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$\mu$:</span>
+                    </label>
+                    <input id="int-mu" type="number" value="-0.01" step="any" style="width: 100%;">
+
+                    <!-- Строка 2 -->
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$a_2$:</span>
+                    </label>
+                    <input id="int-a2" type="number" value="0" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$b_2$:</span>
+                    </label>
+                    <input id="int-b2" type="number" value="1.5708" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$c$:</span>
+                    </label>
+                    <input id="int-c" type="number" value="0.5" step="any" style="width: 100%;">
+
+                    <!-- Строка 3 -->
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$d$:</span>
+                    </label>
+                    <input id="int-d" type="number" value="1.5" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$m$:</span>
+                    </label>
+                    <input id="int-m" type="number" value="10" step="1" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$\varepsilon_2$:</span>
+                    </label>
+                    <input id="int-eps2" type="number" value="0.0001" step="any" style="width: 100%;">
                 </div>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">5. Введите название метода, который использует сплайны (одно слово):</div>
-                <input type="text" id="q4-5-input" class="quiz-input" placeholder="Название">
-                <button class="btn-primary" onclick="checkFillBlank('q4-5-input', 'сплайн', 'result-4-5')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-4-5"></div>
+                <button onclick="calcIntegralFt()" style="margin-top: 15px;">Построить F(t)</button>
+                <div class="calc-result" id="int-ft-out" style="margin-bottom: 10px;"></div>
+                <div class="calc-canvas-wrap"><canvas id="int-canvas" height="160"></canvas></div>
             </div>
         </div>
-        <!-- ТЕСТ 5: ОДУ -->
-        <div class="test-container" id="test-5" style="display: none;">
-            <div class="quiz-container">
-                <h3 style="margin-bottom: 20px; color: var(--accent);">Тест: ОДУ</h3>
+    </section>
+    <!-- СТРАНИЦА ЛР 5-->
 
-                <div class="quiz-question">1. Какой метод относится к одношаговым методам решения ОДУ?</div>
-                <label class="quiz-option"><input type="radio" name="q5-1" value="a"> Метод Адамса</label>
-                <label class="quiz-option"><input type="radio" name="q5-1" value="b"> Метод Рунге-Кутта</label>
-                <label class="quiz-option"><input type="radio" name="q5-1" value="c"> Метод Милна</label>
-                <button class="btn-primary" onclick="checkQuiz('q5-1', 'b', 'result-5-1')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-5-1"></div>
+    <section class="content-page" id="page-lab-5">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#labs" onclick="showPage('labs'); return false;">Лабораторный практикум</a>
+            <span>/</span>
+            <span class="current">ЛР 5</span>
+        </nav>
+        <div class="content-header">
+            <h2>Лабораторная работа 5. Решение обыкновенных дифференциальных уравнений</h2>
+        </div>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+        <div class="lab-card">
+            <!-- Постановка задачи -->
+            <h3 class="lab-subtitle">Постановка задачи</h3>
+            <p>Дано обыкновенное дифференциальное уравнение первого порядка</p>
+            <p>$$y'(x) = f(x, y) = F(x) - g(x)y(x), \quad F(x) = \varphi(x)\psi(x),$$</p>
+            <p>где $\varphi(x)$, $\psi(x)$ и $g(x)$ – определяются вариантом задания.</p>
+            <p>Требуется найти численное решение задачи Коши на заданном отрезке $[x_0, b]$ при начальном условии $y(x_0) = y_0$:</p>
+            <p>а) с автоматическим выбором шага при заданной точности $\varepsilon = 10^{-3}$ на каждом шаге;<br>
+                б) с постоянным шагом</p>
+            <p>$$h = (b - x_0) / N,$$</p>
+            <p>где $N$ – число шагов, полученных в пункте а).</p>
 
-                <div class="quiz-question">2. Метод Эйлера является методом первого порядка точности.</div>
-                <div class="tf-container">
-                    <button class="btn-tf" onclick="checkTF(this, true, 'result-5-2')">Верно</button>
-                    <button class="btn-tf" onclick="checkTF(this, false, 'result-5-2')">Неверно</button>
+            <!-- Порядок выполнения -->
+            <h3 class="lab-subtitle">Порядок выполнения</h3>
+            <ol class="lab-list">
+                <li>Найти решение поставленной задачи для своего варианта аналитическим методом.</li>
+                <li>Разработать алгоритм решения задачи Коши одним из приближённых методов, составить блок-схему алгоритма и дать её описание.</li>
+                <li>Вывести на печать в виде таблицы значения приближённых решений, полученных по каждому из способов а) и б).</li>
+                <li>Вывести на печать в виде графика значения приближённого решения, полученного с постоянным шагом.</li>
+            </ol>
+
+            <!-- Варианты заданий -->
+            <h3 class="lab-subtitle">Варианты задания</h3>
+            <p>Вариант задания состоит из четырёх цифр: первая означает метод решения (табл. 1); вторая – значения $h_0, x_0, b, y_0$ и функцию $g(x)$ (табл. 2); третья – функцию $\varphi(x)$ (табл. 3); четвёртая – функцию $\psi(x)$ (табл. 4).</p>
+
+            <!-- Таблица 1 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 1</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Первая цифра варианта</th>
+                        <th>Метод решения</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>Первая модификация метода Эйлера</td></tr>
+                    <tr><td>2</td><td>Вторая модификация метода Эйлера</td></tr>
+                    <tr><td>3</td><td>Метод Рунге–Кутта второго порядка</td></tr>
+                    <tr><td>4</td><td>Метод Рунге–Кутта третьего порядка</td></tr>
+                    <tr><td>5</td><td>Метод Рунге–Кутта четвёртого порядка</td></tr>
+                    <tr><td>6</td><td>Метод Эйлера–Коши с итерациями</td></tr>
+                    <tr><td>7</td><td>Метод Адамса второго порядка</td></tr>
+                    <tr><td>8</td><td>Метод Адамса третьего порядка</td></tr>
+                    <tr><td>9</td><td>Метод Милна</td></tr>
+                    <tr><td>10</td><td>Метод Хэмминга</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 2 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 2</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Вторая цифра варианта</th>
+                        <th>$h_0$</th>
+                        <th>$x_0$</th>
+                        <th>$b$</th>
+                        <th>$y_0$</th>
+                        <th>$g(x)$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>0,5</td>
+                        <td>1</td>
+                        <td>6</td>
+                        <td>10</td>
+                        <td>$2(x - 2)$</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>0,5</td>
+                        <td>-1</td>
+                        <td>$2\pi - 1$</td>
+                        <td>8</td>
+                        <td>$-\sin(x+1)$</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 3 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 3</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Третье число варианта</th>
+                        <th>$\varphi(x)$</th>
+                        <th>Третье число варианта</th>
+                        <th>$\varphi(x)$</th>
+                        <th>Третье число варианта</th>
+                        <th>$\varphi(x)$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>$e^{-(x+4)x}$</td>
+                        <td>5</td>
+                        <td>$(x+2)e^{-x^2}$</td>
+                        <td>9</td>
+                        <td>$\sin^2(0,6x)e^{-x^2+1,5x}$</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>$e^{-x^2}$</td>
+                        <td>6</td>
+                        <td>$e^{-x^2}\sin x$</td>
+                        <td>10</td>
+                        <td>$\sin(x+1)$</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>$e^{-x^2+2x}$</td>
+                        <td>7</td>
+                        <td>$e^{-x^2}\cos(0,8x)$</td>
+                        <td>11</td>
+                        <td>$e^{-\cos(x+1)}$</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>$xe^{-x^2}$</td>
+                        <td>8</td>
+                        <td>$\cos^2(x/2)e^{-x^2+3x}$</td>
+                        <td>12</td>
+                        <td>$(x+2)e^{-\cos(x+1)}$</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Таблица 4 -->
+            <div class="table-container">
+                <p class="table-caption">Таблица 4</p>
+                <table class="lab-table">
+                    <thead>
+                    <tr>
+                        <th>Четвёртое число варианта</th>
+                        <th>$\psi(x)$</th>
+                        <th>Четвёртое число варианта</th>
+                        <th>$\psi(x)$</th>
+                        <th>Четвёртое число варианта</th>
+                        <th>$\psi(x)$</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>$e^{2(2x+2)}$</td>
+                        <td>5</td>
+                        <td>$e^{3x}$</td>
+                        <td>9</td>
+                        <td>$e^{x-1,5}$</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>0,01</td>
+                        <td>6</td>
+                        <td>$1/\sqrt{2\pi}$</td>
+                        <td>10</td>
+                        <td>$\cos(x+1)/6$</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>$e^x$</td>
+                        <td>7</td>
+                        <td>$e^{2x-3}$</td>
+                        <td>11</td>
+                        <td>$1/8$</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>$e^{-2x}$</td>
+                        <td>8</td>
+                        <td>$e^{3x-2}$</td>
+                        <td>12</td>
+                        <td>$4\cos(x+1)$</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Методические указания -->
+            <h3 class="lab-subtitle">Методические указания</h3>
+            <p>1. Методы численного решения задачи Коши делятся на две большие группы: одношаговые методы (метод Эйлера и его модификации, семейство методов Рунге-Кутта) и многошаговые методы или методы прогноза и коррекции (методы Милна, Хемминга, семейство методов Адамса и др.)</p>
+
+            <p><strong>1) Первая модификация метода Эйлера</strong></p>
+            <p>$$y_{k+1} = y_k + hf(x_{k+1/2}, y_{k+1/2});$$</p>
+            <p>где $x_{k+1/2} = x_k + h/2$; $y_{k+1/2} = y_k + hf(x_k, y_k)/2$.</p>
+
+            <p><strong>2) Вторая модификация метода Эйлера</strong></p>
+            <p>$$y_{k+1} = y_k + (k_1 + k_2)/2,$$</p>
+            <p>где $k_1 = hf(x_k, y_k)$; $k_2 = hf(x_k + h, y_k + k_1)$;</p>
+
+            <p><strong>3) Метод Рунге–Кутта второго порядка</strong></p>
+            <p>$$y_{k+1} = y_k + k_2,$$</p>
+            <p>где $k_1 = hf(x_k, y_k)$; $k_2 = hf(x_k + h/2, y_k + k_1/2)$.</p>
+
+            <p><strong>4) Метод Рунге–Кутта второго порядка</strong></p>
+            <p>$$y_{k+1} = y_k + (k_1 + k_2)/4,$$</p>
+            <p>где $k_1 = hf(x_k, y_k)$, $k_2 = hf(x_k + 2h/3, y_k + 2k_1/3)$;</p>
+
+            <p><strong>5) Метод Рунге–Кутта третьего порядка</strong></p>
+            <p>$$y_{k+1} = y_k + k_1/4 + 3k_3/4,$$</p>
+            <p>где $k_1 = hf(x_k, y_k)$; $k_2 = hf(x_k + h/3, y_k + k_1/3)$.</p>
+            <p>$k_3 = hf(x_k + 2h/3, y_k + 2k_2/3)$;</p>
+
+            <p><strong>6) Метод Рунге–Кутта третьего порядка</strong></p>
+            <p>$$y_{k+1} = y_k + (k_1 + 4k_2 + k_3)/6,$$</p>
+            <p>где $k_1 = hf(x_k, y_k)$; $k_2 = hf(x_k + h/2, y_k + k_1/2)$;</p>
+            <p>$k_3 = hf(x_k + h, y_k - k_1 + 2k_2)$.</p>
+
+            <p><strong>7) Метод Рунге–Кутта четвёртого порядка</strong></p>
+            <p>$$y_{k+1} = y_k + (k_1 + 4k_3 + k_4)/6,$$</p>
+            <p>где $k_1 = hf(x_k, y_k)$; $k_2 = hf(x_k + h/4, y_k + k_1/4)$;</p>
+            <p>$k_3 = hf(x_k + h/2, y_k + k_2/2)$; $k_4 = hf(x_k + h, y_k + k_1 - 2k_2 + 2k_3)$.</p>
+
+            <p><strong>8) Метод Рунге–Кутта четвёртого порядка</strong></p>
+            <p>$$y_{k+1} = y_k + (k_1 + 2k_2 + 2k_3 + k_4)/6,$$</p>
+            <p>где $k_1 = hf(x_k, y_k)$; $k_2 = hf(x_k + h/2; y_k + k_1/2)$;</p>
+            <p>$k_3 = hf(x_k + h/2; y_k + k_2/2)$; $k_4 = hf(x_k + h; y_k + k_3)$;</p>
+
+            <p><strong>9) Метод Эйлера–Коши с итерациями</strong></p>
+            <p>$$y_{k+1}^{(0)} = y_k + hf(x_k, y_k);$$</p>
+            <p>$$y_{k+1}^{(S)} = y_k + \frac{h}{2}[f(x_k, y_k) + f(x_{k+1}, y_{k+1}^{(S-1)})],$$</p>
+            <p>где $y_{k+1}^{(S)}$ – S-е приближение для величины $y_{k+1}$.</p>
+
+            <p><strong>10) Метод Милна</strong></p>
+            <p>$$y_{k+1}^{(0)} = y_{k-3} + 4h[2f(x_k, y_k) - f(x_{k-1}, y_{k-1}) + 2f(x_{k-2}, y_{k-2})]/3;$$</p>
+            <p>$$y_{k+1}^{(S)} = y_{k-1} + \frac{h}{3}[4f(x_k, y_k) + f(x_{k+1}, y_{k+1}^{(S-1)}) + f(x_{k-1}, y_{k-1})].$$</p>
+
+            <p><strong>11) Метод Хэмминга</strong></p>
+            <p>$$y_{k+1}^{(0)} = y_{k-3} + 4h[2f(x_k, y_k) - f(x_{k-1}, y_{k-1}) + 2f(x_{k-2}, y_{k-2})]/3;$$</p>
+            <p>$$y_{k+1}^{(S)} = \frac{1}{8}[9y_k - y_{k-2} + 3h(2f(x_k, y_k) + f(x_{k+1}, y_{k+1}^{(S-1)}) - f(x_{k-1}, y_{k-1}))].$$</p>
+
+            <p><strong>12) Метод Адамса второго порядка</strong></p>
+            <p>$$y_{k+1}^{(0)} = y_k + \frac{h}{2}[3f(x_k, y_k) - f(x_{k-1}, y_{k-1})];$$</p>
+            <p>$$y_{k+1}^{(S)} = y_k + \frac{h}{2}[f(x_k, y_k) + f(x_{k+1}, y_{k+1}^{(S-1)})].$$</p>
+
+            <p><strong>13) Метод Адамса третьего порядка</strong></p>
+            <p>$$y_{k+1}^{(0)} = y_k + \frac{h}{12}[23f(x_k, y_k) - 16f(x_{k-1}, y_{k-1}) + 5f(x_{k-2}, y_{k-2})];$$</p>
+            <p>$$y_{k+1}^{(S)} = y_k + \frac{h}{12}[8f(x_k, y_k) + 5f(x_{k+1}, y_{k+1}^{(S-1)}) - f(x_{k-1}, y_{k-1})].$$</p>
+
+            <p><strong>14) Метод Адамса четвёртого порядка</strong></p>
+            <p>$$y_{k+1}^{(0)} = y_k + \frac{h}{24}[55f(x_k, y_k) - 59f(x_{k-1}, y_{k-1}) + 37f(x_{k-2}, y_{k-2}) - 9f(x_{k-3}, y_{k-3})];$$</p>
+            <p>$$y_{k+1}^{(S)} = y_k + \frac{h}{24}[19f(x_k, y_k) + 9f(x_{k+1}, y_{k+1}^{(S-1)}) - 5f(x_{k-1}, y_{k-1}) + f(x_{k-2}, y_{k-2})].$$</p>
+
+            <p>2. При интегрировании одношаговыми методами с автоматическим выбором шага рекомендуется использовать следующее правило выбора шага. В узле $x_0$ взять $h = h_0$, где $h_0$ – заданный начальный шаг, найти приближённые решения $\tilde{y}$ и $\tilde{\tilde{y}}$, вычисленные одношаговым методом в точке $x+h$ с шагами $h$ и $h/2$, соответственно. За абсолютную погрешность приближённого решения (в качестве которого выбирается $\tilde{\tilde{y}}$ как более точное), вычисленного одношаговым методом $r$-го порядка принимается $\delta = \left| \frac{\tilde{y} - \tilde{\tilde{y}}}{2^r + 1} \right|$.</p>
+            <p>Если $\delta \ge \varepsilon$, то шаг необходимо уменьшить в два раза и вычисления повторить, начиная с узла $x_0$. Если будет получено $\delta < \varepsilon$, то $\tilde{\tilde{y}}$ считается решением в узле $x_1 = x_0 + h$, полученным с заданной точностью на этом шаге.</p>
+            <p>Для получения решения в следующем узле $x_2$ необходимо проделать аналогичные вычисления, исходя из узла $x_1$. При этом начальный шаг рекомендуется выбирать по шагу $h$, с которым было получено решение в узле $x_1$, в зависимости от погрешности $\delta$: если $\delta < \varepsilon/2^{r+1}$, то предыдущий шаг удваивается; в противном случае шаг не изменяется. Аналогично находится решение и в последующих узлах.</p>
+
+            <div class="calc-card" id="calc-ode">
+                <h3 class="lab-subtitle">Калькулятор задачи Коши (Метод Эйлера-Коши)</h3>
+                <p class="calc-hint">
+                    Решение ОДУ $y' = f(x, y)$ на отрезке $[x_0, b]$ с начальным условием $y(x_0) = y_0$.
+                    Используется 1-я модификация метода Эйлера (2-й порядок точности).
+                </p>
+
+                <div style="display: grid; grid-template-columns: auto 1fr; gap: 15px; align-items: center; margin-bottom: 20px;">
+                    <label style="color: var(--text-muted); font-weight: 500; font-size: 0.9rem;">$f(x, y)$:</label>
+                    <input id="ode-f" value="Math.exp(-(x+4)*x) - 2*(x-2)*y" style="width: 100%; max-width: 400px; padding: 10px; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 6px; font-family: 'Courier New', monospace;">
                 </div>
-                <div class="quiz-result" id="result-5-2"></div>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+                <div class="calc-grid" style="grid-template-columns: auto 1fr auto 1fr auto 1fr auto 1fr auto 1fr; gap: 10px 15px; align-items: center;">
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$x_0$:</span>
+                    </label>
+                    <input id="ode-x0" type="number" value="1" step="any" style="width: 100%;">
 
-                <div class="quiz-question">3. Сколько этапов (прогноз/коррекция) в методе Адамса?</div>
-                <label class="quiz-option"><input type="radio" name="q5-3" value="a"> Один</label>
-                <label class="quiz-option"><input type="radio" name="q5-3" value="b"> Два</label>
-                <label class="quiz-option"><input type="radio" name="q5-3" value="c"> Три</label>
-                <button class="btn-primary" onclick="checkQuiz('q5-3', 'b', 'result-5-3')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-5-3"></div>
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$y_0$:</span>
+                    </label>
+                    <input id="ode-y0" type="number" value="10" step="any" style="width: 100%;">
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$b$:</span>
+                    </label>
+                    <input id="ode-b" type="number" value="6" step="any" style="width: 100%;">
 
-                <div class="quiz-question">4. Сопоставьте метод и его особенность:</div>
-                <div class="match-container">
-                    <div class="match-column">
-                        <div class="match-item" draggable="true" data-match="euler">Эйлер</div>
-                        <div class="match-item" draggable="true" data-match="runge">Рунге-Кутта</div>
-                    </div>
-                    <div class="match-column">
-                        <div class="match-item dropzone" data-match="euler">Первый порядок точности</div>
-                        <div class="match-item dropzone" data-match="runge">Четвертый порядок точности</div>
-                    </div>
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$h_0$:</span>
+                    </label>
+                    <input id="ode-h0" type="number" value="0.5" step="any" style="width: 100%;">
+
+                    <label style="flex-direction: row; align-items: center; justify-content: flex-end; gap: 8px; margin: 0;">
+                        <span style="white-space: nowrap;">$\varepsilon$:</span>
+                    </label>
+                    <input id="ode-eps" type="number" value="0.001" step="any" style="width: 100%;">
                 </div>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+                <div style="margin-top: 20px; display: flex; gap: 15px;">
+                    <button onclick="solveODE(true)">С автоматическим шагом</button>
+                    <button onclick="solveODE(false)" style="background: transparent; border: 1px solid var(--accent); color: var(--accent);">С постоянным шагом</button>
+                </div>
 
-                <div class="quiz-question">5. Введите название метода, который использует формулу Рунге для выбора шага (одно слово):</div>
-                <input type="text" id="q5-5-input" class="quiz-input" placeholder="Название">
-                <button class="btn-primary" onclick="checkFillBlank('q5-5-input', 'Рунге-Кутта', 'result-5-5')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-5-5"></div>
+                <div class="calc-result" id="ode-out" style="margin-top: 20px;"></div>
+                <div class="calc-canvas-wrap"><canvas id="ode-canvas" height="160"></canvas></div>
             </div>
         </div>
     </section>
 </main>
 <script src="js/main.js"></script>
+<script src="js/calc-common.js"></script>
+<script src="js/calc-graph.js"></script>
+<script src="js/calc-num.js"></script>
+<script src="js/calc-lab1.js"></script>
+<script src="js/calc-lab2.js"></script>
+<script src="js/calc-lab3.js"></script>
+<script src="js/calc-lab4.js"></script>
+<script src="js/calc-lab5.js"></script>
 </body>
 </html>
