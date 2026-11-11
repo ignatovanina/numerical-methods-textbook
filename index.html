@@ -5709,7 +5709,40 @@
             </div>
         </div>
     </section>
-    
+    <!-- СПИСОК ЛИТЕРАТУРЫ -->
+    <section class="content-page" id="page-materials-lit">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <span class="current">Полезные материалы</span>
+            <span>/</span>
+            <span class="current">Литература</span>
+        </nav>
+        <div class="content-header">
+            <h2>Список литературы</h2>
+            <p>Рекомендованные учебники и пособия по курсу.</p>
+        </div>
+        <div class="sidebar-search" style="padding: 0 0 20px 0;">
+            <input type="text" placeholder="Поиск по автору или названию..." class="lit-search-input" oninput="filterLiterature('lit-grid', this.value)">
+        </div>
+        <div class="lit-grid" id="lit-grid"></div>
+    </section>
+
+    <!-- ПОЛЕЗНЫЕ РЕСУРСЫ -->
+    <section class="content-page" id="page-materials-res">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <span class="current">Полезные материалы</span>
+            <span>/</span>
+            <span class="current">Ресурсы</span>
+        </nav>
+        <div class="content-header">
+            <h2>Полезные ресурсы</h2>
+            <p>Ссылки на ПО, онлайн-калькуляторы и справочники.</p>
+        </div>
+        <div class="res-grid" id="res-grid"></div>
+    </section>
 </main>
 <script src="js/main.js"></script>
 <script src="js/calc-common.js"></script>
