@@ -185,6 +185,17 @@
             <a href="#test-5" class="lesson" onclick="showPage('tests-5'); return false;">ОДУ</a>
         </div>
     </div>
+    <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+            <img src="img/icon-graph.svg" alt="" class="module-icon">
+            <span>Полезные материалы</span>
+            <span>›</span>
+        </div>
+        <div class="module-content">
+            <a href="#materials-lit" class="lesson" onclick="showPage('materials-lit'); return false;">Список литературы</a>
+            <a href="#materials-res" class="lesson" onclick="showPage('materials-res'); return false;">Полезные ресурсы</a>
+        </div>
+    </div>
 </aside>
 <!-- Домашняя страница -->
 <main class="main-content">
@@ -5695,6 +5706,115 @@
 
                 <div class="calc-result" id="ode-out" style="margin-top: 20px;"></div>
                 <div class="calc-canvas-wrap"><canvas id="ode-canvas" height="160"></canvas></div>
+            </div>
+        </div>
+    </section>
+    <!-- СПИСОК ЛИТЕРАТУРЫ -->
+    <section class="content-page" id="page-materials-lit">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <span class="current">Полезные материалы</span>
+            <span>/</span>
+            <span class="current">Литература</span>
+        </nav>
+        <div class="content-header">
+            <h2>Список литературы</h2>
+            <p>Рекомендованные учебники и пособия по курсу.</p>
+        </div>
+        <div class="sidebar-search" style="padding: 0 0 20px 0;">
+            <input type="text" placeholder="Поиск..." class="lit-search-input" oninput="debouncedFilter('lit-grid', this.value)">        </div>
+        <div class="lit-grid" id="lit-grid">
+            <div class="lit-card">
+                <div>
+                    <h3>Численные методы расчёта, моделирования и
+                        проектирования технологических процессов и оборудования</h3>
+                    <div class="lit-author">А.В. Майстренко, Н.В. Майстренко.</div>
+                    <div class="lit-meta">ГОУ ВПО ТГТУ, 2010</div>
+                    <div class="lit-badges" style="margin-bottom: 15px;">
+                        <span class="lit-badge">PDF</span>
+                        <span class="lit-badge">1,5 MB</span>
+                    </div>
+                </div>
+                <div class="lit-actions">
+                    <button class="btn-primary" onclick="downloadBook('books/Teoria.pdf', 'Теория_Численные_методы.pdf')">Скачать</button>
+                </div>
+            </div>
+            <div class="lit-card">
+                <div>
+                    <h3>Численные методы расчёта, моделирования и
+                        проектирования технологических процессов и оборудования (Лабораторные работы)</h3>
+                    <div class="lit-author">А.В. Майстренко, Н.В. Майстренко.</div>
+                    <div class="lit-meta">ГОУ ВПО ТГТУ, 2010</div>
+                    <div class="lit-badges" style="margin-bottom: 15px;">
+                        <span class="lit-badge">PDF</span>
+                        <span class="lit-badge">479 KB</span>
+                    </div>
+                </div>
+                <div class="lit-actions">
+                    <button class="btn-primary" onclick="downloadBook('books/Laboratornye_raboty.pdf', 'Лабораторные_работы.pdf')">Скачать</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОЛЕЗНЫЕ РЕСУРСЫ -->
+    <section class="content-page" id="page-materials-res">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <span class="current">Полезные материалы</span>
+            <span>/</span>
+            <span class="current">Ресурсы</span>
+        </nav>
+        <div class="content-header">
+            <h2>Полезные ресурсы</h2>
+            <p>Ссылки на ПО, онлайн-калькуляторы и справочники.</p>
+        </div>
+        <div class="res-grid" id="res-grid">
+            <!-- Wolfram Alpha -->
+            <div class="res-card">
+                <div>
+                    <h3>Wolfram Alpha</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">
+                        Мощный вычислительный движок для проверки уравнений и интегралов.
+                    </p>
+                </div>
+                <div class="lit-actions">
+                    <button class="btn-primary" onclick="openExternal('https://wolframalpha.com')">
+                        Перейти на сайт
+                    </button>
+                </div>
+            </div>
+
+            <!-- Desmos -->
+            <div class="res-card">
+                <div>
+                    <h3>Desmos</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">
+                        Бесплатный онлайн-калькулятор для построения красивых графиков функций.
+                    </p>
+                </div>
+                <div class="lit-actions">
+                    <button class="btn-primary" onclick="openExternal('https://desmos.com')">
+                        Перейти на сайт
+                    </button>
+                </div>
+            </div>
+
+            <!-- Библиотека ТГТУ -->
+            <div class="res-card">
+                <div>
+                    <h3>Библиотека ТГТУ</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">
+                        Официальный электронный каталог научной литературы вуза.
+                    </p>
+                </div>
+                <div class="lit-actions">
+                    <button class="btn-primary" onclick="openExternal('https://elib.tstu.ru/')">
+                        Перейти на сайт
+                    </button>
+                </div>
             </div>
         </div>
     </section>

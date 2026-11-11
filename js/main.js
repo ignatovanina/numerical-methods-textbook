@@ -223,3 +223,54 @@ function checkTF(button, isCorrect, resultId) {
         resultDiv.className = 'quiz-result incorrect';
     }
 }
+function filterLiterature(gridId, query) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+
+    const cards = grid.querySelectorAll('.lit-card');
+    const q = query.toLowerCase().trim();
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (q === '' || text.includes(q)) {
+            card.style.display = 'flex';
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    let noResults = grid.querySelector('.no-results');
+    if (visibleCount === 0) {
+        if (!noResults) {
+            noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.textContent = 'По вашему запросу ничего не найдено.';
+            noResults.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-style: italic;';
+            grid.appendChild(noResults);
+        }
+        noResults.style.display = 'block';
+    } else if (noResults) {
+        noResults.style.display = 'none';
+    }
+}
+function downloadBook(path, filename) {
+    const link = document.createElement('a');
+    link.href = path;
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+function debounce(fn, delay = 200) {
+    let timer = null;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+const debouncedFilter = debounce(filterLiterature, 200);
+function openExternal(url) {
+    window.open(url, '_blank', 'noopener,noreferrer');
+}
