@@ -279,6 +279,39 @@ const Graph = (() => {
         ctx.fillText('X', W - pad.r + 4, pad.t + ph + 15);
         ctx.fillText('Y', pad.l - 20, pad.t + 5);
     }
+    function drawAxesAndGrid(ctx, X, Y, xmin, xmax, ymin, ymax, pad, pw, ph, W, H) {
+        // 1. Сетка и тики
+        ctx.strokeStyle = 'rgba(244,241,222,0.1)';
+        ctx.lineWidth = 1;
+        ctx.font = '11px "Courier New", monospace';
 
-    return { ticks, fmtTick, draw };
+        ticks(xmin, xmax, 8).forEach(v => {
+            if (v === 0) return;
+            ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
+            ctx.fillStyle = 'rgba(244,241,222,0.5)';
+            ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
+        });
+
+        ticks(ymin, ymax, 6).forEach(v => {
+            if (v === 0) return;
+            ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
+            ctx.fillStyle = 'rgba(244,241,222,0.5)';
+            ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
+        });
+
+        // 2. Оси
+        ctx.strokeStyle = 'rgba(244,241,222,0.5)';
+        ctx.lineWidth = 1.2;
+
+        // Ось X
+        if (ymin <= 0 && ymax >= 0) {
+            ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke();
+        }
+        // Ось Y
+        if (xmin <= 0 && xmax >= 0) {
+            ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke();
+        }
+    }
+
+    return { ticks, fmtTick, draw, drawAxesAndGrid };
 })();
