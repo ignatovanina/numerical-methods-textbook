@@ -1,0 +1,896 @@
+:root {
+    --bg-main: #1E1E24;
+    --bg-card: #2A2D34;
+    --accent: #00A896;
+    --text-main: #F4F1DE;
+    --text-muted: rgba(244, 241, 222, 0.6);
+    --border-color: rgb(42, 45, 52);
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: var(--bg-main);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    z-index: 10;
+}
+header h1 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.sidebar {
+    width: 320px;
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--border-color);
+    margin-top: 60px;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    padding: 20px 0;
+    flex-shrink: 0;
+}
+
+.module {
+    margin-bottom: 8px;
+}
+
+.module-header {
+    padding: 12px 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s ease;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.module-header:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.module-header.active {
+    color: var(--accent);
+}
+
+.module-content {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.module-content.open {
+    display: block;
+}
+
+.lesson {
+    display: flex;
+    align-items: center;
+    padding: 10px 24px 10px 36px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.lesson:hover {
+    color: var(--text-main);
+    background-color: rgba(0, 168, 150, 0.1);
+}
+
+.lesson.active {
+    color: var(--text-main);
+    background-color: rgba(0, 168, 150, 0.15);
+    border-left: 3px solid var(--accent);
+}
+.main-content {
+    flex: 1;
+    margin-top: 60px;
+    padding: 40px 30px;
+    overflow-y: auto;
+    height: calc(100vh - 60px);
+    background-color: var(--bg-main);
+    padding-top: 20px;
+}
+
+.content-header h2 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.content-header p {
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+.module-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.module-header:hover .module-icon {
+    opacity: 1;
+}
+.module-header span:not(:last-child) {
+    flex: 1;
+}
+
+.breadcrumbs {
+    margin-bottom: 24px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.breadcrumbs a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+    color: var(--accent);
+}
+
+.breadcrumbs span {
+    margin: 0 8px;
+}
+
+.breadcrumbs .current {
+    color: var(--text-main);
+}
+.sidebar-search {
+    padding: 0 16px 16px 16px;
+}
+
+.sidebar-search input {
+    width: 100%;
+    padding: 10px 14px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.sidebar-search input:focus {
+    border-color: var(--accent);
+}
+
+.sidebar-search input::placeholder {
+    color: var(--text-muted);
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-muted);
+}
+
+/* Секции контента (SPA-переключение) */
+.content-page {
+    display: none;
+}
+
+.content-page.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Контент главы */
+.chapter-content {
+    width: 95%;
+    max-width: 1200px; 
+    line-height: 1.7;
+    font-size: 1.05rem;
+}
+
+.chapter-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 40px;
+    margin-bottom: 16px;
+    color: var(--text-main);
+}
+
+.chapter-content h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 12px;
+    color: var(--text-main);
+}
+
+.chapter-content p {
+    margin-bottom: 16px;
+}
+
+.chapter-content ul,
+.chapter-content ol {
+    margin-bottom: 16px;
+    padding-left: 24px;
+}
+
+.chapter-content li {
+    margin-bottom: 8px;
+}
+
+.chapter-content strong {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.chapter-content blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 12px 20px;
+    margin: 20px 0;
+    background-color: var(--bg-card);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.chapter-content code {
+    background-color: var(--bg-card);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95em;
+    color: var(--accent);
+}
+
+.content-image {
+    margin: 30px auto; 
+    text-align: center; 
+    background-color: var(--bg-card);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    max-width: 800px; 
+}
+
+.content-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block; 
+    margin: 0 auto; 
+}
+
+.content-image figcaption {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center; 
+}
+/* =========================================
+   ИНТЕРАКТИВ (День 3)
+   ========================================= */
+
+/* Кнопки */
+.btn-primary {
+    background-color: var(--accent);
+    color: var(--bg-main);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-primary:hover { background-color: #00c2ae; }
+.btn-primary:active { transform: scale(0.98); }
+
+/* Блоки решений */
+.solution-block {
+    display: none;
+    background-color: rgba(0, 168, 150, 0.1);
+    border-left: 3px solid var(--accent);
+    padding: 15px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 10px 0 20px 0;
+}
+.solution-block.visible { display: block; }
+
+/* Тесты (одиночный выбор) */
+.quiz-container {
+    background-color: var(--bg-card);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin: 20px 0;
+}
+.quiz-question {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+.quiz-option {
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.quiz-option:hover {
+    border-color: var(--accent);
+    background-color: rgba(0, 168, 150, 0.05);
+}
+.quiz-option input { margin-right: 10px; }
+.quiz-result {
+    margin-top: 15px;
+    font-weight: 600;
+    display: none;
+}
+.quiz-result.correct { color: #00A896; display: block; }
+.quiz-result.incorrect { color: #ff4d4d; display: block; }
+
+/* Drag-and-drop (Сопоставление) */
+.match-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 20px 0;
+}
+.match-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.match-item {
+    padding: 12px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: grab;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+.match-item:active { cursor: grabbing; }
+.match-item.dragging { opacity: 0.5; }
+.match-item.dropzone {
+    border: 2px dashed var(--accent);
+    background-color: rgba(0, 168, 150, 0.1);
+    min-height: 45px;
+}
+.match-item.matched {
+    border-color: var(--accent);
+    background-color: rgba(0, 168, 150, 0.2);
+    cursor: default;
+}
+/* Поле ввода ответа (fill-in-the-blank) */
+.quiz-input {
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 10px;
+}
+.quiz-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+/* Кнопки Правда/Ложь */
+.btn-tf {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: all 0.2s ease;
+}
+.btn-tf:hover {
+    border-color: var(--accent);
+}
+.btn-tf.correct {
+    background-color: rgba(0, 168, 150, 0.2);
+    border-color: var(--accent);
+}
+.btn-tf.incorrect {
+    background-color: rgba(255, 77, 77, 0.2);
+    border-color: #ff4d4d;
+}
+/* Вводная часть лабораторных */
+.lab-intro {
+    background-color: rgba(0, 168, 150, 0.08); /* Легкий бирюзовый оттенок */
+    border: 1px solid rgba(0, 168, 150, 0.3); /* Тонкая рамка в тон */
+    border-radius: 12px; /* Скругленные углы */
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.lab-intro h3 {
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.lab-intro p {
+    margin-bottom: 15px;
+    color: var(--text-main);
+}
+
+.lab-intro ol {
+    margin-left: 20px;
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+.lab-intro ol li {
+    margin-bottom: 5px;
+}
+/* =========================================
+   СТИЛИ ДЛЯ ЛАБОРАТОРНЫХ РАБОТ
+   ========================================= */
+
+/* Подзаголовки в лабораторных (Постановка задачи, Порядок выполнения и т.д.) */
+.lab-subtitle {
+    color: var(--accent);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+/* Меньшие подзаголовки (Описание методов) */
+.lab-subtitle-small {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+/* Списки (нумерованные и маркированные) */
+.lab-list {
+    line-height: 1.8;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.lab-list li {
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+
+/* Контейнер для таблиц (чтобы можно было скроллить на телефоне) */
+.table-container {
+    overflow-x: auto;
+    margin: 25px 0;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+/* Подпись к таблице (Таблица 1) */
+.table-caption {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Сами таблицы в лабораторных */
+.lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    text-align: center;
+    background-color: var(--bg-card);
+}
+
+.lab-table th {
+    background-color: rgba(0, 168, 150, 0.15); /* Легкий бирюзовый фон для шапки */
+    color: var(--accent);
+    border: 1px solid var(--border-color);
+    padding: 12px 8px;
+    font-weight: 600;
+}
+
+.lab-table td {
+    border: 1px solid var(--border-color);
+    padding: 10px 8px;
+    color: var(--text-main);
+}
+
+/* Эффект при наведении на строку таблицы */
+.lab-table tr:hover td {
+    background-color: rgba(244, 241, 222, 0.05);
+}
+
+/* Улучшенное отображение формул в лабораторных */
+.lab-card .katex-display {
+    margin: 1.5em 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+/* Выделение названий методов в лабораторных работах */
+.lab-card strong {
+    color: var(--accent); /* Бирюзовый цвет из вашей палитры */
+    font-weight: 600;
+}
+/* Отступ между методами в лабораторных работах */
+.lab-card strong {
+    color: var(--accent); /* Зеленый цвет для названий методов */
+    font-weight: 600;
+}
+
+/* Добавляем отступ у абзацев, которые идут перед методами */
+.lab-card p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+.table-caption {
+    font-size: 0.9rem;
+    color: var(--text-muted); /* Приглушенный цвет, как у подписей к картинкам */
+    font-style: italic; /* Курсив, чтобы отличать от основного текста */
+    margin-bottom: 10px;
+    margin-left: 5px; /* Небольшой отступ слева, чтобы не прилипало к краю */
+    letter-spacing: normal; /* Убираем агрессивный разряд */
+    text-transform: none; /* Убираем КАПС */
+}
+/* =========================================
+   ТАБЛИЦА 2 (ЛР 3) - ЖЕСТКАЯ СЕТКА
+   ========================================= */
+
+.lab-table-dense {
+    width: 100%;
+    border-collapse: collapse; /* Схлопываем границы для ровных линий */
+    font-size: 0.85rem;
+    text-align: center;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+}
+
+/* Шапка */
+.lab-table-dense thead th {
+    background-color: rgba(0, 168, 150, 0.15);
+    color: var(--accent);
+    font-weight: 600;
+    padding: 8px 4px;
+    border: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--accent);
+}
+
+/* Все ячейки (чтобы не было дыр) */
+.lab-table-dense tbody td {
+    padding: 6px 4px;
+    border: 1px solid var(--border-color); /* Тонкая сетка везде */
+    color: var(--text-main);
+}
+
+/* Жирная горизонтальная линия между вариантами */
+.lab-table-dense tbody tr.variant-end td {
+    border-bottom: 2px solid var(--accent);
+}
+
+/* Выделение номеров вариантов */
+.lab-table-dense td[rowspan] {
+    font-weight: 600;
+    color: var(--text-main);
+    background-color: rgba(0, 0, 0, 0.1); /* Легкий фон для колонки с номерами */
+}
+
+/* =========================================
+   CALCULATORS (LAB 1)
+   ========================================= */
+.calc-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin: 28px 0;
+}
+.calc-card h3.lab-subtitle {
+    margin-top: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.calc-badge {
+    background: rgba(0, 168, 150, 0.15);
+    color: var(--accent);
+    border: 1px solid rgba(0, 168, 150, 0.4);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px 18px;
+    margin: 18px 0;
+}
+.calc-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+.calc-grid input {
+    padding: 9px 12px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-main);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+.calc-grid input:focus { border-color: var(--accent); }
+.calc-card button {
+    background-color: var(--accent);
+    color: var(--bg-main);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.calc-card button:hover { background-color: #00c2ae; }
+.calc-card button:active { transform: scale(0.98); }
+
+.calc-hint {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 6px 0 0 0;
+    line-height: 1.5;
+}
+.calc-hint code {
+    background: var(--bg-main);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--accent);
+    font-size: 0.85em;
+}
+.calc-result { margin-top: 20px; font-size: 0.92rem; line-height: 1.6; }
+.calc-result table.lab-table { margin-top: 12px; font-family: 'Courier New', monospace; font-size: 0.82rem; }
+.calc-result table.lab-table td,
+.calc-result table.lab-table th { padding: 6px 8px; }
+
+.calc-root {
+    display: inline-block;
+    background: rgba(0, 168, 150, 0.15);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 6px 0;
+}
+.calc-warn { color: #ffb703; font-size: 0.88rem; }
+.calc-error {
+    color: #ff4d4d;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: rgba(255, 77, 77, 0.08);
+    border: 1px solid rgba(255, 77, 77, 0.35);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 6px 0;
+}
+.calc-canvas-wrap {
+    margin-top: 18px;
+    background: #1E1E24;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    overflow-x: auto;
+}
+.calc-canvas-wrap canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+/* Скрытие таблиц итераций */
+.iter-toggle-btn {
+    background: rgba(0, 168, 150, 0.1);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin: 10px 0;
+    transition: all 0.2s ease;
+}
+.iter-toggle-btn:hover {
+    background: rgba(0, 168, 150, 0.2);
+}
+.iter-table-wrap {
+    display: none; /* По умолчанию скрыто */
+    margin-top: 10px;
+}
+.iter-table-wrap.visible {
+    display: block;
+}
+/* Панель подсказок для формул */
+.formula-hint {
+    position: absolute;
+    z-index: 100;
+    background-color: var(--bg-card);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    max-width: 360px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    display: none;
+}
+.formula-hint.visible {
+    display: block;
+}
+.formula-hint h4 {
+    margin: 0 0 8px 0;
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.formula-hint ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.formula-hint li {
+    padding: 4px 0;
+    border-bottom: 1px dashed rgba(244, 241, 222, 0.1);
+}
+.formula-hint li:last-child {
+    border-bottom: none;
+}
+.formula-hint code {
+    background-color: var(--bg-main);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.formula-hint code:hover {
+    background-color: rgba(0, 168, 150, 0.2);
+}
+/* =========================================
+   ПОЛЕЗНЫЕ МАТЕРИАЛЫ
+   ========================================= */
+.lit-grid, .res-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.lit-card, .res-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lit-card:hover, .res-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 8px 20px rgba(0, 168, 150, 0.15);
+}
+
+.lit-card h3, .res-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--text-main);
+    line-height: 1.4;
+}
+
+.lit-author {
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-bottom: 4px;
+}
+
+.lit-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.lit-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.lit-badge {
+    display: inline-block;
+    background: rgba(0, 168, 150, 0.15);
+    color: var(--accent);
+    border: 1px solid rgba(0, 168, 150, 0.4);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
