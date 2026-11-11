@@ -1,5 +1,8 @@
 const Num = (() => {
-    const makeF = expr => new Function('x', 't', 'return ' + expr);
+    const makeF = expr => {
+        const parsed = typeof parseMathExpr === 'function' ? parseMathExpr(expr) : expr;
+        return new Function('x', 't', 'return ' + parsed);
+    };
     const d1 = (f, x, t) => { const h = 1e-6; return (f(x + h, t) - f(x - h, t)) / (2 * h); };
     const d2 = (f, x, t) => { const h = 1e-4; return (f(x + h, t) - 2 * f(x, t) + f(x - h, t)) / (h * h); };
 
