@@ -1,4 +1,7 @@
 const Graph = (() => {
+    // 1. Хранилище состояний для каждого canvas (границы, масштаб)
+    const states = new Map();
+
     function ticks(a, b, n) {
         const span = b - a;
         if (span <= 0) return [a];
@@ -11,20 +14,36 @@ const Graph = (() => {
             out.push(+v.toFixed(10));
         return out;
     }
+
     function fmtTick(v) {
         if (Math.abs(v) < 1e-9) return '0';
         if (Math.abs(v) >= 1e4 || Math.abs(v) < 1e-3) return v.toExponential(1);
         return (+v.toFixed(4)).toString();
     }
+
     function draw(canvas, f, t, xmin, xmax, opts = {}) {
         const ctx = canvas.getContext('2d');
         const dpr = window.devicePixelRatio || 1;
         const W = canvas.clientWidth || 640;
         const H = canvas.clientHeight || 280;
-        canvas.width = W * dpr;
-        canvas.height = H * dpr;
+
+        // Инициализация состояния при первом вызове
+        if (!states.has(canvas)) {
+            states.set(canvas, { xmin, xmax, f, t, opts });
+        }
+
+        // Получаем текущие границы из состояния (если зум уже был)
+        const st = states.get(canvas);
+        xmin = st.xmin; xmax = st.xmax;
+
+        // Настраиваем размер canvas с учетом Retina
+        if (canvas.width !== W * dpr || canvas.height !== H * dpr) {
+            canvas.width = W * dpr;
+            canvas.height = H * dpr;
+        }
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
+        // Фон
         ctx.fillStyle = '#14161a';
         ctx.fillRect(0, 0, W, H);
 
@@ -32,6 +51,7 @@ const Graph = (() => {
         const pw = W - pad.l - pad.r;
         const ph = H - pad.t - pad.b;
 
+        // Сэмплируем точки
         const N = 400, pts = [];
         for (let i = 0; i <= N; i++) {
             const x = xmin + (xmax - xmin) * i / N;
@@ -47,12 +67,17 @@ const Graph = (() => {
         const yPad = (ymax - ymin) * 0.08;
         ymin -= yPad; ymax += yPad;
 
+        // Сохраняем вычисленные Y-границы (для мыши)
+        st.ymin = ymin; st.ymax = ymax;
+
         const X = x => pad.l + (x - xmin) / (xmax - xmin) * pw;
         const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
 
+        // Сетка и тики
         ctx.strokeStyle = 'rgba(244,241,222,0.06)';
         ctx.lineWidth = 1;
         ctx.font = '11px "Courier New", monospace';
+
         ticks(xmin, xmax, 8).forEach(v => {
             const px = X(v);
             ctx.beginPath(); ctx.moveTo(px, pad.t); ctx.lineTo(px, pad.t + ph); ctx.stroke();
@@ -66,6 +91,7 @@ const Graph = (() => {
             ctx.fillText(fmtTick(v), 6, py + 4);
         });
 
+        // Оси
         ctx.strokeStyle = 'rgba(244,241,222,0.35)';
         ctx.lineWidth = 1.2;
         if (ymin <= 0 && ymax >= 0) {
@@ -74,6 +100,8 @@ const Graph = (() => {
         if (xmin <= 0 && xmax >= 0) {
             ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke();
         }
+
+        // Кривая
         ctx.strokeStyle = '#00A896';
         ctx.lineWidth = 2;
         ctx.beginPath();
@@ -87,6 +115,7 @@ const Graph = (() => {
         });
         ctx.stroke();
 
+        // Отрезок изоляции
         if (opts.segment) {
             const [a, b] = opts.segment;
             ctx.fillStyle = 'rgba(0,168,150,0.12)';
@@ -100,15 +129,14 @@ const Graph = (() => {
             ctx.setLineDash([]);
         }
 
+        // Маркеры корней
         (opts.roots || []).forEach(r => {
             if (!isFinite(r.y)) r.y = f(r.x, t);
             const px = X(r.x), py = Y(r.y);
             ctx.fillStyle = '#F4F1DE';
             ctx.strokeStyle = '#00A896';
             ctx.lineWidth = 2;
-            ctx.beginPath(); ctx.arc(px, py, 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-
-            // Рисуем подпись только если не включен флаг скрытия
+            ctx.beginPath(); ctx.arc(px, py, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
             if (!opts.hideLabels) {
                 ctx.fillStyle = '#00A896';
                 ctx.font = 'bold 11px "Courier New", monospace';
@@ -116,12 +144,47 @@ const Graph = (() => {
             }
         });
 
+        // Заголовок
         if (opts.title) {
             ctx.fillStyle = 'rgba(244,241,222,0.85)';
             ctx.font = '12px "Inter", sans-serif';
             ctx.fillText(opts.title, pad.l, 16);
         }
+
+        // Навешиваем обработчик зума (только один раз)
+        if (!canvas.hasAttribute('data-zoom-initialized')) {
+            canvas.setAttribute('data-zoom-initialized', 'true');
+
+            canvas.addEventListener('wheel', (e) => {
+                e.preventDefault(); // Отключаем скролл страницы
+
+                const s = states.get(canvas);
+                if (!s) return;
+
+                // Находим позицию мыши
+                const rect = canvas.getBoundingClientRect();
+                const mx = e.clientX - rect.left;
+                const my = e.clientY - rect.top;
+
+                // Переводим пиксели в координаты графика
+                const x_ratio = (mx - pad.l) / pw;
+                const y_ratio = (my - pad.t) / ph;
+
+                const mouseX = s.xmin + x_ratio * (s.xmax - s.xmin);
+                // (Y перевернута)
+
+                // Коэффициент зума
+                const zoomFactor = e.deltaY > 0 ? 1.15 : 0.85;
+
+                // Применяем зум относительно мыши
+                s.xmin = mouseX + (s.xmin - mouseX) * zoomFactor;
+                s.xmax = mouseX + (s.xmax - mouseX) * zoomFactor;
+
+                // Перерисовываем
+                draw(canvas, s.f, s.t, s.xmin, s.xmax, s.opts);
+            });
+        }
     }
+
     return { ticks, fmtTick, draw };
 })();
-
