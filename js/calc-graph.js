@@ -102,7 +102,33 @@ const Graph = (() => {
         if (xmin <= 0 && xmax >= 0) {
             ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke();
         }
+        // Заливка площади под кривой (если включена опция)
+        if (opts.fill) {
+            const [fillA, fillB] = opts.fill;
 
+            ctx.fillStyle = 'rgba(0, 168, 150, 0.15)';
+            ctx.beginPath();
+            ctx.moveTo(X(fillA), Y(0)); // Начинаем с оси X
+
+            let started = false;
+            for (let i = 0; i <= N; i++) {
+                const x = xmin + (xmax - xmin) * i / N;
+                if (x >= fillA && x <= fillB) {
+                    let y;
+                    try { y = f(x, t); } catch (_) { y = NaN; }
+                    if (isFinite(y)) {
+                        ctx.lineTo(X(x), Y(y));
+                        started = true;
+                    }
+                }
+            }
+
+            if (started) {
+                ctx.lineTo(X(fillB), Y(0));
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
         // Кривая
         ctx.strokeStyle = '#00A896';
         ctx.lineWidth = 2;
