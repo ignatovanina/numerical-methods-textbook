@@ -70,27 +70,8 @@ function calcBisection() {
     const X = x => pad.l + (x - lo) / (hi - lo) * pw;
     const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
 
-    // 1. Сетка
-    ctx.strokeStyle = 'rgba(244,241,222,0.1)';
-    ctx.lineWidth = 1;
-    ctx.font = '11px "Courier New", monospace';
-    Graph.ticks(lo, hi, 8).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
-    });
-    Graph.ticks(ymin, ymax, 6).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
-    });
-
-    // 2. Оси
-    ctx.strokeStyle = 'rgba(244,241,222,0.5)';
-    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke(); // X
-    ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke(); // Y
+    // 1-2. Сетка и оси
+    Graph.drawAxesAndGrid(ctx, X, Y, lo, hi, ymin, ymax, pad, pw, ph, W, H);
 
     // 3. Кривая
     ctx.strokeStyle = '#00A896';
@@ -223,28 +204,8 @@ function calcChord() {
 
     const X = x => pad.l + (x - lo) / (hi - lo) * pw;
     const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
-
-    // 1. Сетка
-    ctx.strokeStyle = 'rgba(244,241,222,0.1)';
-    ctx.lineWidth = 1;
-    ctx.font = '11px "Courier New", monospace';
-    Graph.ticks(lo, hi, 8).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
-    });
-    Graph.ticks(ymin, ymax, 6).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
-    });
-
-    // 2. Оси
-    ctx.strokeStyle = 'rgba(244,241,222,0.5)';
-    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke(); // X
-    ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke(); // Y
+    // 1-2. Сетка и оси
+    Graph.drawAxesAndGrid(ctx, X, Y, lo, hi, ymin, ymax, pad, pw, ph, W, H);
 
     // 3. Кривая
     ctx.strokeStyle = '#00A896';
@@ -394,27 +355,8 @@ function calcNewton() {
     const X = x => pad.l + (x - lo) / (hi - lo) * pw;
     const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
 
-    // 1. Сетка
-    ctx.strokeStyle = 'rgba(244,241,222,0.1)';
-    ctx.lineWidth = 1;
-    ctx.font = '11px "Courier New", monospace';
-    Graph.ticks(lo, hi, 8).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
-    });
-    Graph.ticks(ymin, ymax, 6).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
-    });
-
-    // 2. Оси
-    ctx.strokeStyle = 'rgba(244,241,222,0.5)';
-    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke(); // X
-    ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke(); // Y
+    // 1-2. Сетка и оси
+    Graph.drawAxesAndGrid(ctx, X, Y, lo, hi, ymin, ymax, pad, pw, ph, W, H);
 
     // 3. Кривая
     ctx.strokeStyle = '#00A896';
@@ -571,27 +513,8 @@ function calcCombo() {
     const X = x => pad.l + (x - lo) / (hi - lo) * pw;
     const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
 
-    // 1. Сетка
-    ctx.strokeStyle = 'rgba(244,241,222,0.1)';
-    ctx.lineWidth = 1;
-    ctx.font = '11px "Courier New", monospace';
-    Graph.ticks(lo, hi, 8).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
-    });
-    Graph.ticks(ymin, ymax, 6).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
-    });
-
-    // 2. Оси
-    ctx.strokeStyle = 'rgba(244,241,222,0.5)';
-    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke(); // X
-    ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke(); // Y
+    // 1-2. Сетка и оси
+    Graph.drawAxesAndGrid(ctx, X, Y, lo, hi, ymin, ymax, pad, pw, ph, W, H);
 
     // 3. Кривая
     ctx.strokeStyle = '#00A896';
@@ -758,27 +681,8 @@ function calcSecant() {
     const X = x => pad.l + (x - lo) / (hi - lo) * pw;
     const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
 
-    // 1. Сетка
-    ctx.strokeStyle = 'rgba(244,241,222,0.1)';
-    ctx.lineWidth = 1;
-    ctx.font = '11px "Courier New", monospace';
-    Graph.ticks(lo, hi, 8).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
-    });
-    Graph.ticks(ymin, ymax, 6).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
-    });
-
-    // 2. Оси
-    ctx.strokeStyle = 'rgba(244,241,222,0.5)';
-    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke(); // X
-    ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke(); // Y
+    // 1-2. Сетка и оси
+    Graph.drawAxesAndGrid(ctx, X, Y, lo, hi, ymin, ymax, pad, pw, ph, W, H);
 
     // 3. Кривая
     ctx.strokeStyle = '#00A896';
@@ -926,28 +830,8 @@ function calcMNewton() {
     const X = x => pad.l + (x - lo) / (hi - lo) * pw;
     const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
 
-    // 1. Сетка
-    ctx.strokeStyle = 'rgba(244,241,222,0.1)';
-    ctx.lineWidth = 1;
-    ctx.font = '11px "Courier New", monospace';
-    Graph.ticks(lo, hi, 8).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
-    });
-    Graph.ticks(ymin, ymax, 6).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
-    });
-
-    // 2. Оси
-    ctx.strokeStyle = 'rgba(244,241,222,0.5)';
-    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke(); // X
-    ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke(); // Y
-
+    // 1-2. Сетка и оси
+    Graph.drawAxesAndGrid(ctx, X, Y, lo, hi, ymin, ymax, pad, pw, ph, W, H);
     // 3. Кривая
     ctx.strokeStyle = '#00A896';
     ctx.lineWidth = 2;
@@ -1104,28 +988,7 @@ function calcIter() {
     const X = x => pad.l + (x - lo) / (hi - lo) * pw;
     const Y = y => pad.t + ph - (y - ymin) / (ymax - ymin) * ph;
 
-    // 1. Рисуем оси и сетку (вручную, т.к. Graph.draw тут не подходит из-за специфики)
-    ctx.strokeStyle = 'rgba(244,241,222,0.1)';
-    ctx.lineWidth = 1;
-    ctx.font = '11px "Courier New", monospace';
-
-    Graph.ticks(lo, hi, 8).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(X(v), pad.t); ctx.lineTo(X(v), pad.t + ph); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), X(v) - 10, H - 10);
-    });
-    Graph.ticks(ymin, ymax, 6).forEach(v => {
-        if (v === 0) return;
-        ctx.beginPath(); ctx.moveTo(pad.l, Y(v)); ctx.lineTo(pad.l + pw, Y(v)); ctx.stroke();
-        ctx.fillStyle = 'rgba(244,241,222,0.5)';
-        ctx.fillText(v.toFixed(2), 6, Y(v) + 4);
-    });
-
-    // Оси X и Y
-    ctx.strokeStyle = 'rgba(244,241,222,0.5)';
-    ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(pad.l + pw, Y(0)); ctx.stroke(); // ось X
-    ctx.beginPath(); ctx.moveTo(X(0), pad.t); ctx.lineTo(X(0), pad.t + ph); ctx.stroke(); // ось Y
+    Graph.drawAxesAndGrid(ctx, X, Y, lo, hi, ymin, ymax, pad, pw, ph, W, H);
 
     // 2. Рисуем прямую y = x
     ctx.strokeStyle = '#00A896';
