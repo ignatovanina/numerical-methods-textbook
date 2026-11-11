@@ -230,6 +230,47 @@ const Graph = (() => {
 
             // Устанавливаем курсор по умолчанию
             canvas.style.cursor = 'grab';
+            // --- Тултип ---
+            let tooltip = document.createElement('div');
+            tooltip.style.cssText = 'position: absolute; background: rgba(20,22,26,0.9); color: #00A896; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px; pointer-events: none; border: 1px solid #00A896; display: none; z-index: 20;';
+            if (!canvas.parentElement.querySelector('.graph-tooltip')) {
+                canvas.parentElement.style.position = 'relative';
+                canvas.parentElement.appendChild(tooltip);
+                tooltip.className = 'graph-tooltip';
+            } else {
+                tooltip = canvas.parentElement.querySelector('.graph-tooltip');
+            }
+
+            canvas.addEventListener('mousemove', (e) => {
+                const s = states.get(canvas);
+                if (!s) return;
+
+                const rect = canvas.getBoundingClientRect();
+                const mx = e.clientX - rect.left;
+                const my = e.clientY - rect.top;
+
+                // Проверяем, что мышь внутри области графика
+                if (mx < pad.l || mx > W - pad.r || my < pad.t || my > H - pad.b) {
+                    tooltip.style.display = 'none';
+                    return;
+                }
+
+                // Переводим в координаты
+                const x_ratio = (mx - pad.l) / pw;
+                const y_ratio = (my - pad.t) / ph;
+
+                const x_val = s.xmin + x_ratio * (s.xmax - s.xmin);
+                const y_val = s.ymax - y_ratio * (s.ymax - s.ymin); // Y инвертирована
+
+                tooltip.textContent = `x: ${x_val.toFixed(3)}, y: ${y_val.toFixed(3)}`;
+                tooltip.style.left = (mx + 15) + 'px';
+                tooltip.style.top = (my - 30) + 'px';
+                tooltip.style.display = 'block';
+            });
+
+            canvas.addEventListener('mouseleave', () => {
+                tooltip.style.display = 'none';
+            });
         }
     }
 
