@@ -5723,8 +5723,7 @@
             <p>Рекомендованные учебники и пособия по курсу.</p>
         </div>
         <div class="sidebar-search" style="padding: 0 0 20px 0;">
-            <input type="text" placeholder="Поиск по автору или названию..." class="lit-search-input" oninput="filterLiterature('lit-grid', this.value)">
-        </div>
+            <input type="text" placeholder="Поиск..." class="lit-search-input" oninput="debouncedFilter('lit-grid', this.value)">        </div>
         <div class="lit-grid" id="lit-grid">
             <div class="lit-card">
                 <div>

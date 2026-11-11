@@ -243,3 +243,11 @@ function downloadBook(path, filename) {
     link.click();
     document.body.removeChild(link);
 }
+function debounce(fn, delay = 200) {
+    let timer = null;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+const debouncedFilter = debounce(filterLiterature, 200);
