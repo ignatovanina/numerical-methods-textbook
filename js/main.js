@@ -91,7 +91,7 @@ function showPage(pageId) {
     document.querySelectorAll('.lesson').forEach(link => {
         link.classList.remove('active');
     });
-    const activeLink = document.querySelector(`.lesson[href="#${pageId.replace('-', '.')}"]`);
+    const activeLink = document.querySelector(`.lesson[href="#${pageId}"]`);
     if (activeLink) {
         activeLink.classList.add('active');
     }
