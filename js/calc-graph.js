@@ -274,6 +274,10 @@ const Graph = (() => {
                 tooltip.style.display = 'none';
             });
         }
+        ctx.fillStyle = 'rgba(244,241,222,0.6)';
+        ctx.font = 'italic 12px "Inter", sans-serif';
+        ctx.fillText('X', W - pad.r + 4, pad.t + ph + 15);
+        ctx.fillText('Y', pad.l - 20, pad.t + 5);
     }
 
     return { ticks, fmtTick, draw };
