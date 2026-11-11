@@ -178,11 +178,11 @@
             <span>›</span>
         </div>
         <div class="module-content">
-            <a href="#test-1" class="lesson" onclick="showPage('tests'); showTest('test-1'); return false;">Погрешности</a>
-            <a href="#test-2" class="lesson" onclick="showPage('tests'); showTest('test-2'); return false;">Уравнения</a>
-            <a href="#test-3" class="lesson" onclick="showPage('tests'); showTest('test-3'); return false;">СЛАУ</a>
-            <a href="#test-4" class="lesson" onclick="showPage('tests'); showTest('test-4'); return false;">Интерполирование и аппроксимация</a>
-            <a href="#test-5" class="lesson" onclick="showPage('tests'); showTest('test-5'); return false;">ОДУ</a>
+            <a href="#test-1" class="lesson" onclick="showPage('tests-1'); return false;">Погрешности</a>
+            <a href="#test-2" class="lesson" onclick="showPage('tests-2'); return false;">Уравнения</a>
+            <a href="#test-3" class="lesson" onclick="showPage('tests-3'); return false;">СЛАУ</a>
+            <a href="#test-4" class="lesson" onclick="showPage('tests-4'); return false;">Интерполирование и аппроксимация</a>
+            <a href="#test-5" class="lesson" onclick="showPage('tests-5'); return false;">ОДУ</a>
         </div>
     </div>
 </aside>
@@ -3703,291 +3703,323 @@
         </article>
     </section>
     <!-- тесты -->
-    <section class="content-page" id="page-tests">
+    <!-- ТЕСТ 1: Погрешности -->
+    <section class="content-page" id="page-test-1">
         <nav class="breadcrumbs">
             <a href="#home" onclick="showPage('home'); return false;">Главная</a>
             <span>/</span>
-            <span class="current">Тесты</span>
+            <a href="#test-1" onclick="showPage('test-1'); return false;">Тесты</a>
+            <span>/</span>
+            <span class="current">Погрешности</span>
         </nav>
         <div class="content-header">
-            <h2>Интерактивные тесты</h2>
-            <p>Выберите тему в боковом меню, чтобы проверить свои знания.</p>
+            <h2>Тест: Погрешности</h2>
         </div>
+        <div class="quiz-container">
+            <!-- Вопрос 1 (Выбор) -->
+            <div class="quiz-question">1. Чему равна абсолютная погрешность суммы приближенных чисел?</div>
+            <label class="quiz-option"><input type="radio" name="q1-1" value="a"> Сумме их абсолютных погрешностей</label>
+            <label class="quiz-option"><input type="radio" name="q1-1" value="b"> Разности их абсолютных погрешностей</label>
+            <label class="quiz-option"><input type="radio" name="q1-1" value="c"> Произведению их абсолютных погрешностей</label>
+            <button class="btn-primary" onclick="checkQuiz('q1-1', 'a', 'result-1-1')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-1-1"></div>
 
-        <!-- ТЕСТ 1: Погрешности -->
-        <div class="test-container" id="test-1">
-            <div class="quiz-container">
-                <h3 style="margin-bottom: 20px; color: var(--accent);">Тест: Погрешности</h3>
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
 
-                <!-- Вопрос 1 (Выбор) -->
-                <div class="quiz-question">1. Чему равна абсолютная погрешность суммы приближенных чисел?</div>
-                <label class="quiz-option"><input type="radio" name="q1-1" value="a"> Сумме их абсолютных погрешностей</label>
-                <label class="quiz-option"><input type="radio" name="q1-1" value="b"> Разности их абсолютных погрешностей</label>
-                <label class="quiz-option"><input type="radio" name="q1-1" value="c"> Произведению их абсолютных погрешностей</label>
-                <button class="btn-primary" onclick="checkQuiz('q1-1', 'a', 'result-1-1')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-1-1"></div>
+            <!-- Вопрос 2 (Ввод числа) -->
+            <div class="quiz-question">2. Точное число 3.14159, приближенное 3.14. Чему равна абсолютная погрешность? (Введите число)</div>
+            <input type="text" id="q1-2-input" class="quiz-input" placeholder="Например: 0.00159">
+            <button class="btn-primary" onclick="checkFillBlank('q1-2-input', '0.00159', 'result-1-2')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-1-2"></div>
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
 
-                <!-- Вопрос 2 (Ввод числа) -->
-                <div class="quiz-question">2. Точное число 3.14159, приближенное 3.14. Чему равна абсолютная погрешность? (Введите число)</div>
-                <input type="text" id="q1-2-input" class="quiz-input" placeholder="Например: 0.00159">
-                <button class="btn-primary" onclick="checkFillBlank('q1-2-input', '0.00159', 'result-1-2')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-1-2"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <!-- Вопрос 3 (Правда/Ложь) -->
-                <div class="quiz-question">3. Предельная абсолютная погрешность — это оценка сверху для истинной абсолютной погрешности.</div>
-                <div class="tf-container">
-                    <button class="btn-tf" onclick="checkTF(this, true, 'result-1-3')">Верно</button>
-                    <button class="btn-tf" onclick="checkTF(this, false, 'result-1-3')">Неверно</button>
-                </div>
-                <div class="quiz-result" id="result-1-3"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <!-- Вопрос 4 (Drag-and-Drop) -->
-                <div class="quiz-question">4. Сопоставьте операцию с правилом погрешности (перетащите блоки):</div>
-                <div class="match-container">
-                    <div class="match-column">
-                        <div class="match-item" draggable="true" data-match="sum">Сложение</div>
-                        <div class="match-item" draggable="true" data-match="mul">Умножение</div>
-                    </div>
-                    <div class="match-column">
-                        <div class="match-item dropzone" data-match="sum">Складываются абсолютные погрешности</div>
-                        <div class="match-item dropzone" data-match="mul">Складываются относительные погрешности</div>
-                    </div>
-                </div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <!-- Вопрос 5 (Выбор) -->
-                <div class="quiz-question">5. Чему равна относительная погрешность?</div>
-                <label class="quiz-option"><input type="radio" name="q1-5" value="a"> Отношению абсолютной погрешности к точному значению</label>
-                <label class="quiz-option"><input type="radio" name="q1-5" value="b"> Сумме абсолютных погрешностей</label>
-                <label class="quiz-option"><input type="radio" name="q1-5" value="c"> Произведению абсолютных погрешностей</label>
-                <button class="btn-primary" onclick="checkQuiz('q1-5', 'a', 'result-1-5')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-1-5"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <!-- Вопрос 6 (Правда/Ложь) -->
-                <div class="quiz-question">6. Чем меньше абсолютная погрешность, тем точнее результат.</div>
-                <div class="tf-container">
-                    <button class="btn-tf" onclick="checkTF(this, true, 'result-1-6')">Верно</button>
-                    <button class="btn-tf" onclick="checkTF(this, false, 'result-1-6')">Неверно</button>
-                </div>
-                <div class="quiz-result" id="result-1-6"></div>
+            <!-- Вопрос 3 (Правда/Ложь) -->
+            <div class="quiz-question">3. Предельная абсолютная погрешность — это оценка сверху для истинной абсолютной погрешности.</div>
+            <div class="tf-container">
+                <button class="btn-tf" onclick="checkTF(this, true, 'result-1-3')">Верно</button>
+                <button class="btn-tf" onclick="checkTF(this, false, 'result-1-3')">Неверно</button>
             </div>
+            <div class="quiz-result" id="result-1-3"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <!-- Вопрос 4 (Drag-and-Drop) -->
+            <div class="quiz-question">4. Сопоставьте операцию с правилом погрешности (перетащите блоки):</div>
+            <div class="match-container">
+                <div class="match-column">
+                    <div class="match-item" draggable="true" data-match="sum">Сложение</div>
+                    <div class="match-item" draggable="true" data-match="mul">Умножение</div>
+                </div>
+                <div class="match-column">
+                    <div class="match-item dropzone" data-match="sum">Складываются абсолютные погрешности</div>
+                    <div class="match-item dropzone" data-match="mul">Складываются относительные погрешности</div>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <!-- Вопрос 5 (Выбор) -->
+            <div class="quiz-question">5. Чему равна относительная погрешность?</div>
+            <label class="quiz-option"><input type="radio" name="q1-5" value="a"> Отношению абсолютной погрешности к точному значению</label>
+            <label class="quiz-option"><input type="radio" name="q1-5" value="b"> Сумме абсолютных погрешностей</label>
+            <label class="quiz-option"><input type="radio" name="q1-5" value="c"> Произведению абсолютных погрешностей</label>
+            <button class="btn-primary" onclick="checkQuiz('q1-5', 'a', 'result-1-5')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-1-5"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <!-- Вопрос 6 (Правда/Ложь) -->
+            <div class="quiz-question">6. Чем меньше абсолютная погрешность, тем точнее результат.</div>
+            <div class="tf-container">
+                <button class="btn-tf" onclick="checkTF(this, true, 'result-1-6')">Верно</button>
+                <button class="btn-tf" onclick="checkTF(this, false, 'result-1-6')">Неверно</button>
+            </div>
+            <div class="quiz-result" id="result-1-6"></div>
         </div>
-        <!-- ТЕСТ 2: Уравнения -->
-        <div class="test-container" id="test-2" style="display: none;">
-            <div class="quiz-container">
-                <h3 style="margin-bottom: 20px; color: var(--accent);">Тест: Уравнения</h3>
+    </section>
 
-                <div class="quiz-question">1. Какой метод гарантирует сходимость при любом начальном приближении?</div>
-                <label class="quiz-option"><input type="radio" name="q2-1" value="a"> Метод Ньютона</label>
-                <label class="quiz-option"><input type="radio" name="q2-1" value="b"> Метод половинного деления</label>
-                <label class="quiz-option"><input type="radio" name="q2-1" value="c"> Метод секущих</label>
-                <button class="btn-primary" onclick="checkQuiz('q2-1', 'b', 'result-2-1')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-2-1"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">2. Каким должно быть произведение f(a) * f(b) на концах отрезка для метода половинного деления? (Введите слово)</div>
-                <input type="text" id="q2-2-input" class="quiz-input" placeholder="Введите слово">
-                <button class="btn-primary" onclick="checkFillBlank('q2-2-input', 'отрицательное', 'result-2-2')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-2-2"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">3. Метод Ньютона имеет квадратичную сходимость вблизи корня.</div>
-                <div class="tf-container">
-                    <button class="btn-tf" onclick="checkTF(this, true, 'result-2-3')">Верно</button>
-                    <button class="btn-tf" onclick="checkTF(this, false, 'result-2-3')">Неверно</button>
-                </div>
-                <div class="quiz-result" id="result-2-3"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">4. Сопоставьте метод и его особенность:</div>
-                <div class="match-container">
-                    <div class="match-column">
-                        <div class="match-item" draggable="true" data-match="newton">Ньютон</div>
-                        <div class="match-item" draggable="true" data-match="bisection">Половинное деление</div>
-                    </div>
-                    <div class="match-column">
-                        <div class="match-item dropzone" data-match="newton">Использует производную</div>
-                        <div class="match-item dropzone" data-match="bisection">Всегда сходится</div>
-                    </div>
-                </div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">5. Какой метод использует хорду для приближения корня?</div>
-                <label class="quiz-option"><input type="radio" name="q2-5" value="a"> Метод Ньютона</label>
-                <label class="quiz-option"><input type="radio" name="q2-5" value="b"> Метод хорд</label>
-                <label class="quiz-option"><input type="radio" name="q2-5" value="c"> Метод простой итерации</label>
-                <button class="btn-primary" onclick="checkQuiz('q2-5', 'b', 'result-2-5')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-2-5"></div>
-            </div>
+    <!-- ТЕСТ 2: Уравнения -->
+    <section class="content-page" id="page-test-2">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#test-2" onclick="showPage('test-2'); return false;">Тесты</a>
+            <span>/</span>
+            <span class="current">Уравнения</span>
+        </nav>
+        <div class="content-header">
+            <h2>Тест: Уравнения</h2>
         </div>
-        <!-- ТЕСТ 3: СЛАУ -->
-        <div class="test-container" id="test-3" style="display: none;">
-            <div class="quiz-container">
-                <h3 style="margin-bottom: 20px; color: var(--accent);">Тест: СЛАУ</h3>
+        <div class="quiz-container">
+            <div class="quiz-question">1. Какой метод гарантирует сходимость при любом начальном приближении?</div>
+            <label class="quiz-option"><input type="radio" name="q2-1" value="a"> Метод Ньютона</label>
+            <label class="quiz-option"><input type="radio" name="q2-1" value="b"> Метод половинного деления</label>
+            <label class="quiz-option"><input type="radio" name="q2-1" value="c"> Метод секущих</label>
+            <button class="btn-primary" onclick="checkQuiz('q2-1', 'b', 'result-2-1')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-2-1"></div>
 
-                <div class="quiz-question">1. Какой метод решения СЛАУ является прямым?</div>
-                <label class="quiz-option"><input type="radio" name="q3-1" value="a"> Метод простой итерации</label>
-                <label class="quiz-option"><input type="radio" name="q3-1" value="b"> Метод Зейделя</label>
-                <label class="quiz-option"><input type="radio" name="q3-1" value="c"> Метод Гаусса</label>
-                <button class="btn-primary" onclick="checkQuiz('q3-1', 'c', 'result-3-1')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-3-1"></div>
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+            <div class="quiz-question">2. Каким должно быть произведение f(a) * f(b) на концах отрезка для метода половинного деления? (Введите слово)</div>
+            <input type="text" id="q2-2-input" class="quiz-input" placeholder="Введите слово">
+            <button class="btn-primary" onclick="checkFillBlank('q2-2-input', 'отрицательное', 'result-2-2')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-2-2"></div>
 
-                <div class="quiz-question">2. Какое условие достаточно для сходимости метода простой итерации?</div>
-                <label class="quiz-option"><input type="radio" name="q3-2" value="a"> Норма матрицы меньше 1</label>
-                <label class="quiz-option"><input type="radio" name="q3-2" value="b"> Матрица диагональная</label>
-                <label class="quiz-option"><input type="radio" name="q3-2" value="c"> Матрица симметричная</label>
-                <button class="btn-primary" onclick="checkQuiz('q3-2', 'a', 'result-3-2')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-3-2"></div>
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">3. Метод Гаусса имеет вычислительную сложность порядка O(n^3).</div>
-                <div class="tf-container">
-                    <button class="btn-tf" onclick="checkTF(this, true, 'result-3-3')">Верно</button>
-                    <button class="btn-tf" onclick="checkTF(this, false, 'result-3-3')">Неверно</button>
-                </div>
-                <div class="quiz-result" id="result-3-3"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">4. Сопоставьте метод и его тип:</div>
-                <div class="match-container">
-                    <div class="match-column">
-                        <div class="match-item" draggable="true" data-match="gauss">Гаусс</div>
-                        <div class="match-item" draggable="true" data-match="seidel">Зейдель</div>
-                    </div>
-                    <div class="match-column">
-                        <div class="match-item dropzone" data-match="gauss">Прямой метод</div>
-                        <div class="match-item dropzone" data-match="seidel">Итерационный метод</div>
-                    </div>
-                </div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">5. Введите название схемы, которая является второй модификацией метода Гаусса (одно слово):</div>
-                <input type="text" id="q3-5-input" class="quiz-input" placeholder="Название схемы">
-                <button class="btn-primary" onclick="checkFillBlank('q3-5-input', 'Халецкого', 'result-3-5')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-3-5"></div>
+            <div class="quiz-question">3. Метод Ньютона имеет квадратичную сходимость вблизи корня.</div>
+            <div class="tf-container">
+                <button class="btn-tf" onclick="checkTF(this, true, 'result-2-3')">Верно</button>
+                <button class="btn-tf" onclick="checkTF(this, false, 'result-2-3')">Неверно</button>
             </div>
+            <div class="quiz-result" id="result-2-3"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">4. Сопоставьте метод и его особенность:</div>
+            <div class="match-container">
+                <div class="match-column">
+                    <div class="match-item" draggable="true" data-match="newton">Ньютон</div>
+                    <div class="match-item" draggable="true" data-match="bisection">Половинное деление</div>
+                </div>
+                <div class="match-column">
+                    <div class="match-item dropzone" data-match="newton">Использует производную</div>
+                    <div class="match-item dropzone" data-match="bisection">Всегда сходится</div>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">5. Какой метод использует хорду для приближения корня?</div>
+            <label class="quiz-option"><input type="radio" name="q2-5" value="a"> Метод Ньютона</label>
+            <label class="quiz-option"><input type="radio" name="q2-5" value="b"> Метод хорд</label>
+            <label class="quiz-option"><input type="radio" name="q2-5" value="c"> Метод простой итерации</label>
+            <button class="btn-primary" onclick="checkQuiz('q2-5', 'b', 'result-2-5')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-2-5"></div>
         </div>
-        <!-- ТЕСТ 4: Интерполирование и аппроксимация -->
-        <div class="test-container" id="test-4" style="display: none;">
-            <div class="quiz-container">
-                <h3 style="margin-bottom: 20px; color: var(--accent);">Тест: Интерполирование</h3>
+    </section>
 
-                <div class="quiz-question">1. В чем отличие интерполяции от аппроксимации?</div>
-                <label class="quiz-option"><input type="radio" name="q4-1" value="a"> Интерполяция проходит точно через все точки, аппроксимация — приближенно</label>
-                <label class="quiz-option"><input type="radio" name="q4-1" value="b"> Аппроксимация проходит точно через все точки</label>
-                <label class="quiz-option"><input type="radio" name="q4-1" value="c"> Они идентичны</label>
-                <button class="btn-primary" onclick="checkQuiz('q4-1', 'a', 'result-4-1')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-4-1"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">2. Какой полином используется в методе Лагранжа?</div>
-                <label class="quiz-option"><input type="radio" name="q4-2" value="a"> Полином Ньютона</label>
-                <label class="quiz-option"><input type="radio" name="q4-2" value="b"> Полином Лагранжа</label>
-                <label class="quiz-option"><input type="radio" name="q4-2" value="c"> Полином Чебышева</label>
-                <button class="btn-primary" onclick="checkQuiz('q4-2', 'b', 'result-4-2')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-4-2"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">3. Для интерполяции с равноотстоящими узлами используют формулы Ньютона.</div>
-                <div class="tf-container">
-                    <button class="btn-tf" onclick="checkTF(this, true, 'result-4-3')">Верно</button>
-                    <button class="btn-tf" onclick="checkTF(this, false, 'result-4-3')">Неверно</button>
-                </div>
-                <div class="quiz-result" id="result-4-3"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">4. Сопоставьте метод и его автора:</div>
-                <div class="match-container">
-                    <div class="match-column">
-                        <div class="match-item" draggable="true" data-match="newton">Формулы Ньютона</div>
-                        <div class="match-item" draggable="true" data-match="lagrange">Формула Лагранжа</div>
-                    </div>
-                    <div class="match-column">
-                        <div class="match-item dropzone" data-match="newton">Для равноотстоящих узлов</div>
-                        <div class="match-item dropzone" data-match="lagrange">Для произвольных узлов</div>
-                    </div>
-                </div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">5. Введите название метода, который использует сплайны (одно слово):</div>
-                <input type="text" id="q4-5-input" class="quiz-input" placeholder="Название">
-                <button class="btn-primary" onclick="checkFillBlank('q4-5-input', 'сплайн', 'result-4-5')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-4-5"></div>
-            </div>
+    <!-- ТЕСТ 3: СЛАУ -->
+    <section class="content-page" id="page-test-3">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#test-3" onclick="showPage('test-3'); return false;">Тесты</a>
+            <span>/</span>
+            <span class="current">СЛАУ</span>
+        </nav>
+        <div class="content-header">
+            <h2>Тест: СЛАУ</h2>
         </div>
-        <!-- ТЕСТ 5: ОДУ -->
-        <div class="test-container" id="test-5" style="display: none;">
-            <div class="quiz-container">
-                <h3 style="margin-bottom: 20px; color: var(--accent);">Тест: ОДУ</h3>
+        <div class="quiz-container">
+            <div class="quiz-question">1. Какой метод решения СЛАУ является прямым?</div>
+            <label class="quiz-option"><input type="radio" name="q3-1" value="a"> Метод простой итерации</label>
+            <label class="quiz-option"><input type="radio" name="q3-1" value="b"> Метод Зейделя</label>
+            <label class="quiz-option"><input type="radio" name="q3-1" value="c"> Метод Гаусса</label>
+            <button class="btn-primary" onclick="checkQuiz('q3-1', 'c', 'result-3-1')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-3-1"></div>
 
-                <div class="quiz-question">1. Какой метод относится к одношаговым методам решения ОДУ?</div>
-                <label class="quiz-option"><input type="radio" name="q5-1" value="a"> Метод Адамса</label>
-                <label class="quiz-option"><input type="radio" name="q5-1" value="b"> Метод Рунге-Кутта</label>
-                <label class="quiz-option"><input type="radio" name="q5-1" value="c"> Метод Милна</label>
-                <button class="btn-primary" onclick="checkQuiz('q5-1', 'b', 'result-5-1')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-5-1"></div>
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
+            <div class="quiz-question">2. Какое условие достаточно для сходимости метода простой итерации?</div>
+            <label class="quiz-option"><input type="radio" name="q3-2" value="a"> Норма матрицы меньше 1</label>
+            <label class="quiz-option"><input type="radio" name="q3-2" value="b"> Матрица диагональная</label>
+            <label class="quiz-option"><input type="radio" name="q3-2" value="c"> Матрица симметричная</label>
+            <button class="btn-primary" onclick="checkQuiz('q3-2', 'a', 'result-3-2')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-3-2"></div>
 
-                <div class="quiz-question">2. Метод Эйлера является методом первого порядка точности.</div>
-                <div class="tf-container">
-                    <button class="btn-tf" onclick="checkTF(this, true, 'result-5-2')">Верно</button>
-                    <button class="btn-tf" onclick="checkTF(this, false, 'result-5-2')">Неверно</button>
-                </div>
-                <div class="quiz-result" id="result-5-2"></div>
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
 
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">3. Сколько этапов (прогноз/коррекция) в методе Адамса?</div>
-                <label class="quiz-option"><input type="radio" name="q5-3" value="a"> Один</label>
-                <label class="quiz-option"><input type="radio" name="q5-3" value="b"> Два</label>
-                <label class="quiz-option"><input type="radio" name="q5-3" value="c"> Три</label>
-                <button class="btn-primary" onclick="checkQuiz('q5-3', 'b', 'result-5-3')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-5-3"></div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">4. Сопоставьте метод и его особенность:</div>
-                <div class="match-container">
-                    <div class="match-column">
-                        <div class="match-item" draggable="true" data-match="euler">Эйлер</div>
-                        <div class="match-item" draggable="true" data-match="runge">Рунге-Кутта</div>
-                    </div>
-                    <div class="match-column">
-                        <div class="match-item dropzone" data-match="euler">Первый порядок точности</div>
-                        <div class="match-item dropzone" data-match="runge">Четвертый порядок точности</div>
-                    </div>
-                </div>
-
-                <hr style="border-color: var(--border-color); margin: 30px 0;">
-
-                <div class="quiz-question">5. Введите название метода, который использует формулу Рунге для выбора шага (одно слово):</div>
-                <input type="text" id="q5-5-input" class="quiz-input" placeholder="Название">
-                <button class="btn-primary" onclick="checkFillBlank('q5-5-input', 'Рунге-Кутта', 'result-5-5')" style="margin-top: 15px;">Проверить</button>
-                <div class="quiz-result" id="result-5-5"></div>
+            <div class="quiz-question">3. Метод Гаусса имеет вычислительную сложность порядка O(n^3).</div>
+            <div class="tf-container">
+                <button class="btn-tf" onclick="checkTF(this, true, 'result-3-3')">Верно</button>
+                <button class="btn-tf" onclick="checkTF(this, false, 'result-3-3')">Неверно</button>
             </div>
+            <div class="quiz-result" id="result-3-3"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">4. Сопоставьте метод и его тип:</div>
+            <div class="match-container">
+                <div class="match-column">
+                    <div class="match-item" draggable="true" data-match="gauss">Гаусс</div>
+                    <div class="match-item" draggable="true" data-match="seidel">Зейдель</div>
+                </div>
+                <div class="match-column">
+                    <div class="match-item dropzone" data-match="gauss">Прямой метод</div>
+                    <div class="match-item dropzone" data-match="seidel">Итерационный метод</div>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">5. Введите название схемы, которая является второй модификацией метода Гаусса (одно слово):</div>
+            <input type="text" id="q3-5-input" class="quiz-input" placeholder="Название схемы">
+            <button class="btn-primary" onclick="checkFillBlank('q3-5-input', 'Халецкого', 'result-3-5')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-3-5"></div>
+        </div>
+    </section>
+
+    <!-- ТЕСТ 4: Интерполирование и аппроксимация -->
+    <section class="content-page" id="page-test-4">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#test-4" onclick="showPage('test-4'); return false;">Тесты</a>
+            <span>/</span>
+            <span class="current">Интерполирование и аппроксимация</span>
+        </nav>
+        <div class="content-header">
+            <h2>Тест: Интерполирование</h2>
+        </div>
+        <div class="quiz-container">
+            <div class="quiz-question">1. В чем отличие интерполяции от аппроксимации?</div>
+            <label class="quiz-option"><input type="radio" name="q4-1" value="a"> Интерполяция проходит точно через все точки, аппроксимация — приближенно</label>
+            <label class="quiz-option"><input type="radio" name="q4-1" value="b"> Аппроксимация проходит точно через все точки</label>
+            <label class="quiz-option"><input type="radio" name="q4-1" value="c"> Они идентичны</label>
+            <button class="btn-primary" onclick="checkQuiz('q4-1', 'a', 'result-4-1')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-4-1"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">2. Какой полином используется в методе Лагранжа?</div>
+            <label class="quiz-option"><input type="radio" name="q4-2" value="a"> Полином Ньютона</label>
+            <label class="quiz-option"><input type="radio" name="q4-2" value="b"> Полином Лагранжа</label>
+            <label class="quiz-option"><input type="radio" name="q4-2" value="c"> Полином Чебышева</label>
+            <button class="btn-primary" onclick="checkQuiz('q4-2', 'b', 'result-4-2')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-4-2"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">3. Для интерполяции с равноотстоящими узлами используют формулы Ньютона.</div>
+            <div class="tf-container">
+                <button class="btn-tf" onclick="checkTF(this, true, 'result-4-3')">Верно</button>
+                <button class="btn-tf" onclick="checkTF(this, false, 'result-4-3')">Неверно</button>
+            </div>
+            <div class="quiz-result" id="result-4-3"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">4. Сопоставьте метод и его автора:</div>
+            <div class="match-container">
+                <div class="match-column">
+                    <div class="match-item" draggable="true" data-match="newton">Формулы Ньютона</div>
+                    <div class="match-item" draggable="true" data-match="lagrange">Формула Лагранжа</div>
+                </div>
+                <div class="match-column">
+                    <div class="match-item dropzone" data-match="newton">Для равноотстоящих узлов</div>
+                    <div class="match-item dropzone" data-match="lagrange">Для произвольных узлов</div>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">5. Введите название метода, который использует сплайны (одно слово):</div>
+            <input type="text" id="q4-5-input" class="quiz-input" placeholder="Название">
+            <button class="btn-primary" onclick="checkFillBlank('q4-5-input', 'сплайн', 'result-4-5')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-4-5"></div>
+        </div>
+    </section>
+
+    <!-- ТЕСТ 5: ОДУ -->
+    <section class="content-page" id="page-test-5">
+        <nav class="breadcrumbs">
+            <a href="#home" onclick="showPage('home'); return false;">Главная</a>
+            <span>/</span>
+            <a href="#test-5" onclick="showPage('test-5'); return false;">Тесты</a>
+            <span>/</span>
+            <span class="current">ОДУ</span>
+        </nav>
+        <div class="content-header">
+            <h2>Тест: ОДУ</h2>
+        </div>
+        <div class="quiz-container">
+            <div class="quiz-question">1. Какой метод относится к одношаговым методам решения ОДУ?</div>
+            <label class="quiz-option"><input type="radio" name="q5-1" value="a"> Метод Адамса</label>
+            <label class="quiz-option"><input type="radio" name="q5-1" value="b"> Метод Рунге-Кутта</label>
+            <label class="quiz-option"><input type="radio" name="q5-1" value="c"> Метод Милна</label>
+            <button class="btn-primary" onclick="checkQuiz('q5-1', 'b', 'result-5-1')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-5-1"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">2. Метод Эйлера является методом первого порядка точности.</div>
+            <div class="tf-container">
+                <button class="btn-tf" onclick="checkTF(this, true, 'result-5-2')">Верно</button>
+                <button class="btn-tf" onclick="checkTF(this, false, 'result-5-2')">Неверно</button>
+            </div>
+            <div class="quiz-result" id="result-5-2"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">3. Сколько этапов (прогноз/коррекция) в методе Адамса?</div>
+            <label class="quiz-option"><input type="radio" name="q5-3" value="a"> Один</label>
+            <label class="quiz-option"><input type="radio" name="q5-3" value="b"> Два</label>
+            <label class="quiz-option"><input type="radio" name="q5-3" value="c"> Три</label>
+            <button class="btn-primary" onclick="checkQuiz('q5-3', 'b', 'result-5-3')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-5-3"></div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">4. Сопоставьте метод и его особенность:</div>
+            <div class="match-container">
+                <div class="match-column">
+                    <div class="match-item" draggable="true" data-match="euler">Эйлер</div>
+                    <div class="match-item" draggable="true" data-match="runge">Рунге-Кутта</div>
+                </div>
+                <div class="match-column">
+                    <div class="match-item dropzone" data-match="euler">Первый порядок точности</div>
+                    <div class="match-item dropzone" data-match="runge">Четвертый порядок точности</div>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--border-color); margin: 30px 0;">
+
+            <div class="quiz-question">5. Введите название метода, который использует формулу Рунге для выбора шага (одно слово):</div>
+            <input type="text" id="q5-5-input" class="quiz-input" placeholder="Название">
+            <button class="btn-primary" onclick="checkFillBlank('q5-5-input', 'Рунге-Кутта', 'result-5-5')" style="margin-top: 15px;">Проверить</button>
+            <div class="quiz-result" id="result-5-5"></div>
         </div>
     </section>
 

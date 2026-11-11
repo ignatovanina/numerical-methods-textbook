@@ -124,15 +124,6 @@ window.addEventListener('popstate', () => {
     showPage(hash);
 });
 
-function showTest(testId) {
-    document.querySelectorAll('.test-container').forEach(test => {
-        test.style.display = 'none';
-    });
-    const target = document.getElementById(testId);
-    if (target) {
-        target.style.display = 'block';
-    }
-}
 
 // Drag-and-Drop (Сопоставление)
 document.addEventListener('DOMContentLoaded', () => {
