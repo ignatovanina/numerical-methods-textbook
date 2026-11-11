@@ -28,7 +28,9 @@ const Graph = (() => {
         const H = canvas.clientHeight || 280;
 
         // Инициализация состояния при первом вызове
-        if (!states.has(canvas)) {
+        if (!states.has(canvas) || states.get(canvas).f !== f || states.get(canvas).t !== t) {
+            opts._initialXmin = xmin;
+            opts._initialXmax = xmax;
             states.set(canvas, { xmin, xmax, f, t, opts });
         }
 
