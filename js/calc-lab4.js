@@ -64,7 +64,6 @@ function calcIntegralFt() {
         const phi = new Function('z', 'return ' + phiExpr);
         const psi = new Function('x', 'return ' + psiExpr);
 
-        // Функция f2(x, t) согласно заданию
         const f2 = (x, t) => {
             const z = t / (1 + x * x) + mu * x;
             return phi(z) * psi(x);
@@ -73,7 +72,6 @@ function calcIntegralFt() {
         const h = (d - c) / m;
         const results = [];
 
-        // Считаем интеграл для каждого t_i
         for (let i = 0; i <= m; i++) {
             const t = c + i * h;
             const integralFunc = (x) => f2(x, t);
@@ -81,7 +79,6 @@ function calcIntegralFt() {
             results.push({ t, F: res.value });
         }
 
-        // Таблица
         let tableHtml = `<table class="lab-table">
             <thead><tr><th>i</th><th>t_i</th><th>F(t_i)</th></tr></thead><tbody>`;
         results.forEach((r, i) => {
@@ -91,14 +88,18 @@ function calcIntegralFt() {
 
         document.getElementById('int-ft-out').innerHTML = hiddenTable(tableHtml);
 
-        // График F(t)
+        // --- Отрисовка графика F(t) ---
         const f_graph = (t) => {
             const func = (x) => f2(x, t);
             return integrateSimpson(func, a2, b2, eps2).value;
         };
 
-        Graph.draw(document.getElementById('int-canvas'), f_graph, 0, c, d, {
-            title: `Функция F(t) = ∫ f_2(x, t) dx`
+        // ВОТ ЗДЕСЬ МЫ ОБЪЯВЛЯЕМ cv
+        const cv = document.getElementById('int-canvas');
+
+        Graph.draw(cv, f_graph, 0, c, d, {
+            title: `Функция F(t) = ∫ f_2(x, t) dx`,
+            fill: [c, d] // Включаем заливку от c до d
         });
 
     } catch (e) {
