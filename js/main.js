@@ -223,3 +223,15 @@ function checkTF(button, isCorrect, resultId) {
         resultDiv.className = 'quiz-result incorrect';
     }
 }
+function filterLiterature(gridId, query) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+
+    const cards = grid.querySelectorAll('.lit-card');
+    const q = query.toLowerCase().trim();
+
+    cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = (q === '' || text.includes(q)) ? 'flex' : 'none';
+    });
+}
