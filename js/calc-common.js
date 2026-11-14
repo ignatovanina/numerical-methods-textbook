@@ -219,3 +219,6 @@ function initFormulaHints() {
 
 // Автоматически инициализируем при загрузке
 document.addEventListener('DOMContentLoaded', initFormulaHints);
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.remove('not-loaded');
+});
