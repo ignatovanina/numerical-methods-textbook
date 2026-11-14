@@ -912,3 +912,46 @@ body.not-loaded .content-page {
     font-weight: 600;
     text-transform: uppercase;
 }
+
+/* =========================================
+   ВЫДЕЛЕНИЕ ФОРМУЛ (KaTeX)
+   ========================================= */
+
+/* 1. Inline-формулы (внутри текста) */
+.katex {
+    font-size: 1.05em; /* Чуть крупнее текста */
+}
+
+.content-page p .katex,
+.lab-card p .katex,
+.lab-intro p .katex {
+    background-color: rgba(0, 168, 150, 0.1); /* Легкий бирюзовый фон */
+    border-radius: 4px;
+    padding: 2px 4px;
+    color: var(--text-main);
+}
+
+/* 2. Блочные формулы (по центру, отдельной строкой) */
+.katex-display {
+    margin: 1.5em 0 !important;
+    padding: 16px 20px;
+    background-color: rgba(0, 168, 150, 0.05);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    overflow-x: auto; /* Скролл, если формула длинная */
+    overflow-y: hidden;
+}
+
+/* Убираем лишний фон у блочных формул внутри (чтобы не было двойного) */
+.katex-display .katex {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+}
+
+/* 3. Формулы в заголовках (цвет акцента) */
+h2 .katex,
+h3 .katex,
+h4 .katex {
+    color: var(--accent);
+}
