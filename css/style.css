@@ -112,6 +112,25 @@ header h1 {
     padding-top: 20px;
 }
 
+.title-image-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    min-height: calc(100vh - 120px);
+}
+
+.title-image {
+    max-width: 100%;
+    max-height: calc(100vh - 160px);
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease;
+}
+body.not-loaded .content-page {
+    display: none !important;
+}
+
 .content-header h2 {
     font-size: 2rem;
     margin-bottom: 16px;
