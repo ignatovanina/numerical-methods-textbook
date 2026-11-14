@@ -243,8 +243,7 @@ body.not-loaded .content-page {
 
 /* Контент главы */
 .chapter-content {
-    width: 95%;
-    max-width: 1200px; 
+    width: 100%;
     line-height: 1.7;
     font-size: 1.05rem;
 }
